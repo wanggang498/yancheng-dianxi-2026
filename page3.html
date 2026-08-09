@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>滇西古建的巧思 - 生活智慧</title>
+  <!-- 1. 引入外部公共CSS（与封面页一致） -->
+  <link rel="stylesheet" href="CSS.css">
+  <!-- 2. 引入国风字体 + 图标库（公共资源，与封面页一致） -->
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css">
+  <!-- 3. 引入Chart.js（生活智慧页专属图表依赖） -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <!-- 4. 本页面独有样式（仅保留核心交互样式，恢复原始布局） -->
+  <style>
+    :root {
+      --line-color: #D2B48C; /* 暖原木色（与封面页一致） */
+      --cinnabar: #CD5C5C; /* 朱砂红（国风主色） */
+      --slate: #5A6470; /* 青石板灰 */
+      --blacktile: #2C3531; /* 青瓦黛色 */
+      --light-wood: #E8D4B8; /* 浅木色（图表交互用） */
+      --deep-red: #B94747; /* 深朱砂红 */
+      --summer-bg: rgba(102, 187, 106, 0.05); /* 夏季青绿背景 */
+      --winter-bg: rgba(181, 136, 99, 0.05); /* 冬季暖棕背景 */
+	}
+
+    /* 国风字体类 - 统一声明，确保生效 */
+    .font-guofeng {
+      font-family: 'Ma Shan Zheng', cursive !important;
+    }
+
+	/* 顶部Banner（完全保留） */
+	.top-banner {
+	  background-color: var(--card-bg);
+	  padding: 2rem 0; 
+	  margin-bottom: 2rem;
+	  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+	  position: relative;
+	  overflow: hidden;
+	  min-height: 200px; /* 保底高度，确保装饰和文字都能展示 */
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+	/* 1. 祥云 */
+	.top-banner .cloud {
+	  position: absolute;
+	  z-index: 1;
+	  opacity: 0.65; /* 祥云透明度，适中不突兀 */
+	  background: url('images/xiangyun.png') no-repeat center;
+	  background-size: 100% 100%;
+	  animation: cloudFloat linear infinite;
+	}
+	/* 祥云1：左上+大尺寸+慢速度 */
+	.cloud1 {
+	  width: 120px;
+	  height: 100px;
+	  top: 10%;
+	  left: 5%;
+	  animation-duration: 42s;
+	}
+	/* 祥云2：右上+中尺寸+中速度 */
+	.cloud2 {
+	  width: 90px;
+	  height: 75px;
+	  top: 19%;
+	  right: 4%;
+	  animation-duration: 36s;
+	}
+	/* 祥云3：中偏上+小尺寸+快速度 */
+	.cloud3 {
+	  width: 70px;
+	  height: 60px;
+	  top: 18%;
+	  left: 41%;
+	  animation-duration: 48s;
+	}
+	/* 建筑1 */
+	.top-banner .build1 {
+	  position: absolute;
+	  z-index: 1;
+	  opacity: 0.7; /* 增加不透明度 */
+	  top: 0;
+	  bottom: 0;
+	  right: 4%;
+	  width: 30%; /* 固定宽度比例 */
+	  height: 100%;
+	  background: url('images/jianying.png') no-repeat right bottom;
+	  background-size: contain; 
+	  pointer-events: none;
+	  
+	  /* 添加阴影增强可见性 */
+	  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+	}
+	/* 建筑2 */
+	.top-banner .build2 {
+	  position: absolute;
+	  z-index: 1;
+	  opacity: 0.6; /* 增加不透明度 */
+	  top: 0;
+	  bottom: 0;
+	  left: 5%;
+	  width: 20%; /* 固定宽度比例 */
+	  height: 100%;
+	  background: url('images/ta.png') no-repeat left bottom;
+	  background-size: contain; 
+	  pointer-events: none;
+	  
+	  /* 添加阴影增强可见性 */
+	  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+	}
+	
+	/* 确保Banner有足够高度 */
+	.top-banner {
+	  min-height: 250px; 
+	  height: 30vh; /* 使用视口高度单位 */
+	}
+	/* 祥云漂浮动画：1种样式循环飘，自然不卡顿 */
+	@keyframes cloudFloat {
+	  0% { transform: translateX(0) translateY(0); }
+	  50% { transform: translateX(30px) translateY(-10px); }
+	  100% { transform: translateX(0) translateY(0); }
+	}
+	
+	.top-banner .cloud {
+  	  animation: cloudFloat 20s ease-in-out infinite;
+	}
+
+	/* 标题容器：居中+高层级，不被建筑/祥云遮挡 */
+	.banner-content {
+	  text-align: center;
+	  position: relative;
+	  z-index: 2; /* 关键：文字层级最高 */
+	  padding: 1rem;
+	  /* 防止文字被山/建筑遮挡，预留左右空间 */
+	  max-width: 800px;
+	  width: 100%;
+	}
+	.banner-content h1 {
+	  font-size: clamp(1.8rem, 4vw, 3rem);
+	  color: var(--text-accent);
+	  margin-bottom: 0.5rem;
+	}
+	.banner-content p {
+	  font-size: clamp(1rem, 4vw, 1.25rem);
+	  color: var(--text-main);
+	  margin: 0;
+	}
+    /* 主内容区 - 保留原样式，复用封面页卡片样式 */
+    main {
+      padding-bottom: 2rem;
+    }
+    .section-card {
+      background-color: var(--card-bg);
+      border-radius: 0.2rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (min-width: 768px) {
+      .section-card {
+        padding: 2rem;
+      }
+    }
+    /* 卡片标题 - 国风字体+朱砂红（与封面页一致） */
+    .section-card h2 {
+      font-family: "Ma Shan Zheng", cursive;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--cinnabar);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    /* 响应式网格 - 1列/2列 */
+    .grid-cols-1-md-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .grid-cols-1-md-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    /* 图表容器 - 仅新增季节背景切换样式 */
+    .chart-container {
+      background-color: rgba(90, 100, 112, 0.05);
+      border-radius: 0.2rem;
+      padding: 1rem;
+      position: relative;
+      transition: background-color 0.5s ease; /* 季节背景过渡 */
+    }
+    /* 夏季/冬季背景样式 */
+    .chart-container.summer {
+      background-color: var(--summer-bg);
+    }
+    .chart-container.winter {
+      background-color: var(--winter-bg);
+    }
+    /* 图表交互弹窗样式 */
+    .chart-tooltip-popup {
+      position: fixed;
+      background: white;
+      border: 1px solid var(--line-color);
+      border-radius: 0.4rem;
+      padding: 0.8rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 10;
+      display: none;
+      max-width: 200px;
+      font-size: 0.9rem;
+      color: var(--blacktile);
+    }
+    /* 季节切换滑块样式 */
+    .season-switcher {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .season-slider {
+      width: 100px;
+      height: 30px;
+      background: linear-gradient(to right, #D2B48C, #5A6470);
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+    }
+    .season-slider::after {
+      content: "";
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: white;
+      top: 2px;
+      left: 2px;
+      transition: left 0.3s ease;
+    }
+    .season-slider.winter::after {
+      left: 72px;
+    }
+    .season-label {
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+    
+    .chart-container h3 {
+      color: var(--text-main);
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+    /* 音效按钮 - 复用暖木色/青石板灰 */
+    .sound-btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .sound-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 0.2rem;
+      border: 1px solid var(--border-light);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    .btn-wood {
+      background-color: var(--line-color);
+      color: var(--text-main);
+    }
+    .btn-wood:hover {
+      background-color: var(--line-color);
+      border-color: var(--line-color);
+      color: white;
+    }
+    .btn-slate {
+      background-color: var(--slate);
+      color: white;
+      border-color: var(--slate);
+    }
+    .btn-slate:hover {
+      background-color: rgba(90, 100, 112, 0.8);
+      border-color: rgba(90, 100, 112, 0.8);
+    }
+	
+    /* 解读文本（恢复原始样式，取消逐字渐显） */
+    .desc-text1 {
+      color: var(--text-main);
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 0.6rem;
+    }
+    .desc-text2 {
+      color: var(--text-main);
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 1.2rem;
+    }
+    .desc-text3 {
+      color: var(--text-main);
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    /* 1. 声学巧思板块图片样式（完全保留） */
+    .sound-case-img {
+      border-radius: 0.2rem;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .sound-case-img:hover {
+      transform: scale(1.05);
+
+
+    }
+    .sound-case-img img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    .sound-case-img p {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-main);
+      margin-top: 0.2rem;
+      opacity: 0.9;
+    }
+
+    /* 2. 空间巧思板块图片样式（完全保留） */
+    .space-case-img {
+      border-radius: 0.2rem;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .space-case-img:hover {
+      transform: scale(1.05);
+    }
+    .space-case-img img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+    }
+    .space-case-img p {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-main);
+      margin-top: 0.2rem;
+      opacity: 0.9;
+    }
+
+    /* 小屏适配 - 针对独立布局 */
+    @media (max-width: 576px) {
+      .sound-case-img img,
+      .space-case-img img {
+        height: 200px;
+      }
+    }
+
+    /* 古今对比动画（完全保留） */
+    .animation-box {
+      background-color: var(--card-bg);
+      border-radius: 0.2rem;
+      padding: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-top: 1.2rem;
+    }
+    .animation-box h4 {
+      color: var(--text-main);
+      text-align: center;
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+    .animation-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .animation-item {
+      text-align: center;
+      flex: 1;
+      min-width: 80px;
+    }
+    .animation-icon {
+      width: 10rem;
+      height: 10rem;
+      margin: 0 auto;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    /* 实际穿堂风动效图 */
+    .wind-icon {
+      background-image: url('images/chuantangfeng.jpeg');
+    }
+    /* 实际空调风动效图 */
+    .ac-icon {
+      background-image: url('images/kongtiao.jpeg');
+      display: none;
+    }
+    .animation-item p {
+      font-size: 0.875rem;
+      color: var(--text-main);
+      margin-top: 0;
+    }
+    .switch-btn {
+      padding: 0.25rem 1rem;
+      background-color: var(--cinnabar);
+      color: white;
+      border: none;
+      border-radius: 0.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+    }
+    .switch-btn:hover {
+      background-color: rgba(205, 92, 92, 0.8);
+    }
+
+    /* ========== 材料部分：左侧容器只保留一个综合大图，竖长美观适配 ========== */
+    .material-chart-single {
+      display: flex;
+      flex-direction: column;
+      min-height: 450px;
+      max-height: 520px;
+      padding: 1rem;
+    }
+    .material-chart-single #material-comprehensive-chart {
+      width: 100%;
+      min-height: 460px;
+      max-height: 540px;
+    }
+    .material-chart-single h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+    @media (max-width: 768px) {
+      .material-chart-single {
+        min-height: 420px;
+      }
+      .material-chart-single #material-comprehensive-chart {
+        min-height: 360px;
+      }
+    }
+
+	.desc-text3 {
+	  color: var(--text-main);
+	  line-height: 1.8;
+	  opacity: 0.9;
+	  margin-bottom: 0.7rem; 
+	}
+
+    /* 右侧四图2x2布局 */
+    .material-img-grid-2x2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+      margin-top: 0.3rem;
+    }
+    .material-case-img {
+      border-radius: 0.2rem;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .material-case-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .material-case-img img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .material-case-img p {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-main);
+	  margin-bottom: 0.3rem;
+    }
+    @media (max-width: 768px) {
+      .material-img-grid-2x2 { gap: 0.8rem; }
+      .material-case-img img { height: 130px; }
+    }
+    @media (max-width: 480px) { .material-img-grid-2x2 { grid-template-columns: 1fr; } }
+    /* 图表下方四种材料文字标签 */
+    .material-labels-row {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 14px;
+      padding: 8px;
+      background: rgba(210, 180, 140, 0.2);
+      border-radius: 8px;
+    }
+    .material-label-item {
+      text-align: center;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--blacktile);
+      background: rgba(210, 180, 140, 0.3);
+    }
+    .material-label-item:hover {
+      background: var(--cinnabar);
+      color: white;
+      transform: scale(1.05);
+    }
+    @media (max-width: 768px) {
+      .material-labels-row { flex-wrap: wrap; gap: 8px; }
+      .material-label-item { font-size: 12px; padding: 4px 10px; }
+    }
+    .material-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+    .material-modal-content {
+      background: #f8f5f0;
+      padding: 2.5rem;
+      border-radius: 0.8rem;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      border: 8px solid #D2B48C;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .material-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--cinnabar);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #f8f5f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--line-color);
+    }
+    .material-modal-title {
+      font-family: "Ma Shan Zheng", cursive;
+      color: var(--cinnabar);
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--line-color);
+    }
+    .material-modal-text { color: #4A3C28; line-height: 2; font-size: 1.05rem; }
+    .material-modal-text p { margin-bottom: 1.2rem; text-indent: 2em; }
+	
+	/* 高亮链接样式 */
+.highlight-link {
+    color: #2a7fff;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+.highlight-link:hover {
+    color: #1a5fd0;
+    text-shadow: 0 0 2px rgba(42,127,255,0.3);
+}
+
+/* 图片容器缩放过渡 */
+.space-case-img, .sound-case-img {
+    transition: transform 0.3s ease;
+}
+
+/* 高亮标记 - 白色动态描边 */
+.image-highlight-marker {
+    position: absolute;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.5), 0 0 0 4px rgba(255,255,255,0.2), 0 0 15px rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.1);
+    pointer-events: none;
+    z-index: 10;
+    transition: all 0.3s ease;
+    animation: whitePulse 0.8s ease-out 3;
+}
+
+@keyframes whitePulse {
+    0% { transform: scale(0.9); opacity: 0.9; box-shadow: 0 0 0 0 rgba(255,255,255,0.8); }
+    50% { transform: scale(1.05); opacity: 0.6; box-shadow: 0 0 0 8px rgba(255,255,255,0.3); }
+    100% { transform: scale(0.9); opacity: 0.9; box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
+}
+	
+	/* 最后一个卡片与版权之间增加间距 */
+.section-card:last-child {
+  margin-bottom: 4rem;
+}
+	/* ========== 白板触屏优化 ========== */
+
+/* 1. 增大所有可点击区域（触屏友好） */
+button,
+a,
+.nav-circle-btn,
+.auth-btn,
+.logout-btn,
+.sound-btn,
+.switch-btn,
+.material-label-item,
+.material-case-img,
+.season-slider,
+.modal-close {
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 2. 禁用长按菜单和文本选择（避免触屏干扰） */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 3. 允许输入框选择文本（保留输入功能） */
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* 4. 触屏按下反馈效果 */
+button:active,
+a:active,
+.nav-circle-btn:active,
+.auth-btn:active,
+.logout-btn:active,
+.sound-btn:active,
+.switch-btn:active,
+.material-label-item:active,
+.material-case-img:active,
+.season-slider:active,
+.modal-close:active {
+  opacity: 0.6;
+  transform: scale(0.96);
+  transition: all 0.05s ease;
+}
+
+/* 5. 滚动条优化（触屏滑动更流畅） */
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 6. 图表区域触屏优化 */
+canvas {
+  touch-action: pan-y pinch-zoom;
+}
+
+/* 7. 图片点击区域触屏优化 */
+.sound-case-img,
+.space-case-img,
+.material-case-img {
+  touch-action: manipulation;
+}
+
+/* 8. 季节切换滑块触屏优化 */
+.season-slider {
+  touch-action: manipulation;
+   height: 30px !important;       /* 固定原始高度 */
+  min-height: 30px !important;    /* 禁止被撑高 */
+  max-height: 30px !important;
+}
+
+/* 9. 按钮悬停效果仅限非触屏设备（避免触屏闪烁） */
+@media (hover: hover) {
+  button:hover,
+  a:hover,
+  .nav-circle-btn:hover,
+  .auth-btn:hover,
+  .logout-btn:hover,
+  .sound-btn:hover,
+  .switch-btn:hover,
+  .material-label-item:hover,
+  .material-case-img:hover {
+    opacity: 0.8;
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- 公共HTML片段：右侧导航按钮（与封面页完全一致） -->
+  <div class="right-nav-buttons">
+    <a href="index.html" class="nav-circle-btn">
+      <i class="fa-solid fa-house-chimney nav-icon"></i>
+      <span class="nav-text">首页<br>总览</span>
+    </a>
+    <a href="page1.html" class="nav-circle-btn">
+      <i class="fa-solid fa-torii-gate nav-icon"></i>
+      <span class="nav-text">古建<br>探秘</span>
+    </a>
+    <a href="page2.html" class="nav-circle-btn">
+      <i class="fas fa-puzzle-piece nav-icon"></i>
+      <span class="nav-text">巧思<br>解码</span>
+    </a>
+    <a href="page4.html" class="nav-circle-btn">
+      <i class="fas fa-hands-helping nav-icon"></i>
+      <span class="nav-text">匠心<br>传承</span>
+    </a>
+  </div>
+
+  <!-- 公共HTML片段：登录注册（完全保留） -->
+  <div class="auth-section">
+    <button class="auth-btn" id="login-btn">登录</button>
+    <button class="auth-btn" id="register-btn">注册</button>
+    <div class="user-info" id="user-info" style="display: none;">
+      <span class="username-display" id="username-display"></span>
+      <button class="logout-btn" id="logout-btn">退出登录</button>
+    </div>
+  </div>
+  <div class="auth-modal" id="login-modal" style="display: none;">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" id="login-close">&times;</span>
+      <form class="auth-form" id="login-form">
+        <h3>用户登录</h3>
+        <input type="text" placeholder="用户名/手机号" id="login-account" required>
+        <input type="password" placeholder="密码" id="login-pwd" required>
+        <button type="submit">登录</button>
+        <p id="to-register">没有账号？去注册</p>
+      </form>
+    </div>
+  </div>
+  <div class="auth-modal" id="register-modal" style="display: none;">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" id="register-close">&times;</span>
+      <form class="auth-form" id="register-form">
+        <h3>用户注册</h3>
+        <input type="text" placeholder="用户名" id="register-username" required>
+        <input type="tel" placeholder="手机号" id="register-phone" required>
+        <input type="password" placeholder="密码" id="register-pwd" required>
+        <button type="submit">注册</button>
+        <p id="to-login">已有账号？去登录</p>
+        <div class="tip-text" id="register-tip" style="display: none;">提示文本</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 顶部Banner（完全保留） -->
+  <section class="top-banner">
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="build1"></div>
+    <div class="build2"></div>
+    <div class="banner-content">
+      <h1 class="font-guofeng">生活智慧·古人的 "生活适配术"</h1>
+      <p>古建服务烟火日常 | 木构天井适配滇西四季</p>
+    </div>
+  </section>
+
+  <!-- 中部核心内容：生活智慧三大模块 -->
+  <main class="container">
+    <!-- 1. 声学巧思（完全保留） -->
+    <section class="section-card">
+      <h2 class="font-guofeng">看戏不用麦克风——声学巧思适配市井娱乐</h2>
+      <div class="grid-cols-1-md-2">
+        <div class="chart-container">
+          <h3>有无藻井声音传播范围对比</h3>
+          <canvas id="sound-chart"></canvas>
+          <div class="sound-btn-group">
+            <button id="sound-with" class="sound-btn btn-wood">
+              <i class="fa-solid fa-volume-high"></i> 带藻井音效
+            </button>
+          </div>
+        </div>
+        <div>
+          <p class="desc-text1">
+    古戏台“前台后阁”的布局极具巧思：前台开放面向街巷，结合穹顶<a href="javascript:void(0)" class="highlight-link" data-target="zaojing">藻井</a>的声学构造设计，通过曲面聚音与空间反射原理，在无扩音设备的条件下实现声场均匀覆盖；后台封闭供戏班休息，兼顾演出与生活需求。兴教寺诵经殿的藻井也运用了相同原理，让诵经声清晰庄严，不用大声喊也能传遍殿内。
+</p>
+          <div class="sound-case-img">
+            <img src="images/qiantaihouge.jpeg" alt="前台后阁布局">
+            <p>古戏台“前台后阁”布局示意图</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 空间巧思（完全保留） -->
+    <section class="section-card">
+      <h2 class="font-guofeng">冬暖夏凉不用空调——空间巧思适配滇西气候</h2>
+      <div class="grid-cols-1-md-2">
+        <div class="chart-container summer" id="tempChartContainer">
+          <h3>古戏台vs现代建筑温度对比</h3>
+          <div class="season-switcher">
+            <span class="season-label">夏季</span>
+            <div class="season-slider" id="seasonSlider"></div>
+            <span class="season-label">冬季</span>
+          </div>
+          <div class="chart-tooltip-popup" id="tempPopup"></div>
+          <canvas id="temp-chart"></canvas>
+          <div class="animation-box">
+            <h4>穿堂风vs空调对比</h4>
+            <div class="animation-content">
+              <div class="animation-item">
+                <div id="wind-animation" class="animation-icon wind-icon"></div>
+                <p>古戏台穿堂风</p>
+              </div>
+              <button id="switch-animation" class="switch-btn">切换</button>
+              <div class="animation-item">
+                <div id="ac-animation" class="animation-icon ac-icon"></div>
+                <p>现代空调</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="desc-text2">
+    遵循“四合五天井”的传统布局，以<a href="javascript:void(0)" class="highlight-link" data-target="chuandou">穿斗式木构架</a>为核心支撑，<a href="javascript:void(0)" class="highlight-link" data-target="sunmao">榫卯</a>节点预留伸缩余量适配昼夜温差与湿度变化，<a href="javascript:void(0)" class="highlight-link" data-target="tianjing">天井</a>布局兼顾通风、排水与采光需求，木构细节贴合山地地形与居家实用需求，将结构力学、地域气候适配与生活功能完美融合。古戏台采用顺应主导风向的开口营造策略，穿斗式木构架形成通透风道实现自然穿堂风降温；木构建筑保温性好，冬季阻挡寒风；台基架空构造有效阻隔潮气入侵，适配滇西多雨潮湿气候。赵家大院的“四合五天井”布局，既省了挑水的力气，又能让院景常年鲜活，住着舒服又省心。
+</p>
+          <div class="space-case-img">
+            <img src="images/sihewutianjing.jpg" alt="四合五天井">
+            <p>赵家大院“四合五天井”布局</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 选材巧思：左侧只有综合大图，右侧四图一行展示 -->
+    <section class="section-card">
+      <h2 class="font-guofeng">就地取材不浪费——选材巧思适配古道环境</h2>
+      <div class="grid-cols-1-md-2">
+        <div class="chart-container material-chart-single">
+          <h3>四种材料·五大维度综合对比（本地材料优势）</h3>
+          <canvas id="material-comprehensive-chart"></canvas>
+          <div class="material-labels-row" id="materialLabelsRow">
+            <span class="material-label-item" data-material="香樟木">🌲 香樟木</span>
+            <span class="material-label-item" data-material="云杉木">🌲 云杉木</span>
+            <span class="material-label-item" data-material="青瓦">🏺 青瓦</span>
+            <span class="material-label-item" data-material="夯土">🧱 夯土</span>
+          </div>
+          <div class="chart-tooltip-popup" id="materialPopup"></div>
+        </div>
+        <div>
+          <p class="desc-text3">古戏台用滇西本地的香樟木、云杉木建造，耐腐耐磨，既省下了茶马古道上高昂的运力成本，也让木料更适配当地潮湿多雨的气候；青瓦、夯土也是山间常见的材料，既贴合了古建“与山水相融”的风貌，又让建造维护的成本降到了普通人家也能负担的程度。兴教寺的条石地基取自附近山岩，赵家大院的夯土墙用的是院外田埂的熟土，这些“就地取材”的细节，不只是工匠的技巧，更是古人把生活需求嵌进自然环境里的智慧，透着“不与天地争利，只与万物共生”的生活哲学。</p>
+          <div class="material-img-grid-2x2">
+            <div class="material-case-img" data-material="香樟木"><img src="images/xiangzhangmu.jpeg" alt="香樟木"><p>本地香樟木</p></div>
+            <div class="material-case-img" data-material="云杉木"><img src="images/yunshanmu.jpeg" alt="云杉木"><p>本地云杉木</p></div>
+            <div class="material-case-img" data-material="青瓦"><img src="images/qingwa.jpeg" alt="青瓦"><p>本地青瓦</p></div>
+            <div class="material-case-img" data-material="夯土"><img src="images/hangtu.jpeg" alt="夯土"><p>本地夯土/夯土墙</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 公共HTML片段：底部版权（完全保留） -->
+  <footer>
+    <div class="footer-container">
+      <div class="copyright-text">
+        版权所有 © 2026 滇西古建文化探索平台 | 未经授权禁止转载
+      </div>
+      <div class="footer-links">
+        <a href="https://mp.weixin.qq.com/s/SDYkr3yrGUl-1QQ8N63DSg" target="_blank" title="剑川文旅 官方微信公众号">
+          <i class="fa-brands fa-weixin"></i> 剑川文旅
+        </a>
+        <a href="https://weibo.com/u/3558280211" target="_blank" title="微博剑川 微博号">
+          <i class="fa-brands fa-weibo"></i> 微博剑川
+        </a>
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAbJdtPXeaqoNH4SVtA1EeKm1fcoa24_SmxiqI2BQXVqPbYZbS18qPQdJDz05RMFqu?from_tab_name=main" target="_blank" title="剑川文旅 抖音号">
+          <i class="fa-brands fa-tiktok"></i> 剑川文旅
+        </a>
+        <a href="https://www.xiaohongshu.com/user/profile/6661def200000000000700737b?xsec_token=AB1r0g-m9_BeyZlLGwjZ8Pp_zMtIgcaJAVzzoZ-_D5NFE%3D&xsec_source=pc_search" target="_blank" title="剑川文旅 小红书账号">
+          <i class="fab fa-xiaohongshu"></i> <span style="font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif; font-weight:600; font-size:1rem; color:#FF2442; margin:0 1px;">小红书</span>剑川文旅
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 材料详情弹窗 -->
+  <div class="material-modal" id="materialModal">
+    <div class="material-modal-content">
+      <span class="material-modal-close" id="materialModalClose">&times;</span>
+      <h3 class="material-modal-title" id="materialModalTitle">材料名称</h3>
+      <div class="material-modal-text" id="materialModalText"></div>
+    </div>
+  </div>
+
+  <script src="js.js"></script>
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+
+// ========== 1. 声学巧思图表 ==========
+const soundCtx = document.getElementById('sound-chart').getContext('2d');
+const soundChart = new Chart(soundCtx, {
+  type: 'line',
+  data: { 
+    labels: [0,5,10,15,20,25,30,35,40,45], 
+    datasets: [
+      { label: '有藻井', data: [5,6.5,4.8,7,5.2,6.8,5,7.2,5.5,0], borderColor: '#CD5C5C', backgroundColor: 'rgba(205,92,92,0.1)', borderWidth: 3, tension: 0.4, fill: true, pointRadius: 4, pointBackgroundColor: '#CD5C5C', pointBorderColor: '#CD5C5C' },
+      { label: '无藻井', data: [3,3,3,0,0,0,0,0,0,0], borderColor: '#5A6470', borderWidth: 3, tension: 0, fill: true, pointRadius: 4, pointBackgroundColor: '#5A6470', pointBorderColor: '#5A6470' }
+    ] 
+  },
+  options: { 
+    responsive: true, 
+    scales: { x: { title: { display: true, text: '传播距离（米）' } }, y: { title: { display: true, text: '声音强度（相对值）' }, min: 0, max: 8 } }, 
+    plugins: { 
+      tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}：传播至${ctx.label}米` } },
+      legend: { display: false }
+    } 
+  }
+});
+
+// 添加声音图表自定义图例（圆点在线段正中央）
+function addSoundLegend() {
+  const chartContainer = document.querySelector('#sound-chart').parentNode;
+  if (!chartContainer || document.getElementById('sound-custom-legend')) return;
+  
+  const legendDiv = document.createElement('div');
+  legendDiv.id = 'sound-custom-legend';
+  legendDiv.style.cssText = 'display: flex; justify-content: center; gap: 2rem; margin-bottom: 0.8rem;';
+  
+  legendDiv.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <div style="position: relative; display: inline-block; width: 45px; height: 2px; background-color: #CD5C5C;">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background-color: #CD5C5C; border-radius: 50%;"></span>
+      </div>
+      <span style="font-size: 12px;">有藻井</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <div style="position: relative; display: inline-block; width: 45px; height: 2px; background-color: #5A6470;">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background-color: #5A6470; border-radius: 50%;"></span>
+      </div>
+      <span style="font-size: 12px;">无藻井</span>
+    </div>
+  `;
+  
+  const canvas = document.getElementById('sound-chart');
+  canvas.parentNode.insertBefore(legendDiv, canvas);
+}
+setTimeout(addSoundLegend, 100);
+
+// ========== 2. 空间巧思图表 ==========
+const tempData = {
+  summer: { 
+    labels: ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'], 
+    datasets: [
+      { label: '夏季室外温度（℃）', data: [22,21.5,21,20.8,20.5,21,22.5,24.5,27,29.5,31,32.5,33,33.2,33,32.5,31.8,30.5,28.5,26.5,25,24,23,22.5], borderColor: '#E53935', backgroundColor: 'rgba(229,57,53,0.1)', borderWidth: 2, tension: 0.3, fill: false, pointRadius: 3, pointBackgroundColor: '#E53935' },
+      { label: '夏季戏台内温度（℃）', data: [20,19.8,19.5,19.3,19,19.2,20,21.5,23,24.5,25.5,26,26.2,26.3,26.2,26,25.5,24.8,23.5,22.5,21.5,21,20.5,20.2], borderColor: '#D2B48C', backgroundColor: 'rgba(210,180,140,0.2)', borderWidth: 2, tension: 0.3, fill: false, pointRadius: 3, pointBackgroundColor: '#D2B48C' }
+    ] 
+  },
+  winter: { 
+    labels: ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'], 
+    datasets: [
+      { label: '冬季室外温度（℃）', data: [3,2.5,2,1.8,1.5,1.6,2.5,4,6,8.5,10,11.5,12,12.2,12,11.5,10.8,9.5,7.5,5.5,4,3.5,3.2,3], borderColor: '#5A6470', backgroundColor: 'rgba(90,100,112,0.1)', borderWidth: 2, tension: 0.3, fill: false, pointRadius: 3, pointBackgroundColor: '#5A6470' },
+      { label: '冬季戏台内温度（℃）', data: [8,7.8,7.5,7.3,7,7.2,8,9.5,11,12.5,13.5,14,14.2,14.3,14.2,14,13.5,12.8,11.5,10.5,9.5,9,8.5,8.2], borderColor: '#CD5C5C', backgroundColor: 'rgba(205,92,92,0.1)', borderWidth: 2, tension: 0.3, fill: false, pointRadius: 3, pointBackgroundColor: '#CD5C5C' }
+    ] 
+  }
+};
+
+const tempCtx = document.getElementById('temp-chart').getContext('2d');
+const tempChart = new Chart(tempCtx, { 
+  type: 'line', 
+  data: tempData.summer, 
+  options: { 
+    responsive: true, 
+    scales: { y: { title: { display: true, text: '温度 (℃)' }, min: 0, max: 35 }, x: { title: { display: true, text: '时间' } } }, 
+    plugins: { 
+      tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}℃` } },
+      legend: { display: false }
+    } 
+  } 
+});
+
+// 添加温度图表自定义图例（圆点在线段正中央）
+function addTempLegend() {
+  const chartContainer = document.getElementById('tempChartContainer');
+  if (!chartContainer || document.getElementById('temp-custom-legend')) return;
+  
+  const legendDiv = document.createElement('div');
+  legendDiv.id = 'temp-custom-legend';
+  legendDiv.style.cssText = 'display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 0.8rem; flex-wrap: wrap;';
+  
+  legendDiv.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <div style="position: relative; display: inline-block; width: 45px; height: 2px; background-color: #E53935;">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background-color: #E53935; border-radius: 50%;"></span>
+      </div>
+      <span style="font-size: 12px;">夏季室外温度</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <div style="position: relative; display: inline-block; width: 45px; height: 2px; background-color: #D2B48C;">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background-color: #D2B48C; border-radius: 50%;"></span>
+      </div>
+      <span style="font-size: 12px;">夏季戏台内温度</span>
+    </div>
+  `;
+  
+  const canvas = document.getElementById('temp-chart');
+  canvas.parentNode.insertBefore(legendDiv, canvas);
+}
+
+// 季节切换
+const seasonSlider = document.getElementById('seasonSlider');
+const tempChartContainer = document.getElementById('tempChartContainer');
+let isWinterTemp = false;
+
+seasonSlider.addEventListener('click', () => { 
+  isWinterTemp = !isWinterTemp; 
+  seasonSlider.classList.toggle('winter', isWinterTemp); 
+  tempChartContainer.classList.toggle('summer', !isWinterTemp); 
+  tempChartContainer.classList.toggle('winter', isWinterTemp); 
+  tempChart.data = isWinterTemp ? tempData.winter : tempData.summer; 
+  tempChart.update();
+  
+// 季节切换时更新图例（圆点始终保持在线段中央）
+const legendDiv = document.getElementById('temp-custom-legend');
+if (legendDiv) {
+  if (isWinterTemp) {
+    legendDiv.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="position: relative; display: inline-block; width: 45px; height: 2px; background-color: #5A6470;">
+          <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background-color: #5A6470; border-radius: 50%;"></span>
+        </div>
+        <span style="font-size: 12px;">冬季室外温度</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="position: relative; display: inline-block; width: 45px; height: 2px; background-color: #CD5C5C;">
+          <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background-color: #CD5C5C; border-radius: 50%;"></span>
+        </div>
+        <span style="font-size: 12px;">冬季戏台内温度</span>
+      </div>
+    `;
+  } else {
+    legendDiv.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="position: relative; display: inline-block; width: 45px; height: 2px; background-color: #E53935;">
+          <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background-color: #E53935; border-radius: 50%;"></span>
+        </div>
+        <span style="font-size: 12px;">夏季室外温度</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <div style="position: relative; display: inline-block; width: 45px; height: 2px; background-color: #D2B48C;">
+          <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background-color: #D2B48C; border-radius: 50%;"></span>
+        </div>
+        <span style="font-size: 12px;">夏季戏台内温度</span>
+      </div>
+    `;
+  }
+}
+});
+
+setTimeout(addTempLegend, 100);
+
+// ========== 3. 选材巧思（柱状图+折线图，自定义图例：正方形+线段） ==========
+const materialLabels = ['香樟木', '云杉木', '青瓦', '夯土'];
+
+const materialAllData = {
+  "香樟木": { "耐用年限 (年)": 120, "运输能耗 (kWh/吨)": 15, "材料成本 (元/㎡)": 320, "防潮系数": 0.92, "抗风化等级 (1-5)": 5 },
+  "云杉木": { "耐用年限 (年)": 90, "运输能耗 (kWh/吨)": 20, "材料成本 (元/㎡)": 280, "防潮系数": 0.85, "抗风化等级 (1-5)": 4 },
+  "青瓦": { "耐用年限 (年)": 70, "运输能耗 (kWh/吨)": 12, "材料成本 (元/㎡)": 150, "防潮系数": 0.88, "抗风化等级 (1-5)": 5 },
+  "夯土": { "耐用年限 (年)": 55, "运输能耗 (kWh/吨)": 8, "材料成本 (元/㎡)": 80, "防潮系数": 0.78, "抗风化等级 (1-5)": 3 }
+};
+
+const comprehensiveCtx = document.getElementById('material-comprehensive-chart').getContext('2d');
+const comprehensiveChart = new Chart(comprehensiveCtx, {
+  type: 'bar',
+  data: {
+    labels: materialLabels,
+    datasets: [
+      { label: '耐用年限 (年)', data: [120, 90, 70, 55], type: 'bar', backgroundColor: '#CD5C5C', yAxisID: 'y', borderRadius: 6, barPercentage: 0.65, hoverBackgroundColor: '#b94747' },
+      { label: '运输能耗 (kWh/吨)', data: [15, 20, 12, 8], type: 'bar', backgroundColor: 'rgba(90,100,112,0.7)', yAxisID: 'y', borderRadius: 6, barPercentage: 0.65, hoverBackgroundColor: 'rgba(70,80,90,0.9)' },
+      { label: '材料成本 (元/㎡)', data: [320, 280, 150, 80], type: 'bar', backgroundColor: '#D2B48C', yAxisID: 'y1', borderRadius: 6, barPercentage: 0.65, hoverBackgroundColor: '#c2a47c' },
+      { label: '防潮系数', data: [0.92, 0.85, 0.88, 0.78], type: 'line', borderColor: '#1E88E5', borderWidth: 2.5, tension: 0.2, fill: false, pointRadius: 4, pointBackgroundColor: '#0b5e7c', yAxisID: 'y2' },
+      { label: '抗风化等级 (1-5)', data: [5, 4, 5, 3], type: 'line', borderColor: '#EF6C00', borderWidth: 2.5, tension: 0.2, fill: false, pointRadius: 4, pointBackgroundColor: '#BF360C', yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 1200, easing: 'easeOutQuart' },
+    hover: { mode: 'index', intersect: false },
+    plugins: {
+      tooltip: {
+        enabled: true,
+        backgroundColor: 'rgba(255,255,255,0.96)',
+        titleColor: '#CD5C5C',
+        bodyColor: '#2C3531',
+        borderColor: '#D2B48C',
+        borderWidth: 1,
+        padding: 12,
+        usePointStyle: true,
+        callbacks: { label: (ctx) => `${ctx.dataset.label}：${ctx.raw}` }
+      },
+      legend: { display: false }
+    },
+    layout: { padding: { top: 10, bottom: 5 } },
+    scales: {
+      y: { type: 'linear', position: 'left', title: { display: true, text: '耐用年限(年) / 运输能耗(kWh/吨)', font: { size: 12 } }, min: 0, max: 140, beginAtZero: true },
+      y1: { type: 'linear', position: 'right', title: { display: true, text: '材料成本 (元/㎡)', font: { size: 12 } }, min: 0, max: 400, beginAtZero: true, grid: { drawOnChartArea: false } },
+      y2: { type: 'linear', position: 'right', offset: 65, title: { display: true, text: '防潮系数 / 抗风化等级', font: { size: 12 } }, min: 0, max: 6, beginAtZero: true, grid: { drawOnChartArea: false } }
+    }
+  }
+});
+
+function addCustomLegend() {
+  const canvas = document.getElementById('material-comprehensive-chart');
+  if (!canvas) return;
+  
+  if (document.getElementById('custom-material-legend')) return;
+  
+  const legendDiv = document.createElement('div');
+  legendDiv.id = 'custom-material-legend';
+  legendDiv.style.cssText = 'display: flex; flex-direction: column; align-items: center; gap: 0.3rem; margin-top: 0.8rem; margin-bottom: 0.5rem;';
+  
+  legendDiv.innerHTML = `
+    <div class="legend-row" style="display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap;">
+      <div class="legend-item" data-dataset="0" style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+        <span style="display: inline-block; width: 16px; height: 16px; background-color: #CD5C5C;"></span>
+        <span style="font-size: 12px;">耐用年限 (年)</span>
+      </div>
+      <div class="legend-item" data-dataset="1" style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+        <span style="display: inline-block; width: 16px; height: 16px; background-color: rgba(90,100,112,0.7);"></span>
+        <span style="font-size: 12px;">运输能耗 (kWh/吨)</span>
+      </div>
+      <div class="legend-item" data-dataset="2" style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+        <span style="display: inline-block; width: 16px; height: 16px; background-color: #D2B48C;"></span>
+        <span style="font-size: 12px;">材料成本 (元/㎡)</span>
+      </div>
+    </div>
+    <div class="legend-row" style="display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap;">
+      <div class="legend-item" data-dataset="3" style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+        <span style="display: inline-block; width: 30px; height: 2px; background-color: #1E88E5;"></span>
+        <span style="font-size: 12px;">防潮系数</span>
+      </div>
+      <div class="legend-item" data-dataset="4" style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+        <span style="display: inline-block; width: 30px; height: 2px; background-color: #EF6C00;"></span>
+        <span style="font-size: 12px;">抗风化等级 (1-5)</span>
+      </div>
+    </div>
+  `;
+  
+  // 添加点击切换数据集功能
+  legendDiv.querySelectorAll('.legend-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const datasetIndex = parseInt(item.getAttribute('data-dataset'));
+      const meta = comprehensiveChart.getDatasetMeta(datasetIndex);
+      meta.hidden = !meta.hidden;
+      comprehensiveChart.update();
+      const span = item.querySelector('span:first-child');
+      if (meta.hidden) {
+        span.style.opacity = '0.4';
+      } else {
+        span.style.opacity = '1';
+      }
+    });
+  });
+  
+  const parent = canvas.parentNode;
+  const fourButtons = document.querySelector('.material-labels-row');
+  parent.insertBefore(legendDiv, fourButtons);
+}
+
+// 调用添加自定义图例
+setTimeout(addCustomLegend, 100);
+
+// 下方文字标签悬浮弹窗
+const materialPopup = document.getElementById('materialPopup');
+const materialLabelItems = document.querySelectorAll('.material-label-item');
+let activeTimeout;
+
+materialLabelItems.forEach(item => {
+  item.addEventListener('mouseenter', (e) => {
+    if (activeTimeout) clearTimeout(activeTimeout);
+    const materialName = item.getAttribute('data-material');
+    const data = materialAllData[materialName];
+    let popupHtml = `<strong>${materialName}</strong><br>`;
+    for (let [key, value] of Object.entries(data)) {
+      popupHtml += `${key}: ${value}<br>`;
+    }
+    materialPopup.innerHTML = popupHtml;
+    materialPopup.style.whiteSpace = 'nowrap';
+    materialPopup.style.display = 'block';
+    const rect = item.getBoundingClientRect();
+    let leftPos = rect.right + 8;
+    let topPos = rect.bottom + 3;
+    if(leftPos + materialPopup.offsetWidth > window.innerWidth) leftPos = rect.left - materialPopup.offsetWidth - 8;
+    materialPopup.style.left = leftPos + 'px';
+    materialPopup.style.top = topPos + 'px';
+  });
+  item.addEventListener('mouseleave', () => {
+    activeTimeout = setTimeout(() => materialPopup.style.display = 'none', 150);
+  });
+});
+
+materialPopup.addEventListener('mouseenter', ()=>clearTimeout(activeTimeout));
+materialPopup.addEventListener('mouseleave', ()=>materialPopup.style.display='none');
+
+// 右侧图片点击弹窗
+const materialDetails = {
+  "香樟木": { title: "本地香樟木", content: `<p><strong>树木特点：</strong>香樟木质地坚韧、纹理美观，自带天然樟脑香气，耐腐防虫，是滇西传统木构的核心用材。</p><p><strong>滇西气候适配：</strong>香樟木耐潮湿、抗霉变，能有效应对滇西多雨高湿的气候环境，不易变形开裂。</p><p><strong>营造技术契合：</strong>遵循"四合五天井"的传统布局，以穿斗式木构架为核心支撑，榫卯节点预留伸缩余量适配昼夜温差与湿度变化。香樟木的稳定性与韧性，完美支撑穿斗式构架的受力需求，同时其天然防腐性可延长建筑寿命。</p>` },
+  "云杉木": { title: "本地云杉木", content: `<p><strong>树木特点：</strong>云杉木材质轻盈、纹理顺直，弹性好，易加工，是山地建筑的理想轻质材料。</p><p><strong>滇西气候适配：</strong>云杉木干缩率小，能适应滇西昼夜温差大、干湿交替的气候，不易翘曲。</p><p><strong>营造技术契合：</strong>云杉木的轻质特性减轻了山地建筑的荷载，其良好的弹性可缓冲地震冲击，与穿斗式构架的抗震设计高度契合。</p>` },
+  "青瓦": { title: "本地青瓦", content: `<p><strong>材料特点：</strong>青瓦以本地黏土烧制而成，质地密实，颜色青灰，隔热、排水性能优异。</p><p><strong>滇西气候适配：</strong>青瓦吸水率适中，可调节室内湿度，同时能有效阻挡夏季烈日暴晒和冬季寒风侵袭。</p><p><strong>营造技术契合：</strong>青瓦的斜坡铺设方式，完美适配天井排水需求，同时其厚重质感增强了建筑的保温隔热效果。</p>` },
+  "夯土": { title: "本地夯土/夯土墙", content: `<p><strong>材料特点：</strong>夯土以本地熟土、砂石混合夯实而成，取材方便，保温透气性能极佳。</p><p><strong>滇西气候适配：</strong>夯土墙热惰性大，能稳定室内温度，夏季隔热、冬季保温，适配滇西昼夜温差大的特点。</p><p><strong>营造技术契合：</strong>夯土墙的厚重质感与木构架形成刚柔并济的结构体系，同时其就地取材的特性符合滇西山地营造的低成本需求。</p>` }
+};
+
+const modal = document.getElementById('materialModal');
+const modalTitle = document.getElementById('materialModalTitle');
+const modalText = document.getElementById('materialModalText');
+const modalClose = document.getElementById('materialModalClose');
+
+document.querySelectorAll('.material-case-img').forEach(el => {
+  el.addEventListener('click', () => {
+    const key = el.getAttribute('data-material');
+    if(materialDetails[key]){
+      modalTitle.innerText = materialDetails[key].title;
+      modalText.innerHTML = materialDetails[key].content;
+      modal.style.display = 'flex';
+    }
+  });
+});
+
+modalClose.addEventListener('click',()=> modal.style.display='none');
+modal.addEventListener('click',(e)=>{ if(e.target===modal) modal.style.display='none'; });
+
+// ========== 图片高亮标识功能 ==========
+const highlightPositions = {
+    // 藻井位置（声学图片）
+    zaojing: {
+        selector: '.sound-case-img img',
+        positions: [
+            { left: '36%', top: '25%', width: '30%', height: '28%', shape: 'ellipse' }
+        ]
+    },
+    // 穿斗式木构架位置（空间图片）
+    chuandou: {
+        selector: '.space-case-img img',
+        positions: [
+            { left: '25%', top: '28%', width: '50%', height: '15%', shape: 'rectangle' }
+        ]
+    },
+    // 榫卯位置（空间图片，多个点）
+    sunmao: {
+        selector: '.space-case-img img',
+        positions: [
+            { left: '30%', top: '30%', width: '10%', height: '10%', shape: 'circle' },
+            { left: '55%', top: '30%', width: '10%', height: '10%', shape: 'circle' },
+            { left: '10%', top: '4%', width: '10%', height: '10%', shape: 'circle' },
+            { left: '75%', top: '15%', width: '10%', height: '10%', shape: 'circle' }
+        ]
+    },
+    // 天井位置（空间图片）
+    tianjing: {
+        selector: '.space-case-img img',
+        positions: [
+            { left: '2%', top: '1%', width: '95%', height: '25%', shape: 'rectangle' }
+        ]
+    }
+};
+
+// 全局定时器ID
+let highlightTimer = null;
+
+// 清除所有高亮标记并恢复图片缩放
+function clearHighlights() {
+    document.querySelectorAll('.image-highlight-marker').forEach(marker => marker.remove());
+    // 恢复所有图片缩放
+    document.querySelectorAll('.space-case-img, .sound-case-img').forEach(container => {
+        container.style.transform = '';
+    });
+}
+
+// 显示高亮标记（带图片局部放大效果）
+function showHighlight(targetId) {
+    // 清除之前的定时器
+    if (highlightTimer) {
+        clearTimeout(highlightTimer);
+        highlightTimer = null;
+    }
+    
+    // 先清除所有现有高亮和缩放
+    clearHighlights();
+    
+    const config = highlightPositions[targetId];
+    if (!config || !config.positions || config.positions.length === 0) {
+        console.log('未找到配置:', targetId);
+        return;
+    }
+    
+    const imgContainer = document.querySelector(config.selector);
+    if (!imgContainer) {
+        console.log('未找到图片容器:', config.selector);
+        return;
+    }
+    
+    // 图片容器整体放大
+    const parentContainer = imgContainer.parentElement;
+    parentContainer.style.transform = 'scale(1.02)';
+    parentContainer.style.transition = 'transform 0.3s ease';
+    
+    // 确保父容器有相对定位
+    if (getComputedStyle(parentContainer).position !== 'relative') {
+        parentContainer.style.position = 'relative';
+    }
+    
+    // 遍历所有位置，添加高亮标记
+    config.positions.forEach(pos => {
+        const marker = document.createElement('div');
+        marker.className = 'image-highlight-marker';
+        
+        if (pos.shape === 'circle' || pos.shape === 'ellipse') {
+            marker.style.borderRadius = '50%';
+        } else {
+            marker.style.borderRadius = '8px';
+        }
+        
+        marker.style.left = pos.left;
+        marker.style.top = pos.top;
+        marker.style.width = pos.width;
+        marker.style.height = pos.height;
+        
+        parentContainer.appendChild(marker);
+    });
+    
+    // 设置定时器，3秒后清除高亮并恢复缩放
+    highlightTimer = setTimeout(() => {
+        clearHighlights();
+        highlightTimer = null;
+    }, 3000);
+}
+
+// 绑定所有高亮链接
+document.querySelectorAll('.highlight-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = link.getAttribute('data-target');
+        if (target) {
+            showHighlight(target);
+        }
+    });
+});
+
+  // 音效播放 & 动画切换（不改动）
+  const soundWith = new Audio('audio/zaojing-with.MP3');
+  document.getElementById('sound-with').addEventListener('click',()=>{ if(soundWith.paused) soundWith.play().catch(e=>alert('音效文件缺失')); else soundWith.pause(); });
+  const switchBtn = document.getElementById('switch-animation'), windDiv = document.getElementById('wind-animation'), acDiv = document.getElementById('ac-animation');
+  switchBtn.addEventListener('click',()=>{ windDiv.style.display = windDiv.style.display==='none'?'block':'none'; acDiv.style.display = acDiv.style.display==='block'?'none':'block'; });
+});
+  </script>
+</body>
+</html>

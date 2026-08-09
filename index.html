@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>滇西古建的巧思 - 封面·戏台春秋</title>
+  <!-- 1. 引入外部公共CSS -->
+  <link rel="stylesheet" href="CSS.css">
+  <!-- 2. 引入国风字体 + 图标库（公共资源，保留在head） -->
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css">
+  <!-- 3. 本页面独有样式（仅保留公共样式外的页面专属样式） -->
+  <style>
+	:root {
+		--line-color: #D2B48C; /* 时间轴线条色（暖木色） */
+		--modal-img-bg: #D2B48C; /* 弹窗左侧背景色 */
+	  }
+    /* 头部banner - 独有 ✅ 修改1：占满一屏 */
+    header {
+      position: relative;
+      height: 100vh;
+      min-height: 100vh;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+    .header-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/fengmian.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-color: var(--modal-img-bg);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-family: "Ma Shan Zheng", cursive;
+    }
+    .header-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0,0,0,0.2);
+    }
+    .header-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .header-content h1 {
+      font-size: clamp(2rem, 5vw, 5rem);
+      margin-bottom: 1.6rem;
+      font-family: "Ma Shan Zheng", cursive;
+    }
+    .header-content p {
+      font-size: clamp(1rem, 2vw, 1.8rem);
+    }
+
+    /* ✅ 修改2：营造技术介绍模块 */
+    .tech-intro-section {
+      padding: 2rem 0;
+	  margin-top: 3rem;
+      background-color: var(--card-bg);
+    }
+    .tech-intro-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.2rem);
+      color: var(--text-accent);
+      margin-bottom: 1.5rem;
+      font-family: "Ma Shan Zheng", cursive;
+    }
+    .tech-intro-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      line-height: 1.8;
+      font-size: 1rem;
+      text-align: justify;
+      color: var(--text-main);
+      text-indent: 2em;
+    }
+	
+/* 旋转木马轮播图样式 - 横向长卡片 */
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 50px;
+  margin: 0.5rem 0;
+}
+
+.carousel-wrapper {
+  width: 100%;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-track {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+}
+
+/* 横向长卡片 */
+.carousel-card {
+  position: absolute;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  background: white;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: row;
+}
+
+/* 中间卡片 - 最大 */
+.carousel-card.center {
+  position: relative;
+  width: 480px;
+  height: 170px;
+  z-index: 10;
+  opacity: 1;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  transform: scale(1);
+}
+
+/* 左侧卡片 - 较小 */
+.carousel-card.left {
+  width: 400px;
+  height: 140px;
+  z-index: 5;
+  opacity: 0.6;
+  filter: brightness(0.85);
+  transform: translateX(-180px) scale(0.85);
+}
+
+/* 右侧卡片 - 较小 */
+.carousel-card.right {
+  width: 400px;
+  height: 140px;
+  z-index: 5;
+  opacity: 0.6;
+  filter: brightness(0.85);
+  transform: translateX(180px) scale(0.85);
+}
+
+/* 隐藏其他卡片 */
+.carousel-card.hidden {
+  display: none;
+}
+
+/* 横向布局：图片在左，文字在右 */
+.carousel-image {
+  width: 35%;
+  height: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.carousel-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-card:hover .carousel-image img {
+  transform: scale(1.05);
+}
+
+.carousel-card-content {
+  width: 65%;
+  padding: 0.8rem 1rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-card-content h4 {
+  font-size: 1.3rem;
+  color: #B87C4E;
+  margin-bottom: 0.5rem;
+  font-family: "Ma Shan Zheng", cursive;
+  text-align: left;
+}
+
+.carousel-card-content p {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* 左右按钮 */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #B87C4E;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.carousel-prev {
+  left: 120px;
+}
+
+.carousel-next {
+  right: 120px;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+  background: #9B5E32;
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* 响应式 */
+@media (max-width: 900px) {
+  .carousel-card.center {
+    width: 380px;
+    height: 140px;
+  }
+  
+  .carousel-card.left {
+    transform: translateX(-130px) scale(0.8);
+    width: 300px;
+    height: 115px;
+  }
+  
+  .carousel-card.right {
+    transform: translateX(130px) scale(0.8);
+    width: 300px;
+    height: 115px;
+  }
+  
+  .carousel-card-content h4 {
+    font-size: 1rem;
+  }
+  
+  .carousel-card-content p {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-card.left,
+  .carousel-card.right {
+    display: none;
+  }
+  
+  .carousel-prev,
+  .carousel-next {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* 时间轴跳转链接样式 */
+.timeline-link {
+  display: block; /* 变成块级元素 */
+  text-align: center;
+  margin-top: 2rem;
+  color: #2E6B9E;
+  text-decoration: underline;
+  font-family: "Ma Shan Zheng", cursive;
+  font-size: 1.3rem;
+  transition: all 0.2s ease;
+}
+
+.timeline-link:hover {
+  color: #B87C4E;
+  text-decoration: none;
+}
+
+    /* 典型案例 */
+    .cases-section {
+      padding: 0 0 3rem;
+    }
+    .cases-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.2rem);
+      color: var(--text-accent);
+      margin-bottom: 2rem;
+      font-family: "Ma Shan Zheng", cursive;
+    }
+    .cases-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .cases-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .case-card {
+      background-color: var(--card-bg);
+      border-radius: 0.2rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .case-card:hover {
+      transform: scale(1.03);
+    }
+    .case-img {
+      width: 100%;
+      height: 230px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--border-light);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      text-align: center;
+      padding: 1rem;
+    }
+    .case-content {
+      padding: 1.2rem;
+    }
+    .case-content h3 {
+      font-size: 1.6rem;
+      color: var(--text-main);
+      margin-bottom: 0.3rem;
+      font-family: "Ma Shan Zheng", cursive;
+      text-align: center;
+    }
+    .case-content p {
+      font-size: 1rem;
+      text-align: justify;
+    }
+	
+/* 选项卡按钮样式 */
+.game-title {
+  text-align: center;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: var(--text-accent);
+  margin-bottom: 1.5rem;
+  font-family: "Ma Shan Zheng", cursive;
+  letter-spacing: 2px;
+}
+.game-section {
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 1rem;
+  margin-bottom: 3rem;
+}
+.game-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+}
+
+.game-tab-btn {
+  padding: 0.6rem 1.8rem;
+  font-size: 1.2rem;
+  font-family: "Ma Shan Zheng", cursive;
+  background: #F5EDDC;
+  border: 2px solid #D4C4A8;
+  border-radius: 40px;
+  color: #8B6B42;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.game-tab-btn:hover {
+  background: #EADDBF;
+  transform: translateY(-2px);
+}
+
+.game-tab-btn.active {
+  background: #B87C4E;
+  border-color: #8B5A2B;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.game-card {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;  /* 从 1000px 改为 1200px，与 game-text-area 一致 */
+  background: #FDF8ED;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px -10px rgba(0,0,0,0.15);
+  overflow: hidden;
+  margin: 0 auto;
+  display: none;
+}
+
+.game-card.visible {
+  display: block;
+}
+
+#gameCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #EFE3C9;
+  cursor: grab;
+  aspect-ratio: 1000 / 600;  /* 保持画布比例 */
+}
+
+#gameCanvas:active {
+  cursor: grabbing;
+}
+
+#restartBtn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  left: auto;
+  transform: none;
+  padding: 8px 20px;
+  background: #B87C4E;
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: none;
+  z-index: 20;
+  transition: all 0.2s;
+}
+
+#restartBtn:hover {
+  background: #9B5E32;
+  transform: scale(1.02);
+}
+
+#restartBtn.show {
+  display: block;
+}
+
+/* 底部技艺说明区域 */
+.game-text-area {
+  width: 100%;
+  max-width: 1200px;
+  background: #F5EDDC;
+  border-radius: 0 0 16px 16px;
+  padding: 1rem 1.5rem;
+  border-top: 2px solid #E2D4BD;
+  text-align: center;
+  margin-top: 0;
+  display: none;
+}
+
+.game-text-area.visible {
+  display: block;
+}
+
+.game-desc {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #6B3E1C;
+  margin: 0 0 0.3rem;
+  font-family: "Ma Shan Zheng", cursive;
+}
+
+.game-benefits {
+  font-size: 1.0rem;
+  color: #8B6B42;
+  line-height: 1.5;
+  margin: 0.3rem 0;
+}
+
+.game-verse {
+  font-size: 1.1rem;
+  color: #A57242;
+  font-family: "Ma Shan Zheng", cursive;
+  margin: 0.5rem 0 0;
+  padding-top: 0.3rem;
+  border-top: 1px dashed #D4C4A8;
+}
+
+@media (max-width: 768px) {
+  .game-benefits {
+    font-size: 0.75rem;
+  }
+  .game-verse {
+    font-size: 0.8rem;
+  }
+  .game-tab-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+  #restartBtn {
+    bottom: 10px;
+    right: 10px;
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+  
+/* ========== 触屏优化 - 完整版 ========== */
+
+/* 1. 增大可点击区域（触屏友好） */
+button,
+a,
+.nav-circle-btn,
+.game-tab-btn,
+.view-btn,
+.auth-btn,
+.logout-btn,
+.carousel-prev,
+.carousel-next,
+.timeline-link,
+.modal-close {
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 2. 游戏区域元素保持原有尺寸，不受 min-width 影响 */
+.game-card,
+.game-card *,
+#gameCanvas,
+#restartBtn {
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+/* 重新开始按钮单独保持触屏友好 */
+#restartBtn {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* 3. 禁用长按菜单和文本选择（避免触屏干扰） */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 4. 允许输入框选择文本（保留输入功能） */
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* 5. 触屏按下反馈效果 */
+button:active,
+a:active,
+.nav-circle-btn:active,
+.game-tab-btn:active,
+.view-btn:active,
+.carousel-prev:active,
+.carousel-next:active,
+.timeline-link:active,
+.auth-btn:active,
+.logout-btn:active,
+.modal-close:active {
+  opacity: 0.6;
+  transform: scale(0.96);
+  transition: all 0.05s ease;
+}
+
+/* 6. 游戏画布触屏优化 - 禁止页面滚动 */
+#gameCanvas {
+  touch-action: none;
+  cursor: grab;
+}
+
+#gameCanvas:active {
+  cursor: grabbing;
+}
+
+/* 7. 轮播图触屏优化 - 允许垂直滚动，禁止水平拖拽导致冲突 */
+.carousel-container {
+  touch-action: pan-y pinch-zoom;
+}
+
+/* 8. 滚动条优化（触屏滑动更流畅） */
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 9. 图片点击区域触屏优化 */
+.sound-case-img,
+.space-case-img,
+.material-case-img,
+.carousel-card {
+  touch-action: manipulation;
+}
+
+/* 10. 按钮悬停效果仅限非触屏设备（避免触屏闪烁） */
+@media (hover: hover) {
+  button:hover,
+  a:hover,
+  .nav-circle-btn:hover,
+  .game-tab-btn:hover,
+  .view-btn:hover,
+  .carousel-prev:hover,
+  .carousel-next:hover,
+  .timeline-link:hover {
+    opacity: 0.8;
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- 公共HTML片段：右侧导航、登录注册、登录注册弹窗（所有页面通用，保留） -->
+  <div class="right-nav-buttons">
+    <a href="page1.html" class="nav-circle-btn">
+      <i class="fa-solid fa-torii-gate nav-icon"></i>
+      <span class="nav-text">古建<br>探秘</span>
+    </a>
+    <a href="page2.html" class="nav-circle-btn">
+      <i class="fas fa-puzzle-piece nav-icon"></i>
+      <span class="nav-text">巧思<br>解码</span>
+    </a>
+    <a href="page3.html" class="nav-circle-btn">
+      <i class="fas fa-lightbulb nav-icon"></i>
+      <span class="nav-text">生活<br>智慧</span>
+    </a>
+    <a href="page4.html" class="nav-circle-btn">
+      <i class="fas fa-hands-helping nav-icon"></i>
+      <span class="nav-text">匠心<br>传承</span>
+    </a>
+  </div>
+  <div class="auth-section">
+    <button class="auth-btn" id="login-btn">登录</button>
+    <button class="auth-btn" id="register-btn">注册</button>
+    <div class="user-info" id="user-info">
+      <span class="username-display" id="username-display"></span>
+      <button class="logout-btn" id="logout-btn">退出登录</button>
+    </div>
+  </div>
+  <div class="auth-modal" id="login-modal">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" id="login-close">&times;</span>
+      <form class="auth-form" id="login-form">
+        <h3>用户登录</h3>
+        <input type="text" placeholder="用户名/手机号" id="login-account" required>
+        <input type="password" placeholder="密码" id="login-pwd" required>
+        <button type="submit">登录</button>
+        <p id="to-register">没有账号？去注册</p>
+      </form>
+    </div>
+  </div>
+  <div class="auth-modal" id="register-modal">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" id="register-close">&times;</span>
+      <form class="auth-form" id="register-form">
+        <h3>用户注册</h3>
+        <input type="text" placeholder="用户名" id="register-username" required>
+        <input type="tel" placeholder="手机号" id="register-phone" required>
+        <input type="password" placeholder="密码" id="register-pwd" required>
+        <button type="submit">注册</button>
+        <p id="to-login">已有账号？去登录</p>
+        <div class="tip-text" id="register-tip">提示文本</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 本页面独有HTML内容 -->
+  <header>
+    <div class="header-bg"></div>
+    <div class="header-overlay"></div>
+    <div class="header-content">
+      <h1>木作承滇韵，营造藏千年</h1>
+      <p>——滇西古建里的东方智慧——</p>
+    </div>
+  </header>
+
+<!-- 营造技术介绍模块（带图片轮播） -->
+<section class="tech-intro-section container" id="tech-intro">
+  <h2 class="tech-intro-title">滇西古建营造技术简介</h2>
+  
+  <!-- 原有第一段文字 -->
+  <div class="tech-intro-content">
+    <p>滇西古建营造技术是指中国云南西部地区（大理、丽江、保山、腾冲、德宏、怒江一带）白族、彝族、汉族等多民族在长期生产生活中形成的传统建筑营造体系。滇西地区多民族聚居、山地纵横、气候湿热，独特的自然环境孕育了这套别具一格的营造智慧。以木构为核心、榫卯为连接、穿斗抬梁混合为结构，融合中原营造技艺与山地地域特色，形成了抗震、防潮、通风、采光俱佳的建筑智慧，是国家级非物质文化遗产"剑川木雕"与"白族民居营造技艺"的核心载体。</p>
+    <p>滇西古建所蕴含的营造精髓，可从三大维度层层解读：</p>
+  </div>
+
+  <!-- 三大维度轮播图 -->
+<div class="carousel-container">
+  <button class="carousel-prev" id="dimensionPrev">❮</button>
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="dimensionTrack"></div>
+  </div>
+  <button class="carousel-next" id="dimensionNext">❯</button>
+</div>
+
+  <div class="tech-intro-content">
+    <p>整套滇西营造技艺无需依托现代建材，仅凭精准力学平衡、天然材料特性与科学空间布局，便能实现建筑稳固耐久、宜居实用，同时承载深厚民族文化寓意。其核心技艺涵盖三大板块：</p>
+  </div>
+
+  <!-- 核心技艺三大板块轮播图 -->
+ <div class="carousel-container">
+  <button class="carousel-prev" id="corePrev">❮</button>
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="coreTrack"></div>
+  </div>
+  <button class="carousel-next" id="coreNext">❯</button>
+</div>
+
+  <div class="tech-intro-content">
+    <p>作为中国西南地区极具代表性的活态古法营造技艺，滇西古建营造技术不仅凝结着多民族交融的建筑智慧与硬核匠艺，更以活态传承的方式，将器物之形、技术之巧与精神之魂代代延续，成为镌刻在滇西大地上的文化印记，也让西南地区的传统营造文脉在岁月流转中始终鲜活如初。如今，这些古老的营造智慧仍在滇西的村寨与城镇中生生不息，等待着更多人发现与传承。</p>
+  </div>
+<a href="timeline.html" class="timeline-link">
+  📜 点击了解滇西营造技术发展史 →
+</a>
+</section>
+
+<!-- 图片放大模态框 -->
+<div id="imageModal" class="image-modal">
+  <img class="modal-content" id="modalImg">
+  <div class="modal-caption" id="modalCaption"></div>
+</div>
+
+  <section class="cases-section container">
+    <h2 class="cases-title">典型案例</h2>
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="case-img" style="background-image: url('images/guxitai.jpeg')">古戏台图片</div>
+        <div class="case-content">
+          <h3>古戏台</h3>
+          <p>茶马古道上的文化地标，世界纪念性建筑遗产，白族木构建筑典范。以穿斗抬梁结合的木构体系与榫卯柔性咬合实现抗震，藻井兼具声学与结构功能，无钢筋水泥却屹立两百年，无扩音设备却戏声传整条街，是滇西古建巧思的集大成者。</p>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-img" style="background-image: url('images/xingjiaosi.jpeg')">兴教寺图片</div>
+        <div class="case-content">
+          <h3>兴教寺</h3>
+          <p>滇西北现存规模最大、保存最完整的白族"阿吒力"佛教寺院，融合汉、藏、白族多元营造风格，斗拱悬挑承重、藻井分层榫卯无钉稳固，兼顾结构承重与宗教形制，木作与夯土墙体适配滇西高原气候，代表了滇西宗教建筑的最高水平。</p>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-img" style="background-image: url('images/zhaojiadayuan.jpg')">赵家大院图片</div>
+        <div class="case-content">
+          <h3>赵家大院</h3>
+          <p>沙溪典型的白族民居代表，“四合五天井”布局搭配穿斗木构与自适应榫卯，天井统筹通风排水采光，将结构力学、地域气候适配与生活功能完美融合，是滇西民间营造智慧在民居建筑中的生动体现。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="game-section">
+  <h2 class="game-title">🏮 滇西营造师 🏮</h2>
+   <!-- 游戏介绍文字 -->
+  <div style="max-width: 1200px; margin: 0 auto 1.5rem auto; text-align: center; font-family: 'Ma Shan Zheng', cursive; color: #6B3E1C; background: #F5EDDC; padding: 1rem 1.5rem; border-radius: 20px; border-left: 5px solid #B87C4E; border-right: 5px solid #B87C4E;">
+    <p style="margin: 0; font-size: 1.4rem; line-height: 2.0;">
+      🪵 <strong>滇西古建两大经典布局</strong> 🪵<br></p>
+      <p style="margin: 0; font-size: 1.2rem; line-height: 1.6;">
+      白族先民在千百年间创造了独具智慧的民居范式——<strong>“三坊一照壁”</strong>与<strong>“四合五天井”</strong>。</p>
+      <p style="margin: 0; font-size: 1.2rem; line-height: 1.6;">
+      前者以主房、厢房和照壁围合成院，采光纳气；后者四坊围合，大小天井交织，通风聚财。</p>
+      <p style="margin: 0; font-size: 1.2rem; line-height: 1.6;">
+      下面通过🎮互动游戏🎮，亲自体验滇西匠人的营造智慧吧！
+    </p>
+  </div>
+  <!-- 选项卡按钮 -->
+  <div class="game-tabs">
+    <button class="game-tab-btn" data-game="sanfang">🏠 三坊一照壁</button>
+    <button class="game-tab-btn" data-game="sihe">🏘️ 四合五天井</button>
+  </div>
+  
+  <div class="game-card" id="gameCard">
+  <canvas id="gameCanvas" width="1000" height="600"></canvas>
+  <button id="restartBtn">重新开始游戏</button>
+</div>
+<div class="game-text-area" id="gameTextArea">
+    <p class="game-desc" id="gameDesc">🏛️ 白族民居“三坊一照壁”营造智慧</p>
+    <p class="game-benefits" id="gameBenefits">
+      🌿 布局·方正合院：采光通风，冬暖夏凉，尊卑有序，家族团圆<br>
+      💧 排水·四水归堂：雨水汇集，肥水不流外人田，寓意聚财纳福<br>
+      🧱 砌墙·错缝卵石：就地取材，抗震稳固，粗犷质朴，历久弥坚
+    </p>
+    <p class="game-verse" id="gameVerse">
+      📜 营造口诀：<br>
+      “一壁照东升，三坊护家宁；水归堂前聚，石错万年青。”
+    </p>
+  </div>
+</section>
+
+  <!-- 公共HTML片段：底部footer（所有页面通用，保留） -->
+  <footer>
+    <div class="footer-container">
+      <div class="copyright-text">
+        版权所有 © 2026 滇西古建文化探索平台 | 未经授权禁止转载
+      </div>
+      <div class="footer-links">
+        <a href="https://mp.weixin.qq.com/s/SDYkr3yrGUl-1QQ8N63DSg" target="_blank" title="剑川文旅 官方微信公众号">
+          <i class="fa-brands fa-weixin"></i> 剑川文旅
+        </a>
+        <a href="https://weibo.com/u/3558280211" target="_blank" title="微博剑川 微博号">
+          <i class="fa-brands fa-weibo"></i> 微博剑川
+        </a>
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAbJdtPXeaqoNH4SVtA1EeKm1fcoa24_SmxiqI2BQXVqPbYZbS18qPQdJDz05RMFqu?from_tab_name=main" target="_blank" title="剑川文旅 抖音号">
+          <i class="fa-brands fa-tiktok"></i> 剑川文旅
+        </a>
+        <a href="https://www.xiaohongshu.com/user/profile/6661def2000000000700737b?xsec_token=AB1r0g-m9_BeyZlLGwjZ8Pp_zMtIgcaJAVzzoZ-_D5NFE%3D&xsec_source=pc_search" target="_blank" title="剑川文旅 小红书账号">
+          <i class="fab fa-xiaohongshu"></i> <span style="font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif; font-weight:600; font-size:1rem; color:#FF2442; margin:0 1px;">小红书</span>剑川文旅
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 1. 引入外部公共JS（先引公共，再引页面独有，避免依赖问题） -->
+  <script src="js.js"></script>
+  <!-- 2. 本页面独有JS（仅保留公共JS外的页面专属交互） -->
+ <script>
+  // 页面加载完成后执行逻辑
+  document.addEventListener('DOMContentLoaded', function() {
+
+// ==================== 旋转木马轮播图功能 ====================
+function initCarousel(trackId, prevId, nextId, items) {
+  const track = document.getElementById(trackId);
+  const prevBtn = document.getElementById(prevId);
+  const nextBtn = document.getElementById(nextId);
+  
+  if (!track) {
+    console.log('未找到轮播容器:', trackId);
+    return;
+  }
+  
+  let currentIndex = 0;
+  const totalItems = items.length;
+  
+  // 清空并重新构建轮播
+  track.innerHTML = '';
+  
+  // 创建卡片元素
+  items.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'carousel-card hidden';
+    card.setAttribute('data-index', idx);
+    card.innerHTML = `
+      <div class="carousel-image">
+        <img src="${item.img}" alt="${item.title}" onerror="this.src='images/jiegou.jpg'">
+      </div>
+      <div class="carousel-card-content">
+        <h4>${item.title}</h4>
+        <p>${item.desc}</p>
+      </div>
+    `;
+    track.appendChild(card);
+  });
+  
+  const cards = track.children;
+  
+  // 更新卡片位置样式
+  function updatePositions() {
+    const centerIdx = currentIndex;
+    const leftIdx = (currentIndex - 1 + totalItems) % totalItems;
+    const rightIdx = (currentIndex + 1) % totalItems;
+    
+    for (let i = 0; i < totalItems; i++) {
+      cards[i].classList.remove('center', 'left', 'right', 'hidden');
+      
+      if (i === centerIdx) {
+        cards[i].classList.add('center');
+      } else if (i === leftIdx) {
+        cards[i].classList.add('left');
+      } else if (i === rightIdx) {
+        cards[i].classList.add('right');
+      } else {
+        cards[i].classList.add('hidden');
+      }
+    }
+  }
+  
+  // 下一张
+  function nextSlide(e) {
+    if (e) e.stopPropagation();
+    currentIndex = (currentIndex + 1) % totalItems;
+    updatePositions();
+  }
+  
+  // 上一张
+  function prevSlide(e) {
+    if (e) e.stopPropagation();
+    currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+    updatePositions();
+  }
+  
+  // 绑定按钮事件（先移除旧的）
+  const newPrev = prevBtn.cloneNode(true);
+  const newNext = nextBtn.cloneNode(true);
+  prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+  nextBtn.parentNode.replaceChild(newNext, nextBtn);
+  newPrev.addEventListener('click', prevSlide);
+  newNext.addEventListener('click', nextSlide);
+  
+  // 初始化位置
+  updatePositions();
+  console.log('轮播初始化成功:', trackId);
+}
+
+// 图片点击放大功能
+function initImageModal() {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalCaption = document.getElementById('modalCaption');
+  const closeModal = document.querySelector('.modal-close');
+  
+  if (!modal) return;
+  
+  function bindCardClick() {
+    document.querySelectorAll('.carousel-card').forEach(card => {
+      const img = card.querySelector('img');
+      const title = card.querySelector('h4');
+      if (img && !card.hasAttribute('data-modal-bound')) {
+        card.setAttribute('data-modal-bound', 'true');
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.carousel-prev') || e.target.closest('.carousel-next')) return;
+          modal.style.display = 'block';
+          modalImg.src = img.src;
+          modalCaption.innerHTML = title ? title.innerText : '滇西古建细节';
+        });
+      }
+    });
+  }
+  
+  if (closeModal) {
+    closeModal.onclick = function() { modal.style.display = 'none'; }
+  }
+  
+  modal.onclick = function(e) {
+    if (e.target === modal) modal.style.display = 'none';
+  }
+  
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.style.display === 'block') {
+      modal.style.display = 'none';
+    }
+  });
+  
+  bindCardClick();
+}
+
+// 轮播数据
+const dimensionItems = [
+  { img: 'images/qiwuceng.jpg', title: '器物层面', desc: '直观可见的建筑形制、构件样式与装饰纹样，从飞檐翘角到雕花门窗，处处体现滇西匠人的精湛技艺' },
+  { img: 'images/jishuceng.jpg', title: '技术层面', desc: '暗藏榫卯咬合逻辑、抗震构造与土木协同搭建，不用一钉一铁却能屹立数百年，展现力学平衡的精妙智慧' },
+  { img: 'images/jingshenceng.jpg', title: '精神层面', desc: '依托传统营造仪轨、师徒口传心授与匠作禁忌口诀，承载着代代相传的文化信仰与工匠精神' }
+];
+
+const coreItems = [
+  { img: 'images/jiegou.jpg', title: '结构类工艺', desc: '榫卯柔性连接、穿斗抬梁混合架构、斗拱悬挑承重，构成建筑坚实的骨骼，遇震不散、历久弥坚' },
+  { img: 'images/gongneng.jpg', title: '功能类工艺', desc: '山地适应性布局、材料防腐防火、声学采光优化，让建筑冬暖夏凉、通风防潮，宜居实用' },
+  { img: 'images/zhuangshi.jpg', title: '装饰类工艺', desc: '剑川木雕、传统彩绘技艺，浮雕透雕栩栩如生，矿物彩绘沉稳耐久，赋予建筑艺术灵魂' }
+];
+
+// 初始化轮播
+initCarousel('dimensionTrack', 'dimensionPrev', 'dimensionNext', dimensionItems);
+initCarousel('coreTrack', 'corePrev', 'coreNext', coreItems);
+initImageModal();
+
+//小游戏
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const CW = 1000, CH = 600;
+canvas.width = CW;
+canvas.height = CH;
+const restartBtn = document.getElementById("restartBtn");
+const gameCard = document.getElementById("gameCard");
+const gameTextArea = document.getElementById("gameTextArea");
+
+// 图片预加载缓存（解决卡顿问题）
+const imageCache = {};
+
+function getCachedImage(src) {
+  if (!imageCache[src]) {
+    const img = new Image();
+    img.src = src;
+    imageCache[src] = img;
+  }
+  return imageCache[src];
+}
+
+// 当前游戏类型
+let currentGame = "sanfang";
+
+// 通用游戏状态
+let isDrawing = false;
+let path = [];
+let dragging = null;
+let offsetX = 0, offsetY = 0;
+let buildings = [];
+let stones = [];
+
+// 四合五天井专用变量
+let siheItems = [];
+let siheCourtyards = [];
+let drainPoints = [];        // 排水口 { x, y, flowing, order }
+let drainOrder = 0;          // 当前应该点击第几个（0-3）
+let showTreasure = false;    // 显示聚宝盆
+let treasureAnim = 0;        // 聚宝盆动画进度
+let successModalVisible = true;  // 成功弹窗是否显示
+
+let sitaItems = [];
+
+// ==================== 三坊一照壁游戏 ====================
+function initSanfangGame() {
+  successModalVisible = true;
+  path = [];
+  isDrawing = false;
+  dragging = null;
+  restartBtn.classList.remove("show");
+  
+  // 重置天井延迟标志
+  if (buildings[4]) buildings[4].pending = false;
+  
+  // 四坊房屋先显示，天井初始不可见
+  buildings = [
+    { x: 412, y: 480, w: 160, h: 90, name: "主房", target: { x: 412, y: 90 }, correct: false, visible: true, img: 'images/zhufang1.jpg', useImage: true, showTextOnImage: false, pending: false },
+    { x: 412, y: 400, w: 160, h: 45, name: "照壁", target: { x: 412, y: 40 }, correct: false, visible: true, img: 'images/zhaobi.jpg', useImage: true, showTextOnImage: false, pending: false },
+    { x: 160, y: 460, w: 80, h: 120, name: "左坊", target: { x: 160, y: 180 }, correct: false, visible: true, img: 'images/zuofang.jpg', useImage: true, showTextOnImage: false, pending: false },
+    { x: 720, y: 460, w: 80, h: 120, name: "右坊", target: { x: 720, y: 180 }, correct: false, visible: true, img: 'images/youfang.jpg', useImage: true, showTextOnImage: false, pending: false },
+    { x: -100, y: 0, w: 60, h: 60, name: "天井", target: { x: 460, y: 210 }, correct: false, visible: false, useImage: false, pending: false },
+  ];
+  
+  // 卵石墙目标位置：两行各有一个半块
+  stones = [];
+  const wallStartX = 380;
+  const row1Y = 360;
+  const row2Y = 388;
+  const stoneH = 28;
+  const fullW = 50;
+  const halfW = 25;
+  
+  // 第一行：4块整砖 + 半块
+  let row1Targets = [];
+  let curX = wallStartX;
+  for (let i = 0; i < 4; i++) {
+    row1Targets.push({ x: curX, w: fullW });
+    curX += fullW;
+  }
+  row1Targets.push({ x: curX, w: halfW });
+  
+  // 计算卵石墙总长度
+  const lastStone = row1Targets[row1Targets.length - 1];
+  const wallEndX = lastStone.x + lastStone.w;  // 340 + 4*50 + 25 = 565
+  
+  // 第二行：半块在最左边
+  let row2Targets = [];
+  row2Targets.push({ x: wallStartX, w: halfW });
+  curX = wallStartX + halfW;
+  for (let i = 0; i < 4; i++) {
+    row2Targets.push({ x: curX, w: fullW });
+    curX += fullW;
+  }
+  
+  // 创建 stones 数组（目标位置）
+  stones = [];
+  row1Targets.forEach(t => {
+    stones.push({
+      x: t.x, y: row1Y, w: t.w, h: stoneH,
+      target: { x: t.x, y: row1Y },
+      correct: false
+    });
+  });
+  row2Targets.forEach(t => {
+    stones.push({
+      x: t.x, y: row2Y, w: t.w, h: stoneH,
+      target: { x: t.x, y: row2Y },
+      correct: false
+    });
+  });
+  
+// 散落卵石初始位置（底部待拖拽区）
+const startBottomY = 520, startX = 380;
+let currentX = startX, currentRow = 0, itemsInRow = 0;
+stones.forEach((s, idx) => {
+  // 保存原始底部位置（用于回弹）
+  s.originalBottomX = currentX;
+  s.originalBottomY = startBottomY + currentRow * 32;
+  
+  s.x = currentX;
+  s.y = startBottomY + currentRow * 32;
+  s.correct = false;
+  currentX += s.w;
+  itemsInRow++;
+  if (itemsInRow >= Math.ceil(stones.length / 2) && currentRow === 0) {
+    currentRow = 1;
+    currentX = startX;
+    itemsInRow = 0;
+  }
+});
+}
+
+function checkSanfangComplete() {
+  // 更新所有可见建筑的正确状态
+  buildings.forEach(b => {
+    if (b.visible) {
+      b.correct = Math.abs(b.x - b.target.x) < 15 && Math.abs(b.y - b.target.y) < 15;
+    }
+  });
+  const layoutOK = buildings.every(b => !b.visible || b.correct);
+  const startPoint = path[0];
+  const isStartNearMainRoom = startPoint && startPoint.x >= 350 && startPoint.x <= 550 && startPoint.y >= 100 && startPoint.y <= 300;
+  const endPoint = path[path.length - 1];
+  const isEndInWaterPool = endPoint && endPoint.x >= 410 && endPoint.x <= 560 && endPoint.y >= 430 && endPoint.y <= 490;
+  const waterOK = path.length > 6 && isStartNearMainRoom && isEndInWaterPool;
+  stones.forEach(s => { s.correct = Math.abs(s.x - s.target.x) < 12 && Math.abs(s.y - s.target.y) < 12; });
+  const stoneOK = stones.every(s => s.correct);
+  return { layoutOK, waterOK, stoneOK, allWin: layoutOK && waterOK && stoneOK };
+}
+
+function drawSanfangGame() {
+  const { layoutOK, waterOK, stoneOK, allWin } = checkSanfangComplete();
+  
+  // 检查四坊房屋是否全部正确（主房、照壁、左坊、右坊）
+  const fourHouses = buildings.slice(0, 4);
+  const allHousesCorrect = fourHouses.every(b => b.correct === true);
+  
+  // 天井是否已正确放置（用于控制雨水收集池显示）
+  const tianjingCorrect = buildings[4].visible && buildings[4].correct;
+  
+  // 天井延迟显示：房屋全部正确后延迟500ms显示天井
+  if (allHousesCorrect && buildings[4].visible === false && !buildings[4].pending) {
+    buildings[4].pending = true;
+    setTimeout(() => {
+      if (allHousesCorrect && buildings[4].visible === false) {
+        buildings[4].visible = true;
+        buildings[4].x = (CW - buildings[4].w) / 2;
+        buildings[4].y = 530;
+        buildings[4].correct = false;
+      }
+      buildings[4].pending = false;
+    }, 500);
+  }
+  // 如果房屋不是全部正确，天井应该消失（重置visible状态）
+  else if (!allHousesCorrect && buildings[4].visible === true) {
+    buildings[4].visible = false;
+    buildings[4].correct = false;
+    buildings[4].x = -100;
+    buildings[4].y = -100;
+    buildings[4].pending = false;
+  }
+  
+  // 绘制目标框和名称
+  ctx.save();
+  ctx.strokeStyle = "#A88B6F";
+  ctx.lineWidth = 2;
+  ctx.setLineDash([6, 8]);
+  buildings.forEach(b => {
+    if (b.visible) {
+      ctx.strokeRect(b.target.x, b.target.y, b.w, b.h);
+      ctx.fillStyle = "#8B6B42";
+      ctx.font = "bold 18px 'Ma Shan Zheng'";
+      ctx.textAlign = "center";
+      ctx.fillText(b.name, b.target.x + b.w/2, b.target.y + b.h/2 + 6);
+    }
+  });
+  ctx.setLineDash([]);
+  
+// 卵石墙框（长度与卵石目标位置一致）
+if (layoutOK && waterOK && !allWin) {
+  ctx.strokeStyle = "#B88A5C";
+  ctx.strokeRect(380, 360, 225, 56);  // 4块整砖50*4=200 + 半块25 = 225
+  ctx.fillStyle = "#DCCAA8";
+  ctx.globalAlpha = 0.2;
+  ctx.fillRect(380, 360, 225, 56);
+  ctx.globalAlpha = 1;
+}
+  ctx.setLineDash([]);
+  
+  // 雨水收集池 - 改为天井正确放置后才显示（不再提前闪烁）
+  if (tianjingCorrect) {
+    ctx.globalAlpha = 0.35;
+    ctx.fillStyle = "#8BB5D0";
+    ctx.fillRect(410, 430, 160, 60);
+    ctx.globalAlpha = 0.7;
+    ctx.strokeStyle = "#4682B4";
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 6]);
+    ctx.strokeRect(410, 430, 160, 60);
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#2F5F8C";
+    ctx.font = "20px 'Ma Shan Zheng'";
+    ctx.fillText("雨水收集池", 490, 466);
+    ctx.globalAlpha = 1;
+  }
+  
+  // 排水线
+  if (path.length > 1) {
+    ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#4B7A9C";
+    ctx.lineCap = "round";
+    path.forEach((pt, i) => i === 0 ? ctx.moveTo(pt.x, pt.y) : ctx.lineTo(pt.x, pt.y));
+    ctx.stroke();
+    ctx.fillStyle = "#3F6B8C";
+    for(let i=5; i<path.length; i+=12) {
+      ctx.beginPath();
+      ctx.arc(path[i].x, path[i].y, 2, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+  
+  // 绘制建筑（可拖拽的图片/色块）- 使用缓存的图片避免卡顿
+  buildings.forEach(b => {
+    if (b.visible) {
+      if (b.useImage && b.img) {
+        const img = getCachedImage(b.img);
+        if (img.complete && img.naturalWidth > 0) {
+          ctx.drawImage(img, b.x, b.y, b.w, b.h);
+        } else {
+          ctx.fillStyle = b.correct ? "#6B8F5E" : "#C2926B";
+          ctx.fillRect(b.x, b.y, b.w, b.h);
+        }
+      } else {
+        ctx.fillStyle = b.correct ? "#6B8F5E" : "#C2926B";
+        ctx.fillRect(b.x, b.y, b.w, b.h);
+      }
+      ctx.strokeStyle = "#5A3E2A";
+      ctx.strokeRect(b.x, b.y, b.w, b.h);
+    }
+  });
+  
+// 单独为天井添加文字（因为天井没有图片，需要显示名称）
+const tianjing = buildings[4];
+if (tianjing.visible) {
+  ctx.fillStyle = "#FFF6E5";
+  ctx.font = "bold 16px 'Ma Shan Zheng'";
+  ctx.textAlign = "center";
+  ctx.fillText(tianjing.name, tianjing.x + tianjing.w/2, tianjing.y + tianjing.h/2 + 5);
+}
+  
+  // 卵石
+  if (layoutOK && waterOK) {
+    stones.forEach(s => {
+      ctx.fillStyle = s.correct ? "#7F9A6B" : "#A08967";
+      ctx.fillRect(s.x, s.y, s.w, s.h);
+      ctx.strokeStyle = "#6F5639";
+      ctx.strokeRect(s.x, s.y, s.w, s.h);
+      ctx.fillStyle = "#DDBB88";
+      ctx.beginPath();
+      ctx.ellipse(s.x + s.w * 0.3, s.y + s.h * 0.5, 4, 3, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(s.x + s.w * 0.7, s.y + s.h * 0.5, 4, 3, 0, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+  return allWin;
+}
+
+// ==================== 四合五天井游戏 ====================
+function initSiheGame() {
+  successModalVisible = true;
+  path = [];
+  isDrawing = false;
+  dragging = null;
+  drainOrder = 0;
+  showTreasure = false;
+  treasureAnim = 0;
+  restartBtn.classList.remove("show");
+  
+  // 四坊房屋先显示，天井初始不可见
+siheItems = [
+  { x: 330, y: 490, w: 160, h: 95, name: "主房", target: { x: 410, y: 70 }, correct: false, visible: true, img: 'images/zhufang2.jpg', useImage: true, startX: 330, startY: 490 },
+  { x: 170, y: 465, w: 85, h: 115, name: "左厢", target: { x: 180, y: 190 }, correct: false, visible: true, img: 'images/zuoxiang.jpg', useImage: true, startX: 170, startY: 480 },
+  { x: 745, y: 465, w: 85, h: 115, name: "右厢", target: { x: 720, y: 190 }, correct: false, visible: true, img: 'images/youxiang.jpg', useImage: true, startX: 745, startY: 480 },
+  { x: 510, y: 495, w: 160, h: 85, name: "倒座", target: { x: 410, y: 370 }, correct: false, visible: true, img: 'images/daozuo.jpg', useImage: true, startX: 480, startY: 495 },
+];
+  
+  // 天井初始不可见
+  siheCourtyards = [
+    { x: -100, y: -100, w: 60, h: 60, name: "大天井", target: { x: 460, y: 230 }, correct: false, visible: false },
+    { x: -100, y: -100, w: 40, h: 40, name: "小天井", target: { x: 320, y: 150 }, correct: false, visible: false },
+    { x: -100, y: -100, w: 40, h: 40, name: "小天井", target: { x: 630, y: 150 }, correct: false, visible: false },
+    { x: -100, y: -100, w: 40, h: 40, name: "小天井", target: { x: 320, y: 320 }, correct: false, visible: false },
+    { x: -100, y: -100, w: 40, h: 40, name: "小天井", target: { x: 630, y: 320 }, correct: false, visible: false },
+  ];
+  
+  // 排水口（初始不可见）
+  drainPoints = [
+    { x: 323, y: 150, w: 35, h: 35, flowing: false, order: 0, name: "西北", visible: false },
+    { x: 631, y: 150, w: 35, h: 35, flowing: false, order: 1, name: "东北", visible: false },
+    { x: 631, y: 322, w: 35, h: 35, flowing: false, order: 2, name: "东南", visible: false },
+    { x: 324, y: 322, w: 35, h: 35, flowing: false, order: 3, name: "西南", visible: false },
+  ];
+  canvas.style.cursor = "grab";
+}
+
+function checkSiheComplete() {
+  const housesOK = siheItems.every(b => b.correct);
+  const courtyardsOK = siheCourtyards.filter(c => c.visible).every(c => c.correct);
+  const drainOK = drainOrder === 4;
+  const allWin = housesOK && courtyardsOK && drainOK;
+  return { housesOK, courtyardsOK, drainOK, allWin };
+}
+
+function drawWaterFlowFromDrain(drain) {
+  const fromX = drain.x + drain.w/2;
+  const fromY = drain.y + drain.h/2;
+  const toX = 490;
+  const toY = 250;
+  
+  const distance = Math.hypot(toX - fromX, toY - fromY);
+  const time = Date.now() * 0.002;
+  
+  ctx.beginPath();
+  for (let t = 0; t <= 1; t += 0.03) {
+    const x = fromX + (toX - fromX) * t;
+    const y = fromY + (toY - fromY) * t;
+    const perp = Math.sin(t * Math.PI * 1.5 + time) * 10;
+    const perpX = -(toY - fromY) / distance * perp;
+    const perpY = (toX - fromX) / distance * perp;
+    
+    if (t === 0) ctx.moveTo(x + perpX, y + perpY);
+    else ctx.lineTo(x + perpX, y + perpY);
+  }
+  ctx.strokeStyle = "rgba(72, 162, 200, 0.5)";
+  ctx.lineWidth = 14;
+  ctx.lineCap = "round";
+  ctx.stroke();
+  
+  ctx.beginPath();
+  for (let t = 0; t <= 1; t += 0.03) {
+    const x = fromX + (toX - fromX) * t;
+    const y = fromY + (toY - fromY) * t;
+    const perp = Math.sin(t * Math.PI * 1.5 + time) * 6;
+    const perpX = -(toY - fromY) / distance * perp;
+    const perpY = (toX - fromX) / distance * perp;
+    
+    if (t === 0) ctx.moveTo(x + perpX, y + perpY);
+    else ctx.lineTo(x + perpX, y + perpY);
+  }
+  ctx.strokeStyle = "rgba(140, 210, 240, 0.7)";
+  ctx.lineWidth = 6;
+  ctx.stroke();
+  
+  for (let i = 0; i < 6; i++) {
+    const offset = (time * 0.3 + i * 0.2) % 1;
+    const currentX = fromX + (toX - fromX) * offset;
+    const currentY = fromY + (toY - fromY) * offset;
+    const perpX = -(toY - fromY) / distance * Math.sin(offset * Math.PI * 2) * 8;
+    const perpY = (toX - fromX) / distance * Math.sin(offset * Math.PI * 2) * 8;
+    
+    ctx.beginPath();
+    ctx.arc(currentX + perpX, currentY + perpY, 3, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(180, 230, 255, 0.8)";
+    ctx.fill();
+  }
+  
+  const ripple = (Date.now() * 0.002) % 1;
+  ctx.beginPath();
+  ctx.arc(fromX, fromY, 8 + ripple * 6, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(72, 162, 200, 0.3)";
+  ctx.fill();
+}
+
+//聚宝盆
+function drawTreasure() {
+  const centerX = 490, centerY = 260;
+  const scale = 1 + Math.sin(treasureAnim) * 0.08;
+  
+  ctx.save();
+  ctx.translate(centerX, centerY);
+  ctx.scale(scale, scale);
+  ctx.translate(-centerX, -centerY);
+  
+  ctx.fillStyle = "#D4A843";
+  ctx.beginPath();
+  ctx.ellipse(centerX, centerY, 28, 20, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#C8922A";
+  ctx.beginPath();
+  ctx.ellipse(centerX, centerY - 4, 22, 14, 0, 0, Math.PI * 2);
+  ctx.fill();
+  
+  ctx.fillStyle = "#FFD700";
+  ctx.font = "24px 'Segoe UI'";
+  ctx.fillText("💰", centerX - 10, centerY + 2);
+  
+  ctx.restore();
+}
+
+function drawSiheGame() {
+  const { housesOK, courtyardsOK, drainOK, allWin } = checkSiheComplete();
+  
+// 检查房屋是否全部正确
+const allHousesCorrect = siheItems.every(b => b.correct === true);
+
+// 如果房屋全部正确且天井还没显示，就把天井显示在底部待拖拽区
+if (allHousesCorrect && !siheCourtyards[0].visible && !window.courtyardsPending) {
+    window.courtyardsPending = true;
+    setTimeout(() => {
+      if (allHousesCorrect && !siheCourtyards[0].visible) {
+        const startBottomY = 530;
+        const totalWidth = siheCourtyards.length * 75;
+        const startX = (CW - totalWidth) / 2;
+        siheCourtyards.forEach((c, idx) => {
+          c.visible = true;
+          c.x = startX + idx * 75;
+          c.y = startBottomY;
+          c.correct = false;
+        });
+        window.courtyardsPending = false;
+      }
+    }, 500);
+  }
+// 如果房屋不是全部正确，天井应该消失（重置visible状态）
+else if (!allHousesCorrect && siheCourtyards[0].visible) {
+  siheCourtyards.forEach(c => {
+    c.visible = false;
+    c.correct = false;
+    c.x = -100;
+    c.y = -100;
+  });
+  window.courtyardsPending = false;
+}
+  
+  // 检查天井是否全部正确
+  const allCourtyardsCorrect = siheCourtyards.filter(c => c.visible).length > 0 && 
+                               siheCourtyards.filter(c => c.visible).every(c => c.correct);
+  
+  // 如果天井全部正确且排水口还没显示，就显示排水口
+   if (allCourtyardsCorrect && !drainPoints[0].visible && housesOK && !window.drainPending) {
+    window.drainPending = true;
+    setTimeout(() => {
+      if (allCourtyardsCorrect && !drainPoints[0].visible && housesOK) {
+        drainPoints.forEach(p => { p.visible = true; });
+        window.drainPending = false;
+      }
+    }, 500);
+  }
+  
+// 绘制目标框和名称
+ctx.save();
+ctx.strokeStyle = "#A88B6F";
+ctx.lineWidth = 2;
+ctx.setLineDash([6, 8]);
+siheItems.forEach(b => {
+  if (b.visible) {
+    ctx.strokeRect(b.target.x, b.target.y, b.w, b.h);
+    // 在虚线框内绘制建筑名称
+    ctx.fillStyle = "#8B6B42";
+    ctx.font = "bold 18px 'Ma Shan Zheng'";
+    ctx.textAlign = "center";
+    ctx.fillText(b.name, b.target.x + b.w/2, b.target.y + b.h/2 + 6);
+  }
+});
+siheCourtyards.filter(c => c.visible).forEach(c => {
+  ctx.strokeRect(c.target.x, c.target.y, c.w, c.h);
+  ctx.fillStyle = "#8B6B42";
+  ctx.font = "15px 'Ma Shan Zheng'";
+  ctx.textAlign = "center";
+  ctx.fillText(c.name, c.target.x + c.w/2, c.target.y + c.h/2 + 5);
+});
+ctx.setLineDash([]);
+  
+// 绘制可拖拽元素（房屋用图片，天井用色块）- 使用缓存的图片避免卡顿
+siheItems.forEach(item => {
+  if (item.useImage && item.img) {
+    const img = getCachedImage(item.img);
+    if (img.complete && img.naturalWidth > 0) {
+      ctx.drawImage(img, item.x, item.y, item.w, item.h);
+    } else {
+      ctx.fillStyle = item.correct ? "#6B8F5E" : "#C2926B";
+      ctx.fillRect(item.x, item.y, item.w, item.h);
+    }
+  } else {
+    ctx.fillStyle = item.correct ? "#6B8F5E" : "#C2926B";
+    ctx.fillRect(item.x, item.y, item.w, item.h);
+  }
+  ctx.strokeStyle = "#5A3E2A";
+  ctx.strokeRect(item.x, item.y, item.w, item.h);
+});
+
+// 天井使用色块
+siheCourtyards.filter(c => c.visible).forEach(item => {
+  ctx.fillStyle = item.correct ? "#6B8F5E" : "#C2926B";
+  ctx.fillRect(item.x, item.y, item.w, item.h);
+  ctx.strokeStyle = "#5A3E2A";
+  ctx.strokeRect(item.x, item.y, item.w, item.h);
+  ctx.fillStyle = "#FFF6E5";
+  ctx.font = "bold 13px 'Ma Shan Zheng'";
+  ctx.textAlign = "center";
+  ctx.fillText(item.name, item.x + item.w/2, item.y + item.h/2 + 4);
+});
+  
+  // 第二阶段：天井完成后显示排水口和流水效果
+  if (allCourtyardsCorrect && housesOK) {
+    drainPoints.forEach(point => {
+      if (point.visible) {
+        if (point.flowing) {
+          ctx.fillStyle = "#6B8F5E";
+          ctx.fillRect(point.x, point.y, point.w, point.h);
+          ctx.fillStyle = "#FFF6E5";
+          ctx.font = "16px 'Segoe UI'";
+          ctx.fillText("💧", point.x + 10, point.y + 25);
+          drawWaterFlowFromDrain(point);
+        } else {
+          ctx.fillStyle = "#D4A843";
+          ctx.fillRect(point.x, point.y, point.w, point.h);
+          ctx.strokeStyle = "#8B6B42";
+          ctx.strokeRect(point.x, point.y, point.w, point.h);
+          ctx.fillStyle = "#5A3A1A";
+          ctx.font = "14px 'Ma Shan Zheng'";
+          ctx.fillText("排水口", point.x + 5, point.y + 22);
+        }
+      }
+    });
+    
+    if (showTreasure) {
+      treasureAnim += 0.05;
+      drawTreasure();
+    }
+    
+    if (drainOrder < 4) {
+      const nextPoint = drainPoints.find(p => p.visible && !p.flowing);
+      if (nextPoint) {
+        ctx.fillStyle = "#B87C4E";
+        ctx.font = "bold 14px 'Ma Shan Zheng'";
+        ctx.fillText(`👉 请点击 ${nextPoint.name} 排水口`, 400, 550);
+      }
+    }
+    
+    if (drainOrder === 4 && !showTreasure) {
+      showTreasure = true;
+    }
+  }
+  
+  return allWin;
+}
+
+// ==================== 通用函数 ====================
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  let clientX, clientY;
+  
+  // 判断是触摸事件还是鼠标事件
+  if (e.touches) {
+    clientX = e.touches[0].clientX;
+    clientY = e.touches[0].clientY;
+  } else {
+    clientX = e.clientX;
+    clientY = e.clientY;
+  }
+  
+  // 计算画布实际显示尺寸与逻辑尺寸的比例
+  const scaleX = CW / rect.width;
+  const scaleY = CH / rect.height;
+  
+  let x = (clientX - rect.left) * scaleX;
+  let y = (clientY - rect.top) * scaleY;
+  
+  // 边界限制，防止超出画布
+  x = Math.min(Math.max(x, 0), CW);
+  y = Math.min(Math.max(y, 0), CH);
+  
+  return { x, y };
+}
+
+function findDraggable(px, py) {
+  let items = [];
+  if (currentGame === "sanfang") {
+    const { layoutOK, waterOK } = checkSanfangComplete();
+    items = [...buildings.filter(b => b.visible)];
+    if (layoutOK && waterOK) items.push(...stones);
+  } else if (currentGame === "sihe") {
+    items = [...siheItems, ...siheCourtyards.filter(c => c.visible)];
+  }
+  for (let i = items.length-1; i >= 0; i--) {
+    const obj = items[i];
+    if (px >= obj.x && px <= obj.x+obj.w && py >= obj.y && py <= obj.y+obj.h) return obj;
+  }
+  return null;
+}
+
+function onPointerDown(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  
+  const sanfangWin = (currentGame === "sanfang" && checkSanfangComplete().allWin);
+  const siheWin = (currentGame === "sihe" && checkSiheComplete().allWin);
+  if ((sanfangWin || siheWin) && successModalVisible) {
+    successModalVisible = false;
+    restartBtn.classList.add("show");
+    return;
+  }
+  
+  const p = getPos(e);
+  
+  // 四合五天井第三阶段：点击排水口（按顺序激活流水）
+  if (currentGame === "sihe") {
+    const { housesOK, courtyardsOK, drainOK } = checkSiheComplete();
+    if (housesOK && courtyardsOK && !drainOK) {
+      for (let i = 0; i < drainPoints.length; i++) {
+        const point = drainPoints[i];
+        if (point.visible && !point.flowing && point.order === drainOrder && 
+            p.x >= point.x && p.x <= point.x + point.w && 
+            p.y >= point.y && p.y <= point.y + point.h) {
+          point.flowing = true;
+          drainOrder++;
+          return;
+        }
+      }
+    }
+  }
+  
+  const draggable = findDraggable(p.x, p.y);
+  if (draggable) {
+    dragging = draggable;
+    offsetX = p.x - dragging.x;
+    offsetY = p.y - dragging.y;
+    isDrawing = false;
+    return;
+  }
+  
+// 三坊一照壁画线
+if (currentGame === "sanfang") {
+  const { waterOK } = checkSanfangComplete();
+  const tianjingCorrect = buildings[4].visible && buildings[4].correct;
+  
+  // 只有在天井正确放置后、排水未完成时才能画线
+  if (tianjingCorrect && !waterOK) {
+    isDrawing = true;
+    path = [{ x: p.x, y: p.y }];
+    dragging = null;
+    canvas.style.cursor = "url('data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%23333\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"%3E%3Cpath d=\"M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z\"/%3E%3C/svg%3E') 0 20, crosshair";
+    return;
+  }
+}
+  dragging = null;
+  isDrawing = false;
+}
+
+function onPointerMove(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  const p = getPos(e);
+  // 布局完成后、排水未完成时，鼠标显示为画笔样式
+  if (currentGame === "sanfang") {
+  const { waterOK } = checkSanfangComplete();
+  const tianjingCorrect = buildings[4].visible && buildings[4].correct;
+  
+  // 只有天井正确放置后、排水未完成时，才显示画笔样式
+  if (tianjingCorrect && !waterOK) {
+    canvas.style.cursor = "url('data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"%23333\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"%3E%3Cpath d=\"M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z\"/%3E%3C/svg%3E') 0 20, crosshair";
+  } else {
+    canvas.style.cursor = "grab";
+  }
+}
+  if (isDrawing && !dragging) {
+    path.push({ x: p.x, y: p.y });
+    if (path.length > 200) path = path.slice(-150);
+  }
+  if (dragging) {
+    dragging.x = p.x - offsetX;
+    dragging.y = p.y - offsetY;
+    dragging.x = Math.min(Math.max(dragging.x, 5), CW - dragging.w - 5);
+    dragging.y = Math.min(Math.max(dragging.y, 5), CH - dragging.h - 5);
+    
+    if (currentGame === "sanfang") {
+      if (buildings.includes(dragging)) {
+        dragging.correct = Math.abs(dragging.x - dragging.target.x) < 25 && Math.abs(dragging.y - dragging.target.y) < 25;
+      }
+      if (stones.includes(dragging)) {
+        dragging.correct = Math.abs(dragging.x - dragging.target.x) < 12 && Math.abs(dragging.y - dragging.target.y) < 12;
+      }
+    } else if (currentGame === "sihe") {
+      if (siheItems.includes(dragging) || siheCourtyards.includes(dragging)) {
+        dragging.correct = Math.abs(dragging.x - dragging.target.x) < 25 && Math.abs(dragging.y - dragging.target.y) < 25;
+      }
+    }
+  }
+}
+
+function onPointerUp(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  
+  if (isDrawing) {
+    if (currentGame === "sanfang") {
+      if (path.length < 4) path = [];
+    }
+    isDrawing = false;
+  }
+  
+  // 拖拽结束后的吸附/回弹处理
+  if (dragging && currentGame === "sanfang") {
+    // 检查是否是建筑（有 target 属性）
+    if (buildings.includes(dragging)) {
+      // 计算与目标位置的距离
+      const dx = Math.abs(dragging.x - dragging.target.x);
+      const dy = Math.abs(dragging.y - dragging.target.y);
+      
+      // 如果距离小于30px，自动吸附到目标位置（精确）
+      if (dx < 15 && dy < 15) {
+        dragging.x = dragging.target.x;
+        dragging.y = dragging.target.y;
+        dragging.correct = true;
+      } else {
+        // 否则回到初始位置（底部待拖拽区）
+        // 根据建筑类型设置不同的初始位置
+        const index = buildings.indexOf(dragging);
+        if (index === 0) { // 主房
+          dragging.x = 412;
+          dragging.y = 480;
+        } else if (index === 1) { // 照壁
+          dragging.x = 412;
+          dragging.y = 400;
+        } else if (index === 2) { // 左坊
+          dragging.x = 160;
+          dragging.y = 460;
+        } else if (index === 3) { // 右坊
+          dragging.x = 720;
+          dragging.y = 460;
+        } else if (index === 4 && dragging.visible) { // 天井
+          dragging.x = (CW - dragging.w) / 2;
+          dragging.y = 530;
+        }
+        dragging.correct = false;
+      }
+    }
+    
+// 卵石的回弹处理（修改版：只让当前拖拽的卵石回到自己的原位）
+if (stones.includes(dragging)) {
+  const dx = Math.abs(dragging.x - dragging.target.x);
+  const dy = Math.abs(dragging.y - dragging.target.y);
+  
+  if (dx < 12 && dy < 12) {
+    // 吸附成功
+    dragging.x = dragging.target.x;
+    dragging.y = dragging.target.y;
+    dragging.correct = true;
+  } else {
+    // 放错位置：只让当前卵石回到它自己的原始底部位置
+    // 其他卵石位置完全不动
+    dragging.x = dragging.originalBottomX;
+    dragging.y = dragging.originalBottomY;
+    dragging.correct = false;
+  }
+}
+  }
+  
+// 四合五天井的吸附处理
+if (dragging && currentGame === "sihe") {
+  if (siheItems.includes(dragging) || siheCourtyards.includes(dragging)) {
+    const dx = Math.abs(dragging.x - dragging.target.x);
+    const dy = Math.abs(dragging.y - dragging.target.y);
+    
+    if (dx < 15 && dy < 15) {
+      dragging.x = dragging.target.x;
+      dragging.y = dragging.target.y;
+      dragging.correct = true;
+    } else {
+      // 回到初始位置（与 initSiheGame 中的位置一致）
+      if (siheItems.includes(dragging)) {
+        // 根据建筑类型设置初始位置
+        const name = dragging.name;
+        if (name === "主房") {
+          dragging.x = 330;
+          dragging.y = 490;
+        } else if (name === "左厢") {
+          dragging.x = 170;
+          dragging.y = 465;
+        } else if (name === "右厢") {
+          dragging.x = 745;
+          dragging.y = 465;
+        } else if (name === "倒座") {
+          dragging.x = 510;
+          dragging.y = 495;
+        }
+      } else {
+        // 天井回到底部待拖拽区
+        const idx = siheCourtyards.indexOf(dragging);
+        const startBottomY = 530;
+        const totalWidth = siheCourtyards.length * 75;
+        const startX = (CW - totalWidth) / 2;
+        dragging.x = startX + idx * 75;
+        dragging.y = startBottomY;
+      }
+      dragging.correct = false;
+    }
+  }
+}
+  
+  dragging = null;
+  canvas.style.cursor = "grab";
+}
+
+function drawCompass() {
+  const cx = CW - 42, cy = 48;
+  ctx.beginPath();
+  ctx.arc(cx, cy, 16, 0, Math.PI * 2);
+  ctx.fillStyle = "#F7EDD8";
+  ctx.fill();
+  ctx.strokeStyle = "#B48C5C";
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cx, cy, 11, 0, Math.PI * 2);
+  ctx.fillStyle = "#EAD7B0";
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - 9);
+  ctx.lineTo(cx + 3, cy - 3);
+  ctx.lineTo(cx, cy);
+  ctx.lineTo(cx - 3, cy - 3);
+  ctx.fillStyle = "#C55A3A";
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(cx, cy, 2.5, 0, 2 * Math.PI);
+  ctx.fillStyle = "#C68B59";
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(cx, cy, 1.2, 0, 2 * Math.PI);
+  ctx.fillStyle = "#FFE4B5";
+  ctx.fill();
+  ctx.font = "14px 'Segoe UI'";
+  ctx.fillStyle = "#7A4C2C";
+  ctx.textAlign = "center";
+  ctx.fillText("北", cx, cy - 22);
+  ctx.fillText("南", cx, cy + 32);
+  ctx.fillText("西", cx - 27, cy + 5);
+  ctx.fillText("东", cx + 26, cy + 5);
+}
+
+// 修改 drawHint 函数中的四合五天井部分
+function drawHint() {
+  let hintText = "";
+  if (currentGame === "sanfang") {
+    const { layoutOK, waterOK, stoneOK } = checkSanfangComplete();
+    const tianjingCorrect = buildings[4].visible && buildings[4].correct;
+    
+    // 第一阶段：布局（天井未出现或未正确）
+    if (!tianjingCorrect) {
+      hintText = "💡【第一阶段：布局】拖拽建筑至棕色虚线框内";
+    }
+    // 第二阶段：排水（天井正确放置后，排水未完成）
+    else if (tianjingCorrect && !waterOK) {
+      hintText = "💡【第二阶段：排水】从主房画线引水到雨水收集池";
+    }
+    // 第三阶段：砌墙（排水完成后，卵石未完成）
+    else if (waterOK && !stoneOK) {
+      hintText = "💡【第三阶段：砌墙】拖拽卵石到墙基框内，错缝拼接";
+    }
+    else if (stoneOK) {
+      hintText = "🎉 恭喜！完美复原三坊一照壁！🎉";
+    }
+    else {
+      hintText = "【第一阶段：布局】拖拽建筑至棕色虚线框内";
+    }
+  } else if (currentGame === "sihe") {
+    const { housesOK, courtyardsOK, drainOK } = checkSiheComplete();
+    
+    // 检查天井是否已出现（用于判断阶段）
+    const courtyardsVisible = siheCourtyards[0].visible;
+    const allCourtyardsCorrect = courtyardsVisible && siheCourtyards.filter(c => c.visible).every(c => c.correct);
+    const drainPointsVisible = drainPoints[0].visible;
+    
+    // 第一阶段：四坊围合（天井未出现）
+    if (!courtyardsVisible) {
+      hintText = "💡【第一阶段：四坊围合】拖拽四坊房屋到正确位置";
+    }
+    // 第二阶段：五井布局（天井已出现但未全部正确放置，或排水口未出现）
+    else if (courtyardsVisible && !allCourtyardsCorrect) {
+      hintText = "💡【第二阶段：五井布局】拖拽天井到正确位置";
+    }
+    // 第三阶段：四水归堂（天井全部正确，排水口已出现但未完成）
+    else if (allCourtyardsCorrect && drainPointsVisible && !drainOK) {
+      hintText = "💡【第三阶段：四水归堂】按顺时针顺序点击四个排水口";
+    }
+    else if (drainOK) {
+      hintText = "🎉 恭喜！完美复原四合五天井！🎉";
+    }
+    else {
+      hintText = "【第一阶段：四坊围合】拖拽四坊房屋到正确位置";
+    }
+  }
+  
+  // 绘制提示框（代码保持不变）
+  const boxWidth = 350;
+  ctx.font = "500 24px 'Ma Shan Zheng', 'Segoe UI'";
+  const textWidth = ctx.measureText(hintText).width;
+  
+  let lines = [hintText];
+  if (textWidth > boxWidth - 40) {
+    lines = [];
+    let currentLine = "";
+    for (let char of hintText) {
+      let testLine = currentLine + char;
+      if (ctx.measureText(testLine).width > boxWidth - 40 && currentLine.length > 0) {
+        lines.push(currentLine);
+        currentLine = char;
+      } else {
+        currentLine = testLine;
+      }
+    }
+    if (currentLine) lines.push(currentLine);
+  }
+  
+  const lineHeight = 32;
+  const boxHeight = 8 + lines.length * lineHeight + 8;
+  const finalWidth = Math.min(boxWidth, 330);
+  
+  ctx.shadowBlur = 4;
+  ctx.shadowColor = "rgba(0,0,0,0.15)";
+  ctx.fillStyle = "#8B5A2B";
+  ctx.fillRect(8, 8, finalWidth, boxHeight);
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = "#FDF5E6";
+  ctx.fillRect(8, 8, finalWidth, boxHeight);
+  ctx.fillStyle = "#5A3A1A";
+  ctx.font = "500 21px 'Ma Shan Zheng', 'Segoe UI'";
+  ctx.textAlign = "center";
+  
+  lines.forEach((line, idx) => {
+    ctx.fillText(line, 8 + finalWidth / 2, 34 + idx * lineHeight);
+  });
+  
+  ctx.textAlign = "left";
+  ctx.fillStyle = "#C17B52";
+  ctx.fillRect(8, 10, 5, boxHeight - 4);
+}
+
+function updateTextArea() {
+  const descEl = document.getElementById("gameDesc");
+  const benefitsEl = document.getElementById("gameBenefits");
+  const verseEl = document.getElementById("gameVerse");
+  if (currentGame === "sanfang") {
+    descEl.innerHTML = "🏛️ 白族民居“三坊一照壁”营造智慧";
+    benefitsEl.innerHTML = "🌿 布局·方正合院：采光通风，冬暖夏凉，尊卑有序，家族团圆<br>💧 排水·四水归堂：雨水汇集，肥水不流外人田，寓意聚财纳福<br>🧱 砌墙·错缝卵石：就地取材，抗震稳固，粗犷质朴，历久弥坚";
+    verseEl.innerHTML = "📜 营造口诀：<br>“一壁照东升，三坊护家宁；水归堂前聚，石错万年青。”";
+  } else if (currentGame === "sihe") {
+    descEl.innerHTML = "🏘️ 白族民居“四合五天井”高级布局";
+    benefitsEl.innerHTML = "🏠 四坊围合：主房、厢房、倒座围成四合院<br>🪵 五井布局：一大天井+四小天井，通风采光<br>💧 四水归堂：点击四角排水口，雨水持续流入天井，寓意聚财";
+    verseEl.innerHTML = "📜 营造口诀：<br>“四方合院聚人气，五井藏风水归堂；四角排水财不漏，长幼有序居其所。”";
+  }
+}
+
+function switchGame(gameType) {
+  currentGame = gameType;
+  path = [];
+  isDrawing = false;
+  dragging = null;
+  restartBtn.classList.remove("show");
+  if (gameType === "sanfang") initSanfangGame();
+  else if (gameType === "sihe") initSiheGame();
+  updateTextArea();
+  
+  gameCard.classList.add("visible");
+  gameTextArea.classList.add("visible");
+  
+  // 滚动到选项卡按钮，并留出 20px 顶部空白
+  const tabsElement = document.querySelector('.game-tabs');
+  if (tabsElement) {
+    const rect = tabsElement.getBoundingClientRect();
+    const offsetTop = rect.top + window.pageYOffset - 15; // 向上偏移15px，留出空白
+    
+    window.scrollTo({
+      top: offsetTop,
+      behavior: 'smooth'
+    });
+  }
+  
+  canvas.style.cursor = "grab";
+}
+
+function draw() {
+  ctx.clearRect(0, 0, CW, CH);
+  ctx.fillStyle = "#EFE3C9";
+  ctx.fillRect(0, 0, CW, CH);
+  for(let i=0;i<80;i++) {
+    ctx.fillStyle = "#E3D3B3";
+    ctx.fillRect((i*41)%CW, (i*17)%CH, 2, 1);
+  }
+  
+  let allWin = false;
+  if (currentGame === "sanfang") allWin = drawSanfangGame();
+  else if (currentGame === "sihe") allWin = drawSiheGame();
+  
+  drawCompass();
+  drawHint();
+  
+  if (allWin && successModalVisible) {
+    ctx.fillStyle = "rgba(55,65,45,0.88)";
+    ctx.fillRect(180,180,640,170);
+    ctx.fillStyle = "#E9C891";
+    ctx.font = "34px 'Ma Shan Zheng', cursive";
+    ctx.textAlign = "center";
+    ctx.fillText("🎉 营造成功 🎉",500,250);
+    ctx.font = "18px 'Segoe UI'";
+    ctx.fillStyle = "#F7EBD4";
+    if (currentGame === "sanfang") ctx.fillText("布局合规 | 排水通畅 | 卵石错缝墙基稳固",500,310);
+    else if (currentGame === "sihe") ctx.fillText("四坊归位 | 五天井正确 | 四水归堂",500,310);
+    restartBtn.classList.add("show");
+  } else if (allWin && !successModalVisible) {
+    restartBtn.classList.add("show");
+  } else {
+    restartBtn.classList.remove("show");
+  }
+  
+  requestAnimationFrame(draw);
+}
+
+// 鼠标事件
+canvas.addEventListener("mousedown", onPointerDown);
+window.addEventListener("mousemove", onPointerMove);
+window.addEventListener("mouseup", onPointerUp);
+
+// 触摸事件（必须使用 { passive: false } 才能调用 preventDefault）
+canvas.addEventListener("touchstart", onPointerDown, { passive: false });
+canvas.addEventListener("touchmove", onPointerMove, { passive: false });
+canvas.addEventListener("touchend", onPointerUp);
+canvas.addEventListener("touchcancel", onPointerUp);
+
+document.querySelectorAll(".game-tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".game-tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    switchGame(btn.dataset.game);
+  });
+});
+
+restartBtn.addEventListener("click", () => {
+  if (currentGame === "sanfang") initSanfangGame();
+  else if (currentGame === "sihe") initSiheGame();
+});
+
+initSanfangGame();
+draw();
+});
+  </script>
+  </body>
+</html>

@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>滇西古建的巧思 - 古建探秘</title>
+  <link rel="stylesheet" href="CSS.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <!-- 使用最新稳定版Three.js -->
+  <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <!-- 添加DRACOLoader支持 -->
+  <script src="https://unpkg.com/three@0.128.0/examples/js/libs/draco/gltf/draco_decoder.js"></script>
+  <!-- 添加WebXR支持 -->
+  <script src="https://unpkg.com/three@0.128.0/examples/js/webxr/XRButton.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/webxr/XRHandControls.js"></script>
+  <!-- 只加这一行，别的Three.js脚本保持不变 -->
+<script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/meshoptimizer@0.21.0/meshopt_decoder.js"></script>
+  <!-- 引入公共JS（包含登录注册功能）-->
+  <script src="js.js"></script>
+  <style>
+    /* 保持原有样式不变 */
+    :root {
+      --line-color: #D2B48C;
+      --ar-color: #E67E22;
+	  --slate: #5A6470; /* 青石板灰 */
+      --cinnabar: #CD5C5C; /* 朱砂红 */
+      --blacktile: #2C3531; /* 青瓦黛色 */
+	  --card-bg: #ffffff; 
+
+    }
+    
+    .top-banner {
+      background-color: var(--card-bg);
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .top-banner .cloud {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.65;
+      background: url('images/xiangyun.png') no-repeat center;
+      background-size: 100% 100%;
+      animation: cloudFloat linear infinite;
+    }
+    .cloud1 {
+      width: 120px;
+      height: 100px;
+      top: 10%;
+      left: 5%;
+      animation-duration: 42s;
+    }
+    .cloud2 {
+      width: 90px;
+      height: 75px;
+      top: 19%;
+      right: 5%;
+      animation-duration: 36s;
+    }
+    .cloud3 {
+      width: 70px;
+      height: 60px;
+      top: 18%;
+      left: 41%;
+      animation-duration: 48s;
+    }
+    .top-banner .build1 {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.7;
+      top: 0;
+      bottom: 0;
+      right: 4%;
+      width: 30%;
+      height: 100%;
+      background: url('images/jianying.png') no-repeat right bottom;
+      background-size: contain; 
+      pointer-events: none;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    }
+    .top-banner .build2 {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.6;
+      top: 0;
+      bottom: 0;
+      left: 5%;
+      width: 20%;
+      height: 100%;
+      background: url('images/ta.png') no-repeat left bottom;
+      background-size: contain; 
+      pointer-events: none;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    }
+    .top-banner {
+      min-height: 250px;
+      height: 30vh;
+    }
+    @keyframes cloudFloat {
+      0% { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(30px) translateY(-10px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+    .top-banner .cloud {
+      animation: cloudFloat 20s ease-in-out infinite;
+    }
+    .banner-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      padding: 1rem;
+      max-width: 800px;
+      width: 100%;
+    }
+    .banner-content h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--text-accent);
+      margin-bottom: 0.5rem;
+    }
+    .banner-content p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-main);
+      margin: 0;
+    }      
+    
+    /* 3D模型区 */
+    .model-section {
+      padding: 1rem 0;
+    }
+
+	/* 3D模型区整体容器 */
+	.model-section {
+
+	  padding: 1rem 0;
+	}
+	
+	/* 模型标题样式（和AR标题字体一致） */
+	.model-section-title {
+	  text-align: center;
+	  font-size: clamp(1.5rem, 3vw, 2.2rem);
+	  color: var(--text-accent);
+	  font-family: 'Ma Shan Zheng', cursive; 
+	  margin-bottom: 1rem;
+	  position: relative;
+	  display: inline-block;
+	  width: 100%;
+	}
+	.model-section-title::after {
+	  content: '';
+	  position: absolute;
+	  bottom: -5px;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  width: 80px;
+	  height: 2px;
+	  background-color: var(--ar-color);
+	}
+	
+	/* 模型容器 - 修复左右边框宽度一致 */
+	.model-container {
+	  position: relative;
+	  background-color: var(--card-bg);
+	  border-radius: 0.2rem;
+	  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+	  padding: 2rem;
+	  min-height: 800px;
+	  background-size: cover;
+	  background-position: center;
+	  overflow: hidden;
+	  border: 1px solid var(--border-light);
+	  width: calc(100% - 2rem); /* 确保左右边框宽度一致 */
+	  margin: 0 auto; /* 居中 */
+	}
+	
+	/* 模型操作提示（横着居中） */
+	.model-operate-tip {
+	  position: absolute;
+	  top: 0.6rem;
+	  left: 50%;
+	  transform: translateX(-50%);
+	  font-size: 1.2rem;
+	  color: var(--text-main);
+	  opacity: 0.7;
+	  z-index: 25;
+	  letter-spacing: 1px;
+	  pointer-events: none;
+	  white-space: nowrap;
+	}
+	
+	/* 模型视图 - 左侧边框收窄 + 布局适配 */
+	.model-view {
+	  position: relative;
+	  width: 100%; 
+	  height: 750px;
+	  background-color: #f9f6f0;
+	  border-radius: 0.2rem;
+	  overflow: hidden;
+	  cursor: grab;
+	  margin: 0 auto; /* 居中 */
+	}
+	
+	/* 视角切换按钮 - 调整位置避免遮挡提示 */
+	.view-controls {
+	  position: absolute;
+	  top: 2.8rem; 
+	  right: 2.5rem;
+	  display: flex;
+	  gap: 0.5rem;
+	  z-index: 30;
+	}
+    .view-btn {
+      padding: 0.5rem 1rem;
+      background-color: rgba(255,255,255,0.9);
+      border: 1px solid var(--border-light);
+      border-radius: 0.2rem;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    .view-btn:hover {
+      background-color: var(--line-color);
+      border-color: var(--line-color);
+      color: white;
+    }
+  
+  .detail-modal-header h2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+/* ========== AR功能区样式（新版） ========== */
+.ar-section {
+  padding: 3rem 0;
+  margin: 2rem 0 1rem 0;
+  background-color: var(--card-bg);
+  border-radius: 0.2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  position: relative;  /* 添加，确保 margin 不被吞掉 */
+}
+
+.ar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.ar-title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: var(--text-accent);
+  font-family: 'Ma Shan Zheng', cursive;
+  margin-bottom: 1rem;
+  margin-top: 1.2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.ar-section::after {
+  content: '';
+  display: block;
+  height: 1rem;
+  width: 100%;
+}
+
+.ar-desc {
+  font-size: 1.1rem;
+  color: var(--text-main);
+  opacity: 0.8;
+  max-width: 1000px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+/* 横向大卡片 */
+.ar-card-horizontal {
+  max-width: 1000px;
+  width: auto;           /* 添加：宽度自适应 */
+  margin: 0 auto;
+  background: linear-gradient(145deg, #FFFFFF, #FEF8F0);
+  border-radius: 48px;
+  overflow: hidden;
+  box-shadow: 0 30px 50px rgba(0,0,0,0.12);
+  display: flex;
+  flex-wrap: wrap;
+  transition: all 0.4s ease;
+}
+
+/* 排除 AR 卡片 */
+.ar-card-horizontal,
+.ar-card-horizontal * {
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+.ar-card-horizontal:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 40px 60px rgba(0,0,0,0.15);
+}
+
+/* 左侧二维码区域 */
+.ar-qr-area {
+  flex: 1.2;
+  min-width: 280px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FDF5E6, #FFF8F0);
+}
+
+/* 脉动光环容器 */
+.ar-pulse-container {
+  position: relative;
+  display: inline-block;
+}
+
+.ar-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(184,124,78,0.08);
+  animation: pulse 2.5s infinite;
+}
+
+.ar-pulse-ring2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(184,124,78,0.05);
+  animation: pulse 2.5s infinite 0.4s;
+}
+
+.ar-qr-wrapper {
+  background: white;
+  padding: 0.8rem;
+  border-radius: 28px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.ar-qr-img {
+  width: 260px;
+  height: 260px;
+  display: block;
+  border-radius: 16px;
+}
+
+.ar-qr-title {
+  font-family: 'Ma Shan Zheng', cursive;
+  color: #B87C4E;
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* 右侧步骤区域 */
+.ar-steps-area {
+  flex: 1;
+  min-width: 260px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ar-steps-header {
+  margin-bottom: 1.5rem;
+}
+
+.ar-steps-title {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 1.4rem;
+  color: #5a3e2a;
+  border-left: 4px solid #B87C4E;
+  padding-left: 1rem;
+}
+
+.ar-steps-line {
+  height: 2px;
+  width: 60px;
+  background: linear-gradient(90deg, #B87C4E, transparent);
+  margin-top: 0.5rem;
+}
+
+/* 步骤列表 */
+.ar-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+/* 单个步骤项 */
+.ar-step-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.ar-step-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #B87C4E, #D4A373);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.ar-step-text {
+  flex: 1;
+  text-align: left;
+}
+
+.ar-step-title {
+  font-weight: bold;
+  color: #5a3e2a;
+}
+
+.ar-step-desc {
+  font-size: 0.85rem;
+  color: #8B6B42;
+}
+
+/* 呼吸动画 */
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.6;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .ar-qr-img {
+    width: 180px;
+    height: 180px;
+  }
+  .ar-pulse-ring {
+    width: 200px;
+    height: 200px;
+  }
+  .ar-pulse-ring2 {
+    width: 180px;
+    height: 180px;
+  }
+  .ar-step-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  .ar-steps-area {
+    padding: 1.5rem;
+  }
+}
+    
+    /* 构件详情弹窗 */
+    .detail-modal-content {
+      background-color: var(--card-bg);
+      border-radius: 0.2rem;
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+    .detail-modal-header {
+      text-align: center;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.7rem;
+    }
+    .detail-modal-header h2 {
+      font-size: 2rem;
+      color: var(--text-accent);
+	  margin-bottom: 0.2rem;
+	  font-family: "Ma Shan Zheng", cursive;
+    }
+    .detail-modal-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .detail-modal-body {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .modal-img {
+      width: 100%;
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 0.2rem;
+    }
+    .modal-text {
+      line-height: 1.5;
+    }
+    .modal-text h4 {
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .modal-text p {
+      opacity: 0.9;
+    }
+	
+	/* 分隔线 */
+.modal-divider {
+  width: 100px;
+  height: 2px;
+  background-color: var(--ar-color);
+  margin: 0.2rem auto;
+}
+
+/* 副标题样式 - 使用主标题颜色 */
+.modal-subtitle {
+  font-size: 1rem;
+  color: var(--text-accent);
+  font-family: "Ma Shan Zheng", cursive;
+  letter-spacing: 2px;
+  margin-top: 0.3rem;
+  font-weight: normal;
+  opacity: 0.85;
+}
+
+/* 手机端 */
+@media (max-width: 768px) {
+  .modal-subtitle {
+    font-size: 0.75rem;
+  }
+  
+  .detail-modal-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .modal-divider {
+    width: 50px;
+  }
+}
+
+    /* 调试面板 */
+    .debug-panel {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 12px;
+      font-family: monospace;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .success { color: green; }
+    .error { color: red; }
+    .warning { color: orange; }
+	
+/* ========== 白板触屏优化 ========== */
+
+/* 1. 增大所有可点击区域（触屏友好） */
+button,
+a,
+.nav-circle-btn,
+.view-btn,
+.auth-btn,
+.logout-btn,
+.modal-close,
+.ar-step-item,
+.back-home-btn,
+.dot {
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 2. 排除 AR 卡片和 3D 模型区域，防止被拉宽 */
+.ar-card-horizontal,
+.ar-card-horizontal *,
+.model-container,
+.model-container *,
+.model-view,
+.model-view * {
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+/* 3. 禁用长按菜单和文本选择（避免触屏干扰） */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 4. 允许输入框选择文本（保留输入功能） */
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* 5. 触屏按下反馈效果 */
+button:active,
+a:active,
+.nav-circle-btn:active,
+.view-btn:active,
+.auth-btn:active,
+.logout-btn:active,
+.modal-close:active,
+.ar-step-item:active {
+  opacity: 0.6;
+  transform: scale(0.96);
+  transition: all 0.05s ease;
+}
+
+/* 6. 滚动条优化（触屏滑动更流畅） */
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 7. 3D模型画布触屏优化 */
+.model-view {
+  touch-action: none;
+  cursor: grab;
+}
+
+.model-view:active {
+  cursor: grabbing;
+}
+
+/* 8. 轮播图/卡片触屏优化 */
+.ar-card-horizontal,
+.carousel-container {
+  touch-action: pan-y pinch-zoom;
+}
+
+/* 9. 按钮悬停效果仅限非触屏设备（避免触屏闪烁） */
+@media (hover: hover) {
+  button:hover,
+  a:hover,
+  .nav-circle-btn:hover,
+  .view-btn:hover,
+  .auth-btn:hover,
+  .logout-btn:hover,
+  .ar-step-item:hover {
+    opacity: 0.8;
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- 公共组件 -->
+  <div class="right-nav-buttons">
+    <a href="index.html" class="nav-circle-btn">
+      <i class="fa-solid fa-house-chimney nav-icon"></i>
+      <span class="nav-text">首页<br>总览</span>
+    </a>
+    <a href="page2.html" class="nav-circle-btn">
+      <i class="fas fa-puzzle-piece nav-icon"></i>
+      <span class="nav-text">巧思<br>解码</span>
+    </a>
+    <a href="page3.html" class="nav-circle-btn">
+      <i class="fas fa-lightbulb nav-icon"></i>
+      <span class="nav-text">生活<br>智慧</span>
+    </a>
+    <a href="page4.html" class="nav-circle-btn">
+      <i class="fas fa-hands-helping nav-icon"></i>
+      <span class="nav-text">匠心<br>传承</span>
+    </a>
+  </div>
+  
+  <!-- 公共组件：登录注册（与原页面完全一致） -->
+  <div class="auth-section">
+    <button class="auth-btn" id="login-btn">登录</button>
+    <button class="auth-btn" id="register-btn">注册</button>
+    <div class="user-info" id="user-info">
+      <span class="username-display" id="username-display"></span>
+      <button class="logout-btn" id="logout-btn">退出登录</button>
+    </div>
+  </div>
+  <div class="auth-modal" id="login-modal">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" id="login-close">&times;</span>
+      <form class="auth-form" id="login-form">
+        <h3>用户登录</h3>
+        <input type="text" placeholder="用户名/手机号" id="login-account" required>
+        <input type="password" placeholder="密码" id="login-pwd" required>
+        <button type="submit">登录</button>
+        <p id="to-register">没有账号？去注册</p>
+      </form>
+    </div>
+  </div>
+  <div class="auth-modal" id="register-modal">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" id="register-close">&times;</span>
+      <form class="auth-form" id="register-form">
+        <h3>用户注册</h3>
+        <input type="text" placeholder="用户名" id="register-username" required>
+        <input type="tel" placeholder="手机号" id="register-phone" required>
+        <input type="password" placeholder="密码" id="register-pwd" required>
+        <button type="submit">注册</button>
+        <p id="to-login">已有账号？去登录</p>
+        <div class="tip-text" id="register-tip">提示文本</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 页面主体：顶部Banner -->
+  <section class="top-banner">
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="build1"></div>
+    <div class="build2"></div>
+    <div class="banner-content">
+      <h1 class="font-guofeng">古建探秘·指尖解锁百年营造</h1>
+      <p>古戏台1:1 3D模型沉浸式体验 | AR实景呈现</p>
+    </div>
+  </section>
+
+<!-- 页面主体：3D模型区 -->
+<section class="model-section container">
+  <!-- 标题移到容器外，和AR标题样式一致 -->
+  <h2 class="model-section-title">古戏台3D模型展示区</h2>
+  
+  <div class="model-container">
+    <!-- 视角切换按钮 -->
+    <div class="view-controls">
+      <button class="view-btn">正面</button>
+      <button class="view-btn">侧面</button>
+      <button class="view-btn">俯视</button>
+      <button class="view-btn">仰视</button>
+    </div>
+    
+    <!-- 3D模型视图 -->
+    <div class="model-view" id="model-view">
+      <!-- 操作提示：横着居中放在模型区顶部 -->
+      <div class="model-operate-tip">鼠标拖拽旋转 | 滚轮缩放</div>
+      
+      <!-- 加载占位符 -->
+      <div class="model-placeholder" id="model-placeholder">
+        <p>古戏台3D模型加载中...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== AR功能区 ========== -->
+<section class="ar-section">
+  <div class="ar-container">
+    <h2 class="ar-title">📱 AR实景探秘</h2>
+    <p class="ar-desc">
+      ✨手机扫描二维码，在Chrome或Safari浏览器中打开，即可在真实环境中查看古戏台1:1比例3D模型
+    </p>
+
+    <!-- 横向大卡片 -->
+    <div class="ar-card-horizontal">
+      
+      <!-- 左侧：二维码区域 -->
+      <div class="ar-qr-area">
+        <div class="ar-pulse-container">
+          <div class="ar-pulse-ring"></div>
+          <div class="ar-pulse-ring2"></div>
+          <div class="ar-qr-wrapper">
+            <img src="images/AR.jpg" alt="AR体验二维码" class="ar-qr-img">
+          </div>
+        </div>
+        <div class="ar-qr-title">
+          <i class="fas fa-qrcode"></i> 扫码体验AR
+        </div>
+      </div>
+      
+      <!-- 右侧：步骤区域 -->
+      <div class="ar-steps-area">
+        <div class="ar-steps-header">
+          <div class="ar-steps-title">
+            <i class="fas fa-compass"></i> 操作指南
+          </div>
+          <div class="ar-steps-line"></div>
+        </div>
+        
+        <div class="ar-steps-list">
+          <!-- 步骤1 -->
+          <div class="ar-step-item">
+            <div class="ar-step-icon">
+              <i class="fas fa-qrcode"></i>
+            </div>
+            <div class="ar-step-text">
+              <div class="ar-step-title">第一步</div>
+              <div class="ar-step-desc">扫描上方二维码</div>
+            </div>
+          </div>
+          
+          <!-- 步骤2 -->
+          <div class="ar-step-item">
+            <div class="ar-step-icon">
+              <i class="fas fa-globe"></i>
+            </div>
+            <div class="ar-step-text">
+              <div class="ar-step-title">第二步</div>
+              <div class="ar-step-desc">打开Chrome或Safari浏览器</div>
+            </div>
+          </div>
+          
+          <!-- 步骤3 -->
+          <div class="ar-step-item">
+            <div class="ar-step-icon">
+              <i class="fas fa-camera"></i>
+            </div>
+            <div class="ar-step-text">
+              <div class="ar-step-title">第三步</div>
+              <div class="ar-step-desc">将摄像头对准平面</div>
+            </div>
+          </div>
+          
+          <!-- 步骤4 -->
+          <div class="ar-step-item">
+            <div class="ar-step-icon">
+              <i class="fas fa-cube"></i>
+            </div>
+            <div class="ar-step-text">
+              <div class="ar-step-title">第四步</div>
+              <div class="ar-step-desc">古戏台3D模型浮现眼前</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 留白区域 -->
+<div style="height: 3rem;"></div>
+
+  <!-- 构件详情弹窗 -->
+  <div class="modal detail-modal" id="detail-modal">
+    <div class="modal-content detail-modal-content">
+      <span class="modal-close" id="modal-close"><i class="fa-solid fa-xmark"></i></span>
+      <div class="detail-modal-header">
+  <h2 class="font-guofeng" id="modal-title">构件名称</h2>
+  <div class="modal-divider"></div>
+  <div class="modal-subtitle" id="modal-subtitle"></div>
+</div>
+      <div class="detail-modal-body">
+        <div class="modal-img" id="modal-img"></div>
+        <div class="modal-text" id="modal-text">
+          <h4>核心特点</h4>
+          <p>构件核心特点描述</p>
+          <h4 style="margin-top: 1rem;">同源关联</h4>
+          <p>与兴教寺、赵家大院的同源设计说明</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部版权 -->
+  <footer>
+    <div class="footer-container">
+      <div class="copyright-text">
+        版权所有 © 2026 滇西古建文化探索平台 | 未经授权禁止转载
+      </div>
+      <div class="footer-links">
+        <a href="https://mp.weixin.qq.com/s/SDYkr3yrGUl-1QQ8N63DSg" target="_blank" title="剑川文旅 官方微信公众号">
+          <i class="fa-brands fa-weixin"></i> 剑川文旅
+        </a>
+        <a href="https://weibo.com/u/3558280211" target="_blank" title="微博剑川 微博号">
+          <i class="fa-brands fa-weibo"></i> 微博剑川
+        </a>
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAbJdtPXeaqoNH4SVtA1EeKm1fcoa24_SmxiqI2BQXVqPbYZbS18qPQdJDz05RMFqu?from_tab_name=main" target="_blank" title="剑川文旅 抖音号">
+          <i class="fa-brands fa-tiktok"></i> 剑川文旅
+        </a>
+        <a href="https://www.xiaohongshu.com/user/profile/6661def2000000000700737b?xsec_token=AB1r0g-m9_BeyZlLGwjZ8Pp_zMtIgcaJAVzzoZ-_D5NFE%3D&xsec_source=pc_search" target="_blank" title="剑川文旅 小红书账号">
+          <i class="fab fa-xiaohongshu"></i> <span style="font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif; font-weight:600; font-size:1rem; color:#FF2442; margin:0 1px;">小红书</span>剑川文旅
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+// ===== 3D模型加载 =====
+
+// 定义简单的调试函数（避免undefined错误）
+function updateDebug(message, type) {
+  console.log(message);
+}
+
+// 检查是否通过服务器访问
+function isServerAccess() {
+  return window.location.protocol === 'http:' || window.location.protocol === 'https:';
+}
+
+// 交互控制 - 结合OrbitControls，解决拖拽旋转、滚轮缩放、视角切换失效
+let controls;
+function initControls(camera, renderer, model) {
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  // 拖拽旋转配置（丝滑无抖动）
+  controls.enableRotate = true; // 允许拖拽旋转
+  controls.rotateSpeed = 0.5; // 旋转速度适中
+  controls.enableDamping = true; // 阻尼效果，拖拽结束后缓慢停止
+  controls.dampingFactor = 0.05; // 阻尼系数，越小平滑度越高
+  
+  // 滚轮缩放配置（无限制，适配模型大小）
+  controls.enableZoom = true; // 允许滚轮缩放
+  controls.zoomSpeed = 1.2; // 缩放速度适中
+  controls.minDistance = 2; // 最小缩放距离（防止缩太小）
+  controls.maxDistance = 20; // 最大缩放距离（防止缩太大）
+  
+  // 视角切换配置（绑定视角按钮，解决切换无效）
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (!model) return;
+      // 固定视角参数，切换无卡顿，与模型适配
+      switch(this.textContent) {
+        case '正面':
+          camera.position.set(0, 0.8, 10);
+          controls.target.set(0, 0.2, 0); // 对准模型中心
+          break;
+        case '侧面':
+          camera.position.set(-9, 1.2, 0.5);
+          controls.target.set(0, 0.1, 0);
+          break;
+        case '俯视':
+          camera.position.set(0, 10, 1.2);
+          controls.target.set(0, 1.5, 0);
+          break;
+        case '仰视':
+          camera.position.set(0, -5, 7.2);
+          controls.target.set(0, 0.1, 0);
+          break;
+      }
+      controls.update(); // 强制更新视角，解决切换无反应
+	  camera.updateMatrixWorld();
+    });
+  });
+}
+
+// 在 initModel 函数之前添加这个
+const componentData = {
+  feiyan: {
+    title: '飞檐',
+	subtitle: '建筑的“灵动裙摆”',
+    img: 'images/feiyan.jpeg',
+    text: `
+      <h4>核心特点</h4>
+      <p>古戏台飞檐采用白族传统“上翘式”设计，曲线优美，既符合美学要求，又能快速排走雨水，避免木构受潮。檐角悬挂风铃，风吹作响，成为四方街独特的听觉符号。</p>
+      <h4 style="margin-top: 1rem;">同源关联</h4>
+      <p>兴教寺大殿飞檐弧度更缓，侧重庄重；赵家大院民居飞檐小巧，适配生活场景，但均采用同款“上翘排水”设计逻辑。</p>
+    `
+  },
+  dougong: {
+    title: '斗拱',
+	subtitle: '建筑的“缓冲器”',
+    img: 'images/dougong.jpeg',
+    text: `
+      <h4>核心特点</h4>
+      <p>古戏台斗拱共36组，起到“承重+抗震”双重作用，将屋顶重量均匀传递到立柱，同时在地震时起到缓冲效果。</p>
+      <h4 style="margin-top: 1rem;">同源关联</h4>
+      <p>兴教寺斗拱数量更多（48组），造型更繁复；赵家大院简化为简易斗拱结构，核心力学原理一致。</p>
+    `
+  },
+  sunmao: {
+    title: '榫卯',
+	subtitle: '木构的“无缝接头”',
+    img: 'images/sunmao.jpeg',
+    text: `
+      <h4>核心特点</h4>
+      <p>古戏台采用剑川木雕经典榫卯工艺，72种榫卯结构相互咬合，无需一根钉子，却能抵御百年风雨，抗震性能优异。</p>
+      <h4 style="margin-top: 1rem;">同源关联</h4>
+      <p>兴教寺的大佛殿、赵家大院的堂屋主梁，均由剑川工匠采用同款榫卯工艺打造，是滇西木构建筑的共同密码。</p>
+    `
+  },
+  liangzhu: {
+    title: '梁柱',
+	subtitle: '建筑的“骨骼”',
+    img: 'images/liangzhu.jpeg',
+    text: `
+      <h4>核心特点</h4>
+      <p>古戏台主梁采用百年楠木，立柱为红椿木，材质坚硬耐腐蚀，梁架采用“减柱造”设计，扩大表演空间。</p>
+      <h4 style="margin-top: 1rem;">同源关联</h4>
+      <p>兴教寺采用更大规格的楠木梁柱，赵家大院采用本地松木，材质适配功能需求，梁架布局均遵循“稳固+空间”平衡原则。</p>
+    `
+  },
+  caihui: {
+    title: '彩绘',
+	subtitle: '木上的“中国画”',
+    img: 'images/caihui.jpeg',
+    text: `
+      <h4>核心特点</h4>
+      <p>古戏台彩绘以矿物颜料绘制，题材涵盖茶马古道风光、白族民间故事，色彩经久不褪，是鲜活的文化载体。</p>
+      <h4 style="margin-top: 1rem;">同源关联</h4>
+      <p>兴教寺彩绘以佛教题材为主，赵家大院彩绘以花鸟瑞兽为主，颜料配方和绘制工艺均传承自同一批白族工匠。</p>
+    `
+  },
+  taiji: {
+    title: '台基',
+	subtitle: '建筑的“稳固底座”',
+    img: 'images/taiji.jpeg',
+    text: `
+      <h4>核心特点</h4>
+      <p>古戏台台基高1.2米，采用青石板铺设，下设排水暗沟，既抬高建筑避免水淹，又形成天然表演舞台，符合观演需求。</p>
+      <h4 style="margin-top: 1rem;">同源关联</h4>
+      <p>兴教寺台基更高（1.8米），体现宗教等级；赵家大院台基低矮（0.3米），适配日常起居，均遵循“防潮+功能”双重设计。</p>
+    `
+  },
+  zaojing: {
+    title: '藻井',
+	subtitle: '声学的“天然扩音器”',
+    img: 'images/zaojing.jpeg',
+    text: `
+      <h4>核心特点</h4>
+      <p>古戏台藻井共19层，呈螺旋状向上收分，形成天然聚音效果，戏声无需扩音即可传遍四方街，是古代声学智慧的体现。</p>
+      <h4 style="margin-top: 1rem;">同源关联</h4>
+      <p>兴教寺藻井层数更多（24层），侧重宗教仪式的声学效果；赵家大院无藻井，但天井设计借鉴了类似的声学/采光逻辑。</p>
+    `
+  },
+  menchuang: {
+    title: '门窗',
+	subtitle: '光影的“雕刻师”',
+    img: 'images/menchuang.jpeg',
+    text: `
+      <h4>核心特点</h4>
+      <p>古戏台门窗采用镂空雕花设计，既保证通风采光，又起到装饰作用，雕花图案与茶马古道商贸文化相关。</p>
+      <h4 style="margin-top: 1rem;">同源关联</h4>
+      <p>兴教寺门窗雕花以宗教符号为主，赵家大院门窗雕花以生活场景为主，镂空结构和尺寸比例均适配滇西气候特点。</p>
+    `
+  }
+};
+// DOM 元素引用
+const detailModal = document.getElementById('detail-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalImg = document.getElementById('modal-img');
+const modalText = document.getElementById('modal-text');
+const modalClose = document.getElementById('modal-close');
+const modalSubtitle = document.getElementById('modal-subtitle');
+
+// 初始化3D模型
+function initModel() {
+  const modelView = document.getElementById('model-view');
+  const placeholder = document.getElementById('model-placeholder');
+  
+  if (!modelView || !placeholder) return;
+
+  // 获取容器尺寸
+  const width = modelView.clientWidth;
+  const height = modelView.clientHeight;
+  
+  // 创建场景
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xf8f5f0);
+  
+  // 创建相机
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+  camera.position.set(4.0, 1.2, 8.5);
+  camera.lookAt(0, 1.5, 0);
+  
+  // 创建渲染器
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setClearColor(0xf8f5f0);
+  renderer.shadowMap.enabled = true;
+  
+  // 清空并添加canvas
+  const existingCanvas = modelView.querySelector('canvas');
+  if (existingCanvas) existingCanvas.remove();
+  
+  modelView.appendChild(renderer.domElement);
+  
+  // 添加光源
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambientLight);
+  
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+  directionalLight.position.set(5, 10, 7);
+  directionalLight.castShadow = true;
+  scene.add(directionalLight);
+  
+  // 添加网格地面
+const gridHelper = new THREE.GridHelper(10, 10, 0x888888, 0xcccccc);
+gridHelper.position.y = -2.4;
+scene.add(gridHelper);
+  
+  // 检查是否通过服务器访问
+  if (!isServerAccess()) {
+    placeholder.innerHTML = '<p>⚠️ 请通过本地服务器访问</p><p style="color:#E67E22;font-size:0.9rem;">双击「启动.cmd」</p>';
+    return;
+  }
+  
+  // 加载模型 - 使用相对路径
+  const loader = new THREE.GLTFLoader();
+  // 添加 MeshoptDecoder 支持
+if (typeof MeshoptDecoder !== 'undefined') {
+    loader.setMeshoptDecoder(MeshoptDecoder);
+    console.log('MeshoptDecoder 已加载');
+}
+  const modelUrl = 'images/Hitem3d-1s.glb';
+  
+  placeholder.innerHTML = '<p>正在加载3D模型...</p>';
+  
+  // 先检查文件是否存在
+  fetch(modelUrl, { method: 'HEAD' })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('文件不存在');
+      }
+      // 文件存在，开始加载模型
+      loader.load(
+        modelUrl,
+        function(gltf) {
+          const model = gltf.scene;
+          
+          // 计算包围盒并调整位置
+          model.scale.set(5.6, 5.6, 5.6);
+		  scene.add(model); 
+		  model.position.set(0, 0.3, 0);
+          
+          // 隐藏占位符
+          placeholder.style.display = 'none';
+          
+          // 保存模型引用
+          window.gltfModel = model;
+
+// ========== 添加热点标注（支持鼠标 + 触屏） ==========
+// 热点数据 - 坐标需要根据实际模型位置调整
+const hotspots = [
+  { id: 'feiyan', name: '飞檐', pos: { x: 2.2, y: 2.3, z: 0.6 }, color: 0xE67E22, icon: '🏯' },
+  { id: 'dougong', name: '斗拱', pos: { x: 1.7, y: 0.5, z: 2.7 }, color: 0xB87C4E, icon: '⛩️' },
+  { id: 'sunmao', name: '榫卯', pos: { x: 1.5, y: 0.4, z: 2.8 }, color: 0xCD5C5C, icon: '🔩' },
+  { id: 'liangzhu', name: '梁柱', pos: { x: -1.6, y: -0.8, z: 3.0 }, color: 0x8B5A2B, icon: '🪵' },
+  { id: 'caihui', name: '彩绘', pos: { x: -0.2, y: -0.1, z: 3.0 }, color: 0xD4A843, icon: '🎨' },
+  { id: 'taiji', name: '台基', pos: { x: 0, y: -2.5, z: 1.4 }, color: 0x8B6B42, icon: '🪨' },
+  { id: 'zaojing', name: '藻井', pos: { x: 0, y: 0.1, z: 1.7 }, color: 0x2C3531, icon: '🔘' },
+  { id: 'menchuang', name: '门窗', pos: { x: -1.9, y: -1.0, z: 0.2 }, color: 0x6B8F5E, icon: '🚪' }
+];
+
+// 存储热点物体
+const hotspotSprites = [];
+
+// 创建热点标注（圆形图标）
+hotspots.forEach(hotspot => {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 96;
+  canvas.height = 96;
+  
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // 外圈光晕
+  ctx.beginPath();
+  ctx.arc(48, 48, 38, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(${(hotspot.color >> 16 & 255)}, ${(hotspot.color >> 8 & 255)}, ${(hotspot.color & 255)}, 0.35)`;
+  ctx.fill();
+  
+  // 内圈实心
+  ctx.beginPath();
+  ctx.arc(48, 48, 30, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(${(hotspot.color >> 16 & 255)}, ${(hotspot.color >> 8 & 255)}, ${(hotspot.color & 255)}, 0.9)`;
+  ctx.fill();
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+  
+  // 图标
+  ctx.font = '42px "Segoe UI Emoji"';
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(hotspot.icon, 48, 48);
+  
+  const texture = new THREE.CanvasTexture(canvas);
+  const material = new THREE.SpriteMaterial({ map: texture, depthTest: false });
+  const sprite = new THREE.Sprite(material);
+  sprite.scale.set(0.45, 0.45, 0.45);
+  sprite.position.set(hotspot.pos.x, hotspot.pos.y, hotspot.pos.z);
+  sprite.userData = {
+    id: hotspot.id,
+    name: hotspot.name,
+    componentData: componentData[hotspot.id]
+  };
+  
+  scene.add(sprite);
+  hotspotSprites.push(sprite);
+  
+  // 浮动动画参数
+  sprite.userData.originalY = hotspot.pos.y;
+  sprite.userData.floatSpeed = 0.6 + Math.random() * 0.4;
+  sprite.userData.floatPhase = Math.random() * Math.PI * 2;
+  
+  // 连接线
+  const lineMaterial = new THREE.LineBasicMaterial({ color: hotspot.color });
+  const points = [
+    new THREE.Vector3(hotspot.pos.x, hotspot.pos.y, hotspot.pos.z),
+    new THREE.Vector3(hotspot.pos.x * 0.65, hotspot.pos.y * 0.5, hotspot.pos.z * 0.65)
+  ];
+  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+  const line = new THREE.Line(lineGeometry, lineMaterial);
+  scene.add(line);
+});
+
+// 热点浮动动画
+function animateHotspots() {
+  const time = Date.now() * 0.003;
+  hotspotSprites.forEach(sprite => {
+    if (sprite.userData.originalY !== undefined) {
+      const offsetY = Math.sin(time * sprite.userData.floatSpeed + sprite.userData.floatPhase) * 0.08;
+      sprite.position.y = sprite.userData.originalY + offsetY;
+      const scale = 0.45 + Math.sin(time * 2.5) * 0.03;
+      sprite.scale.set(scale, scale, scale);
+    }
+  });
+  requestAnimationFrame(animateHotspots);
+}
+animateHotspots();
+
+// 射线检测器
+const raycasterHotspot = new THREE.Raycaster();
+const mouseHotspot = new THREE.Vector2();
+let hoveredHotspot = null;
+
+// 创建悬浮提示框
+let hotspotTip = document.getElementById('hotspot-tip');
+if (!hotspotTip) {
+  hotspotTip = document.createElement('div');
+  hotspotTip.id = 'hotspot-tip';
+  hotspotTip.style.cssText = `
+    position: fixed;
+    background: rgba(0,0,0,0.75);
+    color: #FFD700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: "Ma Shan Zheng", cursive;
+    pointer-events: none;
+    z-index: 100;
+    display: none;
+    white-space: nowrap;
+    letter-spacing: 1px;
+  `;
+  document.body.appendChild(hotspotTip);
+}
+
+// ========== 鼠标事件 ==========
+// 鼠标移动 - 检测悬浮
+modelView.addEventListener('mousemove', (event) => {
+  const rect = modelView.getBoundingClientRect();
+  mouseHotspot.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouseHotspot.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+  
+  raycasterHotspot.setFromCamera(mouseHotspot, camera);
+  const intersects = raycasterHotspot.intersectObjects(hotspotSprites);
+  
+  if (intersects.length > 0) {
+    const hit = intersects[0].object;
+    if (hoveredHotspot !== hit) {
+      if (hoveredHotspot) {
+        hoveredHotspot.scale.set(0.45, 0.45, 0.45);
+      }
+      hoveredHotspot = hit;
+      hoveredHotspot.scale.set(0.6, 0.6, 0.6);
+      modelView.style.cursor = 'pointer';
+      
+      if (detailModal.style.display !== 'flex') {
+        hotspotTip.style.display = 'block';
+        hotspotTip.innerHTML = `📍 ${hoveredHotspot.userData.name}`;
+        hotspotTip.style.left = (event.clientX + 15) + 'px';
+        hotspotTip.style.top = (event.clientY - 30) + 'px';
+      }
+    } else if (hoveredHotspot && detailModal.style.display !== 'flex') {
+      hotspotTip.style.left = (event.clientX + 15) + 'px';
+      hotspotTip.style.top = (event.clientY - 30) + 'px';
+    }
+  } else {
+    if (hoveredHotspot) {
+      hoveredHotspot.scale.set(0.45, 0.45, 0.45);
+      hoveredHotspot = null;
+      modelView.style.cursor = 'grab';
+      hotspotTip.style.display = 'none';
+    }
+  }
+});
+
+// 鼠标点击
+modelView.addEventListener('click', (event) => {
+  if (!hoveredHotspot) return;
+  
+  const data = hoveredHotspot.userData;
+  if (data && data.componentData) {
+    hotspotTip.style.display = 'none';
+    modalTitle.innerHTML = data.componentData.title;
+    modalImg.style.backgroundImage = `url('${data.componentData.img}')`;
+    modalText.innerHTML = data.componentData.text;
+    detailModal.style.display = 'flex';
+    modalTitle.textContent = data.componentData.title;
+    modalSubtitle.textContent = data.componentData.subtitle || '';
+  }
+});
+
+// ========== 触摸事件（触屏优化） ==========
+// 触摸移动 - 检测悬浮
+modelView.addEventListener('touchmove', (event) => {
+  event.preventDefault();
+  const rect = modelView.getBoundingClientRect();
+  const touch = event.touches[0];
+  mouseHotspot.x = ((touch.clientX - rect.left) / rect.width) * 2 - 1;
+  mouseHotspot.y = -((touch.clientY - rect.top) / rect.height) * 2 + 1;
+  
+  raycasterHotspot.setFromCamera(mouseHotspot, camera);
+  const intersects = raycasterHotspot.intersectObjects(hotspotSprites);
+  
+  if (intersects.length > 0) {
+    const hit = intersects[0].object;
+    if (hoveredHotspot !== hit) {
+      if (hoveredHotspot) {
+        hoveredHotspot.scale.set(0.45, 0.45, 0.45);
+      }
+      hoveredHotspot = hit;
+      hoveredHotspot.scale.set(0.6, 0.6, 0.6);
+      modelView.style.cursor = 'pointer';
+      
+      if (detailModal.style.display !== 'flex') {
+        hotspotTip.style.display = 'block';
+        hotspotTip.innerHTML = `📍 ${hoveredHotspot.userData.name}`;
+        hotspotTip.style.left = (touch.clientX + 15) + 'px';
+        hotspotTip.style.top = (touch.clientY - 30) + 'px';
+      }
+    } else if (hoveredHotspot && detailModal.style.display !== 'flex') {
+      hotspotTip.style.left = (touch.clientX + 15) + 'px';
+      hotspotTip.style.top = (touch.clientY - 30) + 'px';
+    }
+  } else {
+    if (hoveredHotspot) {
+      hoveredHotspot.scale.set(0.45, 0.45, 0.45);
+      hoveredHotspot = null;
+      modelView.style.cursor = 'grab';
+      hotspotTip.style.display = 'none';
+    }
+  }
+}, { passive: false });
+
+// 触摸点击
+modelView.addEventListener('touchstart', (event) => {
+  event.preventDefault();
+  if (!hoveredHotspot) return;
+  
+  const data = hoveredHotspot.userData;
+  if (data && data.componentData) {
+    hotspotTip.style.display = 'none';
+    modalTitle.innerHTML = data.componentData.title;
+    modalImg.style.backgroundImage = `url('${data.componentData.img}')`;
+    modalText.innerHTML = data.componentData.text;
+    detailModal.style.display = 'flex';
+    modalTitle.textContent = data.componentData.title;
+    modalSubtitle.textContent = data.componentData.subtitle || '';
+  }
+}, { passive: false });
+
+// ========== 弹窗关闭事件 ==========
+// 鼠标关闭
+modalClose.addEventListener('click', () => {
+  detailModal.style.display = 'none';
+  if (hoveredHotspot) {
+    hotspotTip.style.display = 'block';
+  }
+});
+
+// 触摸关闭
+modalClose.addEventListener('touchstart', () => {
+  detailModal.style.display = 'none';
+  if (hoveredHotspot) {
+    hotspotTip.style.display = 'block';
+  }
+}, { passive: false });
+
+// 点击弹窗背景关闭
+detailModal.addEventListener('click', (e) => {
+  if (e.target === detailModal) {
+    detailModal.style.display = 'none';
+    if (hoveredHotspot) {
+      hotspotTip.style.display = 'block';
+    }
+  }
+});
+
+// 触摸弹窗背景关闭
+detailModal.addEventListener('touchstart', (e) => {
+  if (e.target === detailModal) {
+    detailModal.style.display = 'none';
+    if (hoveredHotspot) {
+      hotspotTip.style.display = 'block';
+    }
+  }
+}, { passive: false });
+
+// 热点点击事件 - 打开弹窗时隐藏悬浮提示
+modelView.addEventListener('click', (event) => {
+  if (!hoveredHotspot) return;
+  
+  const data = hoveredHotspot.userData;
+  if (data && data.componentData) {
+    hotspotTip.style.display = 'none';
+    modalTitle.innerHTML = data.componentData.title;
+    modalImg.style.backgroundImage = `url('${data.componentData.img}')`;
+    modalText.innerHTML = data.componentData.text;
+    detailModal.style.display = 'flex';
+	modalTitle.textContent = data.componentData.title;
+	modalSubtitle.textContent = data.componentData.subtitle || '';
+  }
+});
+
+// 弹窗关闭时恢复悬浮提示
+modalClose.addEventListener('click', () => {
+  detailModal.style.display = 'none';
+  if (hoveredHotspot) {
+    hotspotTip.style.display = 'block';
+  }
+});
+
+detailModal.addEventListener('click', (e) => {
+  if (e.target === detailModal) {
+    detailModal.style.display = 'none';
+    if (hoveredHotspot) {
+      hotspotTip.style.display = 'block';
+    }
+  }
+});
+		  
+          // 新增：初始化交互控制（关键！让拖拽、缩放、视角切换生效）
+          initControls(camera, renderer, model);
+		   // 动画循环
+		  function animate() {
+			requestAnimationFrame(animate);
+			if (controls) controls.update();
+			renderer.render(scene, camera);
+		  }
+		  animate();
+          
+          // 滚轮缩放 - 额外兜底（防止OrbitControls失效，双重保障）
+          modelView.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (!controls || !window.gltfModel) return;
+            // 与OrbitControls缩放同步，避免冲突
+            const scale = window.gltfModel.scale.x;
+            const delta = e.deltaY > 0 ? -0.05 : 0.05;
+            const newScale = Math.max(0.5, Math.min(10, scale + delta));
+            window.gltfModel.scale.set(newScale, newScale, newScale);
+          }, { passive: false });
+
+          // 窗口大小调整
+          window.addEventListener('resize', () => {
+            const newWidth = modelView.clientWidth;
+            const newHeight = modelView.clientHeight;
+            
+            camera.aspect = newWidth / newHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(newWidth, newHeight);
+            if (controls) controls.update(); // 窗口调整后更新控制
+          });
+        },
+        function(xhr) {
+          // 进度显示
+          if (xhr.lengthComputable) {
+            const percent = (xhr.loaded / xhr.total * 100).toFixed(0);
+            placeholder.innerHTML = '<p>加载中... ' + percent + '%</p>';
+          }
+        },
+        function(error) {
+          placeholder.innerHTML = '<p>❌ 模型加载失败</p><p style="color:#E67E22;font-size:0.9rem;">请检查文件是否存在</p>';
+          console.error('加载失败:', error);
+        }
+      );
+    })
+    .catch(error => {
+      placeholder.innerHTML = '<p>❌ 找不到模型<p style="color:#E67E22;font-size:0.9rem;">请检查 images/Hitem3d-1s.glb 是否</p>';
+      console.error('文件检查失败:', error);
+    });
+}
+
+// 启动3D模型（延迟执行，确保不影响登录注册）
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initModel, 500);
+});
+  </script>
+</body>
+</html>

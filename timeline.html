@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>滇西营造技术发展史 - 时光轴</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Ma Shan Zheng', 'Segoe UI', cursive;
+      overflow: hidden;
+    }
+
+    /* ========== 全屏沉浸式时间轴样式 ========== */
+    .timeline-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .timeline-title {
+      position: absolute;
+      top: 25px;
+      left: 0;
+      right: 0;
+      z-index: 15;
+      text-align: center;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      color: #FFE3A4;
+      margin: 0;
+      font-family: "Ma Shan Zheng", cursive;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      pointer-events: none;
+    }
+
+    /* 滑动容器 - 全屏 */
+    .timeline-slider-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      cursor: grab;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.4s ease-out;
+    }
+
+    .timeline-slider-container:active {
+      cursor: grabbing;
+    }
+
+    /* 隐藏滚动条 */
+    .timeline-slider-container::-webkit-scrollbar {
+      display: none;
+    }
+    .timeline-slider-container {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* 滑动轨道 */
+    .timeline-track-slider {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100vh;
+      width: max-content;
+      padding: 0;
+    }
+
+    /* 单个时期卡片 */
+    .timeline-era-card {
+      scroll-snap-align: start;
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+    }
+
+    /* 卡片内容容器 */
+    .era-content-split {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      max-width: 1100px;
+      width: 85%;
+      margin: 0 auto;
+      padding: 40px;
+      background: rgba(30, 22, 16, 0.7);
+      border-radius: 40px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(210, 180, 140, 0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .era-image-box {
+      flex: 1;
+      min-width: 240px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .era-image-box img {
+      width: 100%;
+      height: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .era-image-box img:hover {
+      transform: scale(1.03);
+    }
+
+    .era-text-box {
+      flex: 1.2;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #fff9ef;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .era-period {
+      font-size: 2.2rem;
+      font-family: "Ma Shan Zheng", cursive;
+      color: #FFE3A4;
+      margin-bottom: 12px;
+      border-left: 5px solid #e6b87e;
+      padding-left: 20px;
+    }
+
+    .era-title {
+      font-size: 1.9rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      color: #f7e5c2;
+    }
+
+    .era-desc {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      text-align: justify;
+      margin-bottom: 12px;
+    }
+
+    /* 底部进度指示点 */
+    .timeline-dots {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      z-index: 20;
+      padding: 12px 0;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(210, 180, 140, 0.6);
+    }
+
+    .dot.active {
+      width: 28px;
+      border-radius: 12px;
+      background: #e6b87e;
+      border-color: #ffd89a;
+      box-shadow: 0 0 8px rgba(230, 184, 126, 0.6);
+    }
+
+    .dot:hover {
+      background: rgba(230, 184, 126, 0.8);
+      transform: scale(1.2);
+    }
+
+    /* 滑动引导提示 */
+    .swipe-hint {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      padding: 8px 20px;
+      border-radius: 40px;
+      color: #FFE3A4;
+      font-size: 0.85rem;
+      font-family: "Ma Shan Zheng", cursive;
+      white-space: nowrap;
+      animation: fadeOut 3s ease forwards;
+      pointer-events: none;
+      border: 1px solid rgba(210, 180, 140, 0.5);
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      70% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    /* 返回首页按钮 */
+    .back-home-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 30;
+      background: #b87c4e;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      font-family: "Ma Shan Zheng", cursive;
+      padding: 12px 24px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .back-home-btn:hover {
+      background: #9b5e32;
+      transform: scale(1.03);
+    }
+
+    @media (max-width: 780px) {
+      .era-content-split {
+        flex-direction: column;
+        padding: 25px;
+        gap: 20px;
+        width: 90%;
+      }
+      .era-period {
+        font-size: 1.6rem;
+      }
+      .era-title {
+        font-size: 1.4rem;
+      }
+      .era-desc {
+        font-size: 0.9rem;
+      }
+      .back-home-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 8px 18px;
+        font-size: 0.85rem;
+      }
+    }
+	
+	/* ========== 白板触屏优化 ========== */
+
+/* 1. 增大所有可点击区域（触屏友好） */
+.back-home-btn,
+.dot,
+.swipe-hint {
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 2. 禁用长按菜单和文本选择（避免触屏干扰） */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 3. 触屏按下反馈效果 */
+.back-home-btn:active,
+.dot:active {
+  opacity: 0.7;
+  transform: scale(0.96);
+  transition: all 0.05s ease;
+}
+
+/* 4. 滚动条优化（触屏滑动更流畅） */
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 5. 滑动容器触屏优化 */
+.timeline-slider-container {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  cursor: grab;
+}
+
+.timeline-slider-container:active {
+  cursor: grabbing;
+}
+
+/* 6. 按钮悬停效果仅限非触屏设备（避免触屏闪烁） */
+@media (hover: hover) {
+  .back-home-btn:hover {
+    background: #9b5e32;
+    transform: scale(1.03);
+    transition: all 0.2s ease;
+  }
+  .dot:hover {
+    background: rgba(230, 184, 126, 0.8);
+    transform: scale(1.2);
+  }
+}
+  </style>
+</head>
+<body>
+  <section class="timeline-section">
+    <h2 class="timeline-title">⏳ 滇西营造技术发展史 · 时光轴</h2>
+    
+    <div class="timeline-slider-container" id="timelineSlider">
+      <div class="timeline-track-slider" id="timelineTrack"></div>
+    </div>
+    
+    <div class="timeline-dots" id="timelineDots"></div>
+    <div class="swipe-hint" id="swipeHint">← 左右滑动浏览千年营造 →</div>
+    
+	<a href="index.html#tech-intro" class="back-home-btn">
+  <i class="fas fa-home"></i> 点击回到网页首页 →
+</a>
+  </section>
+
+  <script>
+    // ==================== 时间轴数据 ====================
+    const timelineData = [
+  { period: "史前至汉晋", title: "本土起源 · 干栏奠基", desc: "滇西营造技术源头可追溯至约3000年前。剑川海门口遗址（公元前1150年）发现早期干栏式建筑遗存，为滇西最早实物证据。战国至西汉时期，晋宁石寨山、江川李家山出土青铜器模型显示干栏式建筑已高度成熟。这种建筑形式奠定了滇西“因天材、就地利”的营造哲学，至今仍在傣族、景颇族等竹楼中活态传承。", img: "images/shiqianzhihanjin.jpg" },
+  { period: "唐宋（南诏大理国）", title: "佛化融合 · 密檐高塔", desc: "南诏（738-902年）和大理国（937-1253年）时期，佛教密宗空前盛行，深刻影响滇西建筑。大理崇圣寺三塔为此时期巅峰之作。剑川石钟山石窟保存大量建筑形象石刻，清晰记录殿堂、斗拱等形制。建筑融合中原、印度、吐蕃及本土文化，形成雄奇俊秀的滇西佛寺风格。", img: "images/tangsong.jpg" },
+  { period: "明代", title: "汉式融合 · 体系奠定", desc: "明代是滇西营造技术史上最关键的转折期。明洪武年间（1381年）明军平定云南并实行大规模军屯、民屯，中原抬梁式、穿斗式木构技术全面落地。合院民居正式定型，'三坊一照壁''四合五天井'成为白族地区主流格局。剑川木匠作为专业匠作群体开始形成。保山玉皇阁等殿堂保存至今，是研究明代技术融合的珍贵标本。", img: "images/mingdai.jpg" },
+  { period: "清代", title: "技艺鼎盛 · 木雕巅峰", desc: "清代近三百年间，营造口诀与匠作图谱通过口传心授不断完善。木雕以剑川“硬雕”“软雕”技法闻名，人物花鸟栩栩如生，民间流传“一两木屑一两银”。白族民居彩绘以水墨淡彩为主，与木雕相得益彰。穿斗式与抬梁式灵活结合，兼具大空间需求与抗震性能。丽江木府、大理喜洲民居群为清代杰出代表。", img: "images/qingdai.jpg" },
+  { period: "民国", title: "中西交汇 · 承古开新", desc: "民国时期，滇西因侨商往来出现中西融合的新特征。传统穿斗式木构框架继续作为结构核心，同时局部引入西式元素。腾冲和顺古镇的侨乡民居为典型代表，体现“守其根本、开其眼界”的包容态度。传统技艺在战乱年代仍由民间工匠顽强坚守，留下大量宝贵遗产。", img: "images/minguo.jpg" },
+  { period: "当代（1950年至今）", title: "非遗保护 · 数字活化", desc: "建国以来经历“修缮保护—非遗活化—数字传承”三阶段。1950s-1990s重点文物得到系统修缮。剑川木雕于2011年列入国家级非遗，传习所、工艺学院相继建立。2020s以来，三维激光扫描、BIM建模、VR/AR技术广泛应用。截至2024年底，剑川木雕产业从业人员超2.5万人，年产值达5.5亿元，实现“保护中发展，发展中传承”。", img: "images/dangdai.jpg" }
+];
+
+    let currentIndex = 0;
+    const sliderContainer = document.getElementById("timelineSlider");
+    const trackContainer = document.getElementById("timelineTrack");
+    const dotsContainer = document.getElementById("timelineDots");
+
+    // 渲染卡片
+    function renderCards() {
+      trackContainer.innerHTML = "";
+      timelineData.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "timeline-era-card";
+        card.innerHTML = `
+          <div class="era-content-split">
+            <div class="era-image-box">
+              <img src="${item.img}" alt="${item.period}" onerror="this.src='images/fengmian.jpeg'">
+            </div>
+            <div class="era-text-box">
+              <div class="era-period">📜 ${item.period}</div>
+              <div class="era-title">${item.title}</div>
+              <div class="era-desc">${item.desc}</div>
+            </div>
+          </div>
+        `;
+        trackContainer.appendChild(card);
+      });
+    }
+
+    // 渲染底部进度点
+    function renderDots() {
+      dotsContainer.innerHTML = "";
+      timelineData.forEach((_, idx) => {
+        const dot = document.createElement("div");
+        dot.className = "dot" + (idx === currentIndex ? " active" : "");
+        dot.addEventListener("click", () => scrollToIndex(idx));
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    // 更新进度点高亮
+    function updateDots() {
+      const dots = document.querySelectorAll(".dot");
+      dots.forEach((dot, idx) => {
+        if (idx === currentIndex) dot.classList.add("active");
+        else dot.classList.remove("active");
+      });
+    }
+
+    // 更新背景图片
+    function updateBackgroundByIndex(index) {
+      if (!sliderContainer) return;
+      const currentEra = timelineData[index];
+      if (currentEra && currentEra.img) {
+        sliderContainer.style.backgroundImage = `url('${currentEra.img}')`;
+        sliderContainer.style.backgroundSize = "cover";
+        sliderContainer.style.backgroundPosition = "center";
+      } else {
+        sliderContainer.style.backgroundImage = "url('images/fengmian.jpeg')";
+      }
+    }
+
+    // 滑动到指定索引
+    function scrollToIndex(index) {
+      if (index < 0) index = 0;
+      if (index >= timelineData.length) index = timelineData.length - 1;
+      currentIndex = index;
+      
+      const cards = document.querySelectorAll(".timeline-era-card");
+      if (cards.length && cards[currentIndex]) {
+        cards[currentIndex].scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "start"
+        });
+      }
+      updateBackgroundByIndex(currentIndex);
+      updateDots();
+    }
+
+    // 从滚动位置同步索引
+    function syncIndexFromScroll() {
+      const cards = document.querySelectorAll(".timeline-era-card");
+      if (!cards.length) return;
+      const containerRect = sliderContainer.getBoundingClientRect();
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      
+      let closestIdx = 0;
+      let minDistance = Infinity;
+      cards.forEach((card, idx) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const dist = Math.abs(containerCenter - cardCenter);
+        if (dist < minDistance) {
+          minDistance = dist;
+          closestIdx = idx;
+        }
+      });
+      if (closestIdx !== currentIndex) {
+        currentIndex = closestIdx;
+        updateBackgroundByIndex(currentIndex);
+        updateDots();
+      }
+    }
+
+    // 绑定滚动事件
+    function bindScrollSync() {
+      sliderContainer.addEventListener("scroll", () => syncIndexFromScroll());
+      window.addEventListener("resize", () => syncIndexFromScroll());
+    }
+
+    // 初始化
+    function initTimeline() {
+      renderCards();
+      renderDots();
+      setTimeout(() => {
+        if (timelineData[0]) {
+          sliderContainer.style.backgroundImage = `url('${timelineData[0].img}')`;
+          sliderContainer.style.backgroundSize = "cover";
+          sliderContainer.style.backgroundPosition = "center";
+        }
+        updateBackgroundByIndex(0);
+        scrollToIndex(0);
+        bindScrollSync();
+        
+        // 提示自动消失
+        const hint = document.getElementById("swipeHint");
+        if (hint) setTimeout(() => hint.remove(), 3500);
+      }, 100);
+    }
+
+    initTimeline();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>滇西古建的巧思 - 匠心传承</title>
+  <!-- 公共CSS -->
+  <link rel="stylesheet" href="CSS.css">
+  <!-- Font Awesome图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- 国风字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <!-- Three.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+  <!-- 引入html2canvas用于将证书转为图片 -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --line-color: #D2B48C;
+      --slate: #5A6470;
+      --cinnabar: #CD5C5C;
+      --blacktile: #2C3531;
+      --card-bg: #fff; 
+    }
+    
+    .top-banner {
+      background-color: var(--card-bg);
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+      min-height: 250px;
+      height: 30vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .top-banner .cloud {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.65;
+      background: url('images/xiangyun.png') no-repeat center;
+      background-size: 100% 100%;
+      animation: cloudFloat 20s ease-in-out infinite;
+    }
+    .cloud1 { width: 120px; height: 100px; top: 10%; left: 5%; }
+    .cloud2 { width: 90px; height: 75px; top: 19%; right: 5%; }
+    .cloud3 { width: 70px; height: 60px; top: 6%; left: 39%; }
+    .top-banner .build1 {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.7;
+      top: 0;
+      bottom: 0;
+      right: 4%;
+      width: 30%;
+      height: 100%;
+      background: url('images/jianying.png') no-repeat right bottom;
+      background-size: contain;
+      pointer-events: none;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    }
+    .top-banner .build2 {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.6;
+      top: 0;
+      bottom: 0;
+      left: 5%;
+      width: 20%;
+      height: 100%;
+      background: url('images/ta.png') no-repeat left bottom;
+      background-size: contain;
+      pointer-events: none;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    }
+    @keyframes cloudFloat {
+      0% { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(30px) translateY(-10px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+    .banner-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      padding: 1rem;
+      max-width: 800px;
+      width: 100%;
+    }
+    .banner-content h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--text-accent);
+      margin-bottom: 0.5rem;
+      font-family: "Ma Shan Zheng", cursive;
+    }
+    .banner-content p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    main { padding: 1rem 0; margin-bottom: 3rem; }
+
+    .connect-printer-section { margin-bottom: 2rem; }
+    
+    .connect-printer-card {
+      background-color: var(--card-bg);
+      background-image: url('images/3D.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      padding: 2rem;
+      transition: transform 0.3s ease;
+      text-align: center;
+      min-height: 380px; 
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+    }
+    
+    .connect-printer-card .bg-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--card-bg);
+      opacity: 0.75; 
+      border-radius: 0.5rem;
+      z-index: 1;
+    }
+    
+    .connect-printer-card .content {
+      position: relative;
+      z-index: 2;
+	  width: 100%;
+    }
+    
+    .connect-printer-card .content i {
+      font-size: 3.5rem;
+      color: var(--line-color);
+      margin-bottom: 1rem;
+    }
+    
+    .connect-printer-card .content h3 {
+      font-family: 'Ma Shan Zheng', cursive;
+      color: var(--cinnabar);
+      margin: 0 0 0.8rem 0;
+      font-size: 1.7rem;
+    }
+    
+    .connect-printer-card .content p {
+      color: var(--slate);
+      margin: 0 0 1.2rem 0;
+      line-height: 1.6;
+      font-size: 1.2rem;
+    }
+    
+    .connect-printer-card .content .connect-btn {
+      background-color: var(--line-color);
+      color: white;
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      font-family: 'Ma Shan Zheng', cursive;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+    
+    .connect-printer-card .content .connect-btn:hover { background-color: #b8864a; }
+    .hover-scale:hover { transform: scale(1.02); }
+
+    .core-content {
+      background-color: var(--card-bg);
+      border-radius: 0.2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .core-content::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; 
+      background: url('images/4background.png') no-repeat center bottom;
+      background-size: cover;
+      opacity: 0.3;
+      z-index: 0;
+    }
+    .core-content p {
+      color: var(--text-main);
+      line-height: 1.8;
+      font-size: 1.7rem;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+      font-family: "FZShuTi", "STXingkai", "Ma Shan Zheng", cursive;
+      font-weight: 580;
+      letter-spacing: 0.8px;
+      text-shadow: 0 0 5px rgba(255,255,255,0.8);
+    }
+
+    /* 匠心人物 & 典籍文献 - 左右分栏 + 2x2网格 */
+    .people-books-section {
+      padding: 2rem 0 4rem;
+    }
+    .pb-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .pb-column {
+      flex: 1;
+      min-width: 280px;
+    }
+    .pb-column h3 {
+      font-size: 1.9rem;
+      color: var(--cinnabar);
+      font-family: "Ma Shan Zheng", cursive;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .title-line {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cinnabar), transparent);
+      margin: 0 auto 1.5rem auto;
+    }
+    
+    /* 中间分割线 */
+    .pb-divider {
+      width: 2px;
+      background: linear-gradient(180deg, transparent, var(--cinnabar), var(--line-color), var(--cinnabar), transparent);
+      margin: 0;
+      flex-shrink: 0;
+    }
+    
+    /* 2x2 网格 */
+    .pb-grid-2x2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+    }
+    
+    /* 人物卡片 & 书籍卡片 - 照片在上，名字在下 */
+    .person-card, .book-card {
+      position: relative;
+      border-radius: 0.8rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: var(--card-bg);
+      aspect-ratio: 5/7;
+      display: flex;
+      flex-direction: column;
+    }
+    .person-card:hover, .book-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    /* 图片区域 */
+    .card-image {
+      width: 100%;
+      height: 88%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    /* 名字区域 */
+    .card-name {
+      padding: 0.3rem;
+      background: white;
+      color: #D4AF37;
+      font-family: "Ma Shan Zheng", cursive;
+      font-size: 1.2rem;
+      text-align: center;
+      font-weight: bold;
+      border-top: 1px solid rgba(210,180,140,0.3);
+    }
+    
+    /* 悬浮文字层 - 从底部向上滑入，高度调高让文字全部显示 */
+.card-hover-text {
+  position: absolute;
+  top: 0;           /* 改为 top:0，从顶部开始 */
+  left: 0;
+  right: 0;
+  bottom: 0;        /* 铺满整个卡片 */
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  color: #FFE3A4;
+  text-align: center;
+  padding: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.35s ease;
+  z-index: 10;
+  border-radius: 0.8rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+    .person-card:hover .card-hover-text,
+    .book-card:hover .card-hover-text {
+      transform: translateY(0);
+    }
+    
+    /* 悬浮文字内部样式 */
+    .hover-title {
+      font-family: "Ma Shan Zheng", cursive;
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255, 227, 164, 0.5);
+      display: inline-block;
+      padding-bottom: 0.2rem;
+    }
+    .hover-desc {
+      font-size: 1rem;
+      line-height: 1.4;
+      margin-top: 0.3rem;
+      color: #f0e6d0;
+    }
+	
+/* ========== 典籍文献 - 翻页书效果（卡片固定，书页翻开） ========== */
+.book-card {
+    position: relative;
+    cursor: pointer;
+    background-color: transparent;
+    box-shadow: none;
+    overflow: visible;
+}
+
+/* 书的容器（固定位置） */
+.book-card .book-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 5/7;
+}
+
+/* 封面（正面，可翻动） */
+.book-card .book-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform-origin: left center;
+    transition: transform 0.6s ease;
+    z-index: 3;
+    backface-visibility: hidden;
+}
+
+.book-card .book-cover .card-image {
+    width: 100%;
+    height: 88%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.book-card .book-cover .card-name {
+    padding: 0.3rem;
+    background: white;
+    color: #D4AF37;
+    font-family: "Ma Shan Zheng", cursive;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: bold;
+    border-top: 1px solid rgba(210,180,140,0.3);
+}
+
+/* 内页（背面，固定在下方） */
+.book-card .book-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #faf8f0 0%, #f5f0e0 100%);
+    border-radius: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+    border: 1px solid rgba(210,180,140,0.4);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.book-card .book-page .page-title {
+    font-family: "Ma Shan Zheng", cursive;
+    font-size: 1.4rem;
+    color: #8B4513;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid #D2B48C;
+    display: inline-block;
+}
+
+.book-card .book-page .page-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #3d2b1a;
+    margin-top: 0.5rem;
+    text-align: center;
+    overflow-y: auto;
+    max-height: 65%;
+    padding: 0 0.3rem;
+}
+
+.book-card .book-page .page-deco {
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: #c4a26a;
+    letter-spacing: 2px;
+}
+
+/* 鼠标悬浮时，封面像翻书一样向左翻开 */
+.book-card:hover .book-cover {
+    transform: rotateY(-150deg) scaleX(0.85);
+    transform-origin: left center;
+}
+
+/* 确保卡片本身不变形 */
+.book-card {
+    aspect-ratio: 5/7;
+    background: transparent;
+    overflow: visible;
+}
+    
+    /* 响应式：平板 */
+    @media (max-width: 900px) {
+      .pb-row {
+        flex-direction: column;
+      }
+      .pb-divider {
+        display: none;
+      }
+      .pb-grid-2x2 {
+        gap: 1rem;
+      }
+    }
+    /* 响应式：手机 */
+    @media (max-width: 600px) {
+      .pb-grid-2x2 {
+        grid-template-columns: 1fr;
+      }
+      .card-name {
+        font-size: 0.8rem;
+      }
+      .hover-title {
+        font-size: 0.85rem;
+      }
+      .hover-desc {
+        font-size: 0.65rem;
+      }
+    }
+	
+	    /* 数字人视频样式 */
+    .ai-avatar-video {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      width: 160px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 9999;
+      display: none;
+      background: #2c2418;
+      border: 2px solid var(--line-color);
+    }
+    
+    @media (max-width: 768px) {
+      .ai-avatar-video {
+        width: 120px;
+      }
+    }
+	
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .book-modal .modal-body {
+        column-count: 1;
+      }
+      .timeline-point {
+        width: 120px;
+        min-height: 70px;
+      }
+      .point-year {
+        font-size: 1rem;
+      }
+      .point-text {
+        font-size: 0.85rem;
+      }
+      .timeline-detail {
+        width: 180px;
+        font-size: 0.85rem;
+      }
+      .ai-avatar-video {
+        width: 120px;
+      }
+    }
+
+    .grid-craft-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    @media (min-width: 768px) { .grid-craft-2 { grid-template-columns: 1fr 1fr; } }
+    .interactive-card {
+      background-color: var(--card-bg);
+      border-radius: 0.2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .interactive-card h2 {
+      font-size: 1.7rem;
+      color: var(--cinnabar);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-family: 'Ma Shan Zheng', cursive;
+    }
+
+    .upload-area {
+      border: 2px dashed var(--border-light);
+      border-radius: 0.2rem;
+      padding: 3rem 1.5rem 1.5rem; 
+      text-align: center;
+      margin-bottom: 1.5rem;
+      flex-grow: 1; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+    .upload-area i {
+      font-size: 2.5rem;
+      color: var(--line-color);
+      margin-bottom: 0.5rem;
+    }
+    .upload-area p {
+      color: var(--text-main);
+      margin-bottom: 0; 
+      font-size: 0.9rem;
+      flex: none;
+    }
+    .upload-btn {
+      display: inline-block;
+      padding: 0.5rem 3rem;
+      background-color: var(--line-color);
+      color: white;
+      border-radius: 0.2rem;
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      margin-top: 1rem; 
+      align-self: center; 
+      width: auto;
+    }
+    .upload-btn:hover { background-color: #c19a6b; }
+    #file-upload { display: none !important; }
+
+    .tag-group {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.3rem;
+      justify-content: center;
+      margin-bottom: 1rem; 
+    }
+    .tag {
+      padding: 0.25rem 0.8rem; 
+      background-color: white;
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      border-radius: 9999px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    .tag:hover { background-color: rgba(210,180,140,0.1); }
+    .tag.selected {
+      background-color: var(--cinnabar);
+      border-color: var(--cinnabar);
+      color: white;
+    }
+    
+    .uploaded-wall {
+      margin-top: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    .uploaded-wall h2 {
+      font-family: 'Ma Shan Zheng', cursive;
+      color: var(--cinnabar);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+    .wall-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .wall-item {
+      background-color: var(--card-bg);
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .wall-item:hover { transform: translateY(-5px); }
+    .wall-item-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .wall-item-info { padding: 1rem; }
+    .wall-item-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .wall-item-tag {
+      padding: 0.2rem 0.6rem;
+      background-color: rgba(210,180,140,0.1);
+      color: var(--slate);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+    }
+    .wall-item-time { font-size: 0.8rem; color: #999; }
+
+    .question-container { flex-grow: 1; }
+    .question { margin-bottom: 1.2rem; }
+    .question p {
+      color: var(--text-main);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .answer-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .answer-btn {
+      padding: 0.3rem 1rem;
+      border: 1px solid var(--border-light);
+      border-radius: 0.2rem;
+      background-color: white;
+      color: var(--text-main);
+      cursor: pointer;
+      font-size: 0.85rem;
+      flex: 1;
+      transition: all 0.3s ease;
+    }
+    .answer-btn:hover { background-color: rgba(210,180,140,0.1); }
+    .answer-btn.selected {
+      background-color: rgba(205,92,92,0.2);
+      border-color: var(--cinnabar);
+      color: var(--cinnabar);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: var(--cinnabar);
+      color: white;
+      border: none;
+      border-radius: 0.2rem;
+      font-family: "Ma Shan Zheng", cursive;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    .submit-btn:hover { background-color: #b84a4a; }
+
+    .cert-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 500px;
+      width: 90%;
+    }
+    .cert-content-wrapper {
+      background: #fff;
+      width: 100%;
+      max-width: 450px;
+      aspect-ratio: 3/4;
+      border-radius: 0;
+      padding: 40px 30px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      border: 2px solid #8B0000;
+      text-align: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .cert-content-wrapper.excellent { border-color: #FFD700; background: linear-gradient(135deg, #fff9e6 0%, #fff 100%); }
+    .cert-content-wrapper.excellent .cert-score,
+    .cert-content-wrapper.excellent .cert-header h3,
+    .cert-content-wrapper.excellent .cert-title,
+    .cert-content-wrapper.excellent .cert-seal { color: #FF9800; border-color: #FF9800; }
+    .cert-content-wrapper.good { border-color: #4CAF50; background: linear-gradient(135deg, #f0f9f0 0%, #fff 100%); }
+    .cert-content-wrapper.good .cert-score,
+    .cert-content-wrapper.good .cert-header h3,
+    .cert-content-wrapper.good .cert-title,
+    .cert-content-wrapper.good .cert-seal { color: #2E7D32; border-color: #2E7D32; }
+    .cert-content-wrapper.medium { border-color: #2196F3; background: linear-gradient(135deg, #e6f4ff 0%, #fff 100%); }
+    .cert-content-wrapper.medium .cert-score,
+    .cert-content-wrapper.medium .cert-header h3,
+    .cert-content-wrapper.medium .cert-title,
+    .cert-content-wrapper.medium .cert-seal { color: #1565C0; border-color: #1565C0; }
+    .cert-content-wrapper.pass { border-color: #FF9800; background: linear-gradient(135deg, #fff4e6 0%, #fff 100%); }
+    .cert-content-wrapper.pass .cert-score,
+    .cert-content-wrapper.pass .cert-header h3,
+    .cert-content-wrapper.pass .cert-title,
+    .cert-content-wrapper.pass .cert-seal { color: #E65100; border-color: #E65100; }
+    .cert-content-wrapper.fail { border-color: #F44336; background: linear-gradient(135deg, #ffebee 0%, #fff 100%); }
+    .cert-content-wrapper.fail .cert-score,
+    .cert-content-wrapper.fail .cert-header h3,
+    .cert-content-wrapper.fail .cert-title,
+    .cert-content-wrapper.fail .cert-seal { color: #C62828; border-color: #C62828; }
+    .cert-content-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border: 1px solid #D4AF37;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .cert-seal {
+      width: 80px;
+      height: 80px;
+      border: 3px solid #8B0000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.5rem;
+      position: relative;
+      z-index: 2;
+      background: transparent;
+    }
+    .cert-seal i { font-size: 2.2rem; color: #8B0000; }
+    .cert-header h3 {
+      font-family: "Ma Shan Zheng", cursive;
+      font-size: 1.6rem;
+      margin: 0 0 0.5rem 0;
+      color: #8B0000;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header::after {
+      content: "";
+      display: block;
+      width: 120px;
+      height: 2px;
+      background: #8B0000;
+      margin: 0.5rem auto 0;
+      opacity: 1;
+    }
+    .cert-body {
+      position: relative;
+      z-index: 2;
+      padding: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .cert-title {
+      font-family: "Ma Shan Zheng", cursive;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #8B0000;
+    }
+    .cert-recipient { font-size: 1rem; margin: 0.5rem 0; color: #333; }
+    .cert-score { font-size: 1.2rem; font-weight: bold; margin: 0.5rem 0; color: #8B0000; }
+    .cert-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-top: 0.5rem;
+      margin-bottom: 0.2rem;
+      text-align: center;
+      color: #333;
+      padding: 0 10px;
+    }
+    .cert-btn-area {
+      display: block !important;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .cert-btn {
+      background-color: var(--cinnabar);
+      color: white;
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      font-family: 'Ma Shan Zheng', cursive;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    .cert-btn:hover { background-color: #b84a4a; }
+    .cert-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }	
+    .auth-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 9998;
+    }
+    #upload-preview { display: none; margin: 1rem 0; }
+    #preview-img { max-width: 100%; max-height: 180px; border-radius: 4px; }
+
+    /* 真实打印机面板 */
+    .real-printer-panel {
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+      background: var(--card-bg);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .real-printer-panel input {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ddd;
+      border-radius: 0.3rem;
+    }
+    .real-printer-panel button {
+      .real-printer-panel button {
+  background-color: #D2B48C !important;
+  color: white !important;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+    }
+	
+	/* ========== 白板触屏优化 ========== */
+
+/* 1. 增大所有可点击区域（触屏友好） */
+/* 1. 增大所有可点击区域（触屏友好）- 修复打卡墙和问答撑宽问题 */
+button,
+a,
+.nav-circle-btn,
+.connect-btn,
+.component-print-btn,
+.upload-btn,
+.submit-btn,
+.cert-btn,
+.logout-btn,
+.auth-btn,
+.modal-close,
+.person-card,
+.book-card {
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+/* 标签和答案按钮保持原有尺寸，不强制44px */
+.tag,
+.answer-btn {
+  min-width: auto;
+  min-height: auto;
+  padding: 0.25rem 0.8rem;
+  cursor: pointer;
+}
+
+/* 2. 禁用长按菜单和文本选择（避免触屏干扰） */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 3. 允许输入框选择文本（保留输入功能） */
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* 4. 触屏按下反馈效果 */
+button:active,
+a:active,
+.nav-circle-btn:active,
+.connect-btn:active,
+.component-print-btn:active,
+.upload-btn:active,
+.tag:active,
+.answer-btn:active,
+.submit-btn:active,
+.cert-btn:active,
+.logout-btn:active,
+.auth-btn:active,
+.modal-close:active {
+  opacity: 0.6;
+  transform: scale(0.96);
+  transition: all 0.05s ease;
+}
+
+/* 5. 卡片触屏反馈（保持悬浮效果在触屏上也有反馈） */
+.person-card:active,
+.book-card:active {
+  transform: scale(0.98);
+  transition: transform 0.05s ease;
+}
+
+/* 6. 滚动条优化（触屏滑动更流畅） */
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 7. 上传区域触屏优化 */
+.upload-area {
+  touch-action: manipulation;
+}
+
+/* 8. 文件上传按钮触屏优化 */
+label[for="file-upload"] {
+  touch-action: manipulation;
+}
+
+/* 9. 真实打印机面板输入框触屏优化 */
+.real-printer-panel input {
+  font-size: 16px; /* 防止iOS缩放 */
+}
+
+/* 10. 按钮悬停效果仅限非触屏设备（避免触屏闪烁） */
+@media (hover: hover) {
+  button:hover,
+  a:hover,
+  .nav-circle-btn:hover,
+  .connect-btn:hover,
+  .component-print-btn:hover,
+  .upload-btn:hover,
+  .tag:hover,
+  .answer-btn:hover,
+  .submit-btn:hover,
+  .cert-btn:hover,
+  .person-card:hover,
+  .book-card:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="right-nav-buttons">
+    <a href="index.html" class="nav-circle-btn"><i class="fa-solid fa-house-chimney nav-icon"></i><span class="nav-text">首页<br>总览</span></a>
+    <a href="page1.html" class="nav-circle-btn"><i class="fa-solid fa-torii-gate nav-icon"></i><span class="nav-text">古建<br>探秘</span></a>
+    <a href="page2.html" class="nav-circle-btn"><i class="fas fa-puzzle-piece nav-icon"></i><span class="nav-text">巧思<br>解码</span></a>
+    <a href="page3.html" class="nav-circle-btn"><i class="fas fa-lightbulb nav-icon"></i><span class="nav-text">生活<br>智慧</span></a>
+  </div>
+  
+  <div class="auth-section">
+    <button class="auth-btn" id="login-btn">登录</button>
+    <button class="auth-btn" id="register-btn">注册</button>
+    <div class="user-info" id="user-info">
+      <span class="username-display" id="username-display"></span>
+      <button class="logout-btn" id="logout-btn">退出登录</button>
+    </div>
+  </div>
+  
+  <div class="auth-modal" id="login-modal">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" id="login-close"><i class="fa-solid fa-xmark"></i></span>
+      <form class="auth-form" id="login-form">
+        <h3 class="font-guofeng">账号登录</h3>
+        <input type="text" id="login-account" placeholder="用户名/手机号" required>
+        <input type="password" id="login-pwd" placeholder="密码" required>
+        <button type="submit">登录</button>
+        <p id="to-register">没有账号？去注册</p>
+      </form>
+    </div>
+  </div>
+  
+  <div class="auth-modal" id="register-modal">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" id="register-close"><i class="fa-solid fa-xmark"></i></span>
+      <form class="auth-form" id="register-form">
+        <h3 class="font-guofeng">账号注册</h3>
+        <input type="text" id="register-username" placeholder="请设置用户名" required>
+        <input type="tel" id="register-phone" placeholder="手机号" required>
+        <input type="password" id="register-pwd" placeholder="密码" required>
+        <button type="submit">注册</button>
+        <p id="to-login">已有账号？去登录</p>
+        <div class="tip-text" id="register-tip">提示文本</div>
+      </form>
+    </div>
+  </div>
+
+  <section class="top-banner">
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="build1"></div>
+    <div class="build2"></div>
+    <div class="banner-content">
+      <h1 class="font-guofeng">匠心传承·古建新生的浪漫</h1>
+      <p>古建新生・3D 打印 | 匠心技艺数字化传承</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <section class="connect-printer-section">
+      <div class="connect-printer-card hover-scale">
+        <div class="bg-mask"></div>
+        <div class="content">
+          <i class="fas fa-print"></i>
+          <h3>连接3D打印机</h3>
+          <p>支持主流FDM/光固化3D打印设备接入，自动匹配古建构件打印参数</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 0.5rem;">
+            <button class="connect-btn real-connect-btn">立即连接设备</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="core-content">
+      <p>滇西古建的智慧，不只藏在木檐砖瓦里，更活在代代相传的匠心之中。<br>我们延续的不只是建筑，更是茶马古道的营造脉络；<br>我们传承的不只是技艺，更是中国人与自然相处的生存智慧。</p >
+    </section>
+
+  <!-- 匠心人物 & 典籍文献 - 左右分栏 + 2x2网格 -->
+  <section class="people-books-section container">
+    <div class="pb-row">
+      <!-- 左侧：匠心人物 2x2 -->
+      <div class="pb-column">
+        <h3>匠心人物</h3>
+        <div class="title-line"></div>
+        <div class="pb-grid-2x2">
+          <div class="person-card" data-id="duanguoliang">
+            <div class="card-image" style="background-image: url('images/duanguoliang.jpeg')"></div>
+            <div class="card-name">段国梁</div>
+            <div class="card-hover-text">
+              <div class="hover-title">段国梁</div>
+              <div class="hover-desc">国家级非物质文化遗产（剑川木雕）代表性传承人，中国工艺美术大师。深耕木雕技艺60余年，主持沙溪古戏台等修缮工程，培养徒弟30余人，作品被国家博物馆收藏。</div>
+            </div>
+          </div>
+          
+          <div class="person-card" data-id="duansixing">
+            <div class="card-image" style="background-image: url('images/duansixing.jpeg')"></div>
+            <div class="card-name">段四兴</div>
+            <div class="card-hover-text">
+              <div class="hover-title">段四兴</div>
+              <div class="hover-desc">剑川木雕国家级非遗传承人，古建木构修复专家，主导兴教寺、古戏台等核心建筑木构复刻，创办剑川木雕传习所，每年培养青年匠人50余人。</div>
+            </div>
+          </div>
+          
+          <div class="person-card" data-id="zhangzengda">
+            <div class="card-image" style="background-image: url('images/zhangzengda.jpg')"></div>
+            <div class="card-name">张增达</div>
+            <div class="card-hover-text">
+              <div class="hover-title">张增达</div>
+              <div class="hover-desc">白族民居营造技艺传承人，沙溪古建修缮工匠，从事古建修复45年，建造数百院“三房一照壁”“四合五天井”庭院，带徒20余人。</div>
+            </div>
+          </div>
+          
+          <div class="person-card" data-id="huangyinwu">
+            <div class="card-image" style="background-image: url('images/huangyinwu.jpeg')"></div>
+            <div class="card-name">黄印武</div>
+            <div class="card-hover-text">
+              <div class="hover-title">黄印武</div>
+              <div class="hover-desc">沙溪复兴工程总设计师，古建保护专家，提出“原真性保护、活态化传承”理念，沙溪复兴工程被联合国列为遗产保护示范项目。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 中间分割线 -->
+      <div class="pb-divider"></div>
+      
+<!-- 右侧：典籍文献 2x2 -->
+<div class="pb-column">
+    <h3>典籍文献</h3>
+    <div class="title-line"></div>
+    <div class="pb-grid-2x2">
+        <div class="book-card" data-id="jianchuan">
+            <div class="book-wrapper">
+                <div class="book-page">
+                    <div class="page-title">《剑川木雕》</div>
+                    <div class="page-desc">系统介绍剑川木雕工艺的权威著作，收录沙溪古戏台18种核心榫卯实测图纸，是研究剑川木雕的重要文献。</div>
+                    <div class="page-deco">✦ 典藏古籍 ✦</div>
+                </div>
+                <div class="book-cover">
+                    <div class="card-image" style="background-image: url('images/jianchuanmudiao.jpg')"></div>
+                    <div class="card-name">《剑川木雕》</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="book-card" data-id="yingzaofashi">
+            <div class="book-wrapper">
+                <div class="book-page">
+                    <div class="page-title">《营造法式》</div>
+                    <div class="page-desc">宋代官方建筑技术典籍，滇西古建营造的溯源参考，沙溪古戏台梁架比例与此高度契合。</div>
+                    <div class="page-deco">✦ 典藏古籍 ✦</div>
+                </div>
+                <div class="book-cover">
+                    <div class="card-image" style="background-image: url('images/yingzaofashi.jpg')"></div>
+                    <div class="card-name">《营造法式》</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="book-card" data-id="shaxi">
+            <div class="book-wrapper">
+                <div class="book-page">
+                    <div class="page-title">《茶马古道上的明珠：沙溪》</div>
+                    <div class="page-desc">解读沙溪建筑与茶马文化的关联，分析古戏台、兴教寺、赵家大院的营造特点，还原马帮文化与建筑的关系。</div>
+                    <div class="page-deco">✦ 典藏古籍 ✦</div>
+                </div>
+                <div class="book-cover">
+                    <div class="card-image" style="background-image: url('images/chamagudaoshangdemingzhushaxi.jpg')"></div>
+                    <div class="card-name">《茶马古道上的明珠：沙溪》</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="book-card" data-id="yingzao">
+            <div class="book-wrapper">
+                <div class="book-page">
+                    <div class="page-title">《中国古建筑木作营造技术》</div>
+                    <div class="page-desc">解析传统木构建筑营造的核心技术，以沙溪古戏台为例分析木构体系力学原理，是古建修缮的重要参考。</div>
+                    <div class="page-deco">✦ 典藏古籍 ✦</div>
+                </div>
+                <div class="book-cover">
+                    <div class="card-image" style="background-image: url('images/zhongguogujianzhumuzuoyingzaojishu.jpg')"></div>
+                    <div class="card-name">《中国古建筑木作营造技术》</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+    <!-- 整个部分最下方的注释 -->
+    <div style="text-align: center; margin-top: 1.5rem;">
+        <p style="font-size: 1.3rem; color: #a08060; font-family: 'Ma Shan Zheng', cursive; margin: 0; letter-spacing: 1px;">
+            <i class="fa-regular fa-hand-pointer" style="margin-right: 6px;"></i> 点击卡片，播放数字人讲解视频
+        </p>
+    </div>
+  </section>
+
+    <section class="grid-craft-2">
+      <div class="interactive-card">
+        <h2>打卡墙上传统计</h2>
+        <div class="upload-area">
+          <i class="fa-solid fa-cloud-upload-alt"></i>
+          <p>上传你眼中的滇西古建之美</p>
+          <div id="upload-preview"><img id="preview-img" alt="预览图片"></div>
+          <input type="file" id="file-upload" accept="image/*" style="display: none;">
+          <label class="upload-btn" for="file-upload">选择照片</label>
+        </div>
+        <div class="tag-group">
+          <div class="tag">飞檐之美</div><div class="tag">榫卯智慧</div><div class="tag">藻井声学</div>
+          <div class="tag">彩绘纹样</div><div class="tag">市井烟火</div><div class="tag">匠人精神</div>
+        </div>
+        <button id="checkin-submit" class="submit-btn">上墙留痕，传承匠心</button>
+      </div>
+
+      <div class="interactive-card">
+        <h2>古建智慧问答</h2>
+        <div class="question-container">
+          <div class="question"><p>1. 古戏台藻井的主要作用是什么？</p><div class="answer-group"><button class="answer-btn" data-correct="false">装饰美观</button><button class="answer-btn" data-correct="true">聚音扩声</button><button class="answer-btn" data-correct="false">结构承重</button></div></div>
+          <div class="question"><p>2. 榫卯结构相比钉子的优势是？</p><div class="answer-group"><button class="answer-btn" data-correct="false">安装更快</button><button class="answer-btn" data-correct="false">成本更低</button><button class="answer-btn" data-correct="true">抗震性更好</button></div></div>
+          <div class="question"><p>3. 赵家大院"四合五天井"主要适配什么需求？</p><div class="answer-group"><button class="answer-btn" data-correct="false">防御安全</button><button class="answer-btn" data-correct="true">通风采光</button><button class="answer-btn" data-correct="false">彰显地位</button></div></div>
+          <div class="question"><p>4. 滇西古建榫卯节点预留伸缩余量的核心目的是什么？</p><div class="answer-group"><button class="answer-btn" data-correct="true">适配昼夜温湿度变化</button><button class="answer-btn" data-correct="false">方便后期拆卸维修</button><button class="answer-btn" data-correct="false">增强结构承重能力</button></div></div>
+          <div class="question"><p>5. 滇西传统民居中"三坊一照壁"布局的核心特点是？</p><div class="answer-group"><button class="answer-btn" data-correct="false">以防御为主</button><button class="answer-btn" data-correct="true">以庭院为中心</button><button class="answer-btn" data-correct="false">以祭祀为主</button></div></div>
+        </div>
+        <button id="quiz-submit" class="submit-btn">提交答案，解锁证书</button>
+      </div>
+    </section>
+    
+    <section class="uploaded-wall">
+      <h2>古建之美 · 打卡墙</h2>
+      <div class="wall-grid" id="wall-grid"></div>
+    </section>
+  </main>
+
+  <div class="cert-modal" id="cert-modal">
+    <div class="cert-container">
+      <div class="cert-content-wrapper" id="cert-box">
+        <div class="cert-seal"><i class="fa-solid fa-award"></i></div>
+        <div class="cert-header"><h3>滇西古建文化传承证书</h3></div>
+        <div class="cert-body">
+          <div class="cert-title">荣誉证书</div>
+          <div class="cert-recipient" id="cert-recipient">授予：古建文化爱好者</div>
+          <div class="cert-score" id="cert-score">得分：100分</div>
+          <div class="cert-text" id="cert-text">恭喜您深入学习并掌握滇西古建文化知识，展现了对传统建筑技艺的理解与热爱。为表彰您的学习成果，特授予此证书，望继续传承和弘扬中华优秀传统建筑文化。</div>
+        </div>
+      </div>
+      <div class="cert-btn-area"><button class="cert-btn" id="download-cert-btn"><i class="fa-solid fa-download"></i> 下载证书</button></div>
+    </div>
+  </div>
+
+  <!-- 数字人视频（左下角悬浮）- 请将视频文件放在 videos/ 文件夹下 -->
+  <video class="ai-avatar-video" id="video-duanguoliang" loop playsinline style="position: fixed; left: 20px; bottom: 20px; width: 160px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: none;">
+    <source src="videos/people1.mp4" type="video/mp4">
+  </video>
+  <video class="ai-avatar-video" id="video-duansixing" loop playsinline style="position: fixed; left: 20px; bottom: 20px; width: 160px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: none;">
+    <source src="videos/people2.mp4" type="video/mp4">
+  </video>
+  <video class="ai-avatar-video" id="video-zhangzengda" loop playsinline style="position: fixed; left: 20px; bottom: 20px; width: 160px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: none;">
+    <source src="videos/people3.mp4" type="video/mp4">
+  </video>
+  <video class="ai-avatar-video" id="video-huangyinwu" loop playsinline style="position: fixed; left: 20px; bottom: 20px; width: 160px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: none;">
+    <source src="videos/people4.mp4" type="video/mp4">
+  </video>
+  <video class="ai-avatar-video" id="video-jianchuan" loop playsinline style="position: fixed; left: 20px; bottom: 20px; width: 160px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: none;">
+    <source src="videos/book1.mp4" type="video/mp4">
+  </video>
+  <video class="ai-avatar-video" id="video-yingzaofashi" loop playsinline style="position: fixed; left: 20px; bottom: 20px; width: 160px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: none;">
+    <source src="videos/book2.mp4" type="video/mp4">
+  </video>
+  <video class="ai-avatar-video" id="video-shaxi" loop playsinline style="position: fixed; left: 20px; bottom: 20px; width: 160px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: none;">
+    <source src="videos/book3.mp4" type="video/mp4">
+  </video>
+  <video class="ai-avatar-video" id="video-yingzao" loop playsinline style="position: fixed; left: 20px; bottom: 20px; width: 160px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: none;">
+    <source src="videos/book4.mp4" type="video/mp4">
+  </video>
+
+  <footer>
+    <div class="footer-container">
+      <div class="copyright-text">版权所有 © 2026 滇西古建文化探索平台 | 未经授权禁止转载</div>
+      <div class="footer-links">
+        <a href="https://mp.weixin.qq.com/s/SDYkr3yrGUl-1QQ8N63DSg" target="_blank"><i class="fa-brands fa-weixin"></i> 剑川文旅</a>
+        <a href="https://weibo.com/u/3558280211" target="_blank"><i class="fa-brands fa-weibo"></i> 微博剑川</a>
+        <a href="https://www.douyin.com/user/MS4wLjABAAAAbJdtPXeaqoNH4SVtA1EeKm1fcoa24_SmxiqI2BQXVqPbYZbS18qPQdJDz05RMFqu?from_tab_name=main" target="_blank"><i class="fa-brands fa-tiktok"></i> 剑川文旅</a>
+        <a href="https://www.xiaohongshu.com/user/profile/6661def20000000000700737b" target="_blank"><i class="fab fa-xiaohongshu"></i> <span style="font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif; font-weight:600; font-size:1rem; color:#FF2442; margin:0 1px;">小红书</span>剑川文旅</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js.js"></script>
+  <script>
+// ========== 真实打印机连接 - 输入IP地址，上传gcode文件直接打印，不跳转OctoPrint ==========
+document.querySelector('.real-connect-btn').addEventListener('click', function() {
+  const loginBtn = document.getElementById('login-btn');
+  if (loginBtn && loginBtn.style.display !== 'none') { alert('请先登录后再连接真实3D打印机！'); document.getElementById('login-modal').style.display = 'flex'; return; }
+  
+  // 检查是否已有真实打印机面板
+  const existingPanel = document.getElementById('realPrinterPanel');
+  
+  if(existingPanel) {
+    if (confirm('确定要取消3D打印吗？')) {
+      existingPanel.remove();
+    }
+    return;
+  }
+  
+  const panel = document.createElement('div');
+  panel.id = 'realPrinterPanel';
+  panel.className = 'real-printer-panel';
+  panel.innerHTML = `
+    <div style="font-family:'Ma Shan Zheng',cursive;color:var(--cinnabar);font-size:1.5rem;margin-bottom:1rem;"><i class="fas fa-print"></i> 真实打印机连接</div>
+    <div style="margin-bottom:1rem;">
+      <input type="text" id="realPrinterIpInput" placeholder="打印机IP地址 (例如: 192.168.1.100)" style="width:100%;padding:0.5rem;border:1px solid #ddd;border-radius:0.3rem;">
+      <div style="font-size:0.9rem; color:#888; margin-top:0.3rem;">⚠️ 提示：必须在同一局域网下</div>
+    </div>
+    <div style="margin-bottom:1rem; display:flex; gap:1rem; justify-content:center;">
+      <button id="testRealConnBtn" class="test-btn" style="background-color:#8FBC8B;color:white;border:none;padding:0.5rem 1.5rem;border-radius:0.3rem;cursor:pointer; font-size: 1rem;">测试连接</button>
+    </div>
+    <div id="realConnStatus" style="font-size:0.85rem;color:var(--slate);margin-bottom:1rem;"></div>
+    <div style="border:2px dashed var(--border-light);border-radius:0.2rem;padding:1.5rem;">
+      <i class="fa-solid fa-file-arrow-up" style="font-size:2rem;color:var(--line-color);"></i>
+      <p style="margin:0.5rem 0;">选择stl文件上传并打印</p>
+      <input type="file" id="realGcodeFileInput" accept=".gcode" style="display:none;">
+      <label for="realGcodeFileInput" style="display:inline-block;padding:0.5rem 2rem;background-color:var(--line-color);color:white;border-radius:0.3rem;cursor:pointer;">选择stl文件</label>
+      <div id="selectedFileName" style="margin-top:0.5rem;font-size:0.8rem;color:#666;"></div>
+      <button id="startRealPrintBtn" style="margin-top:1rem;background-color:var(--cinnabar);color:white;border:none;padding:0.5rem 1.5rem;border-radius:0.3rem;cursor:pointer;width:100%; font-size: 1.1rem;">开始打印</button>
+    </div>
+  `;
+  
+  // 插入到连接打印机卡片之后
+  const connectSection = document.querySelector('.connect-printer-section');
+  if(connectSection && connectSection.nextSibling) {
+    connectSection.parentNode.insertBefore(panel, connectSection.nextSibling);
+  } else {
+    document.querySelector('.container').insertBefore(panel, document.querySelector('.core-content'));
+  }
+  
+  // ✅ 只在点击按钮后自动滚动到打印机部分
+  setTimeout(() => {
+    const target = document.querySelector('.connect-printer-section');
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }, 100);
+  
+  let realBaseUrl = '';
+  let isRealConnected = false;
+  let selectedGcodeFile = null;
+  
+  // 文件选择事件
+  const fileInput = document.getElementById('realGcodeFileInput');
+  const fileNameSpan = document.getElementById('selectedFileName');
+  fileInput.addEventListener('change', function(e) {
+    if(e.target.files && e.target.files[0]) {
+      selectedGcodeFile = e.target.files[0];
+      fileNameSpan.textContent = `已选择: ${selectedGcodeFile.name}`;
+    } else {
+      selectedGcodeFile = null;
+      fileNameSpan.textContent = '';
+    }
+  });
+  
+  // 测试连接
+  document.getElementById('testRealConnBtn').addEventListener('click', async function() {
+    const ip = document.getElementById('realPrinterIpInput').value.trim();
+    if(!ip) { alert('请输入打印机IP地址'); return; }
+    realBaseUrl = `http://${ip}:5000`;
+    const statusDiv = document.getElementById('realConnStatus');
+    statusDiv.innerHTML = '<span style="color:#2196F3;">⏳ 正在连接...</span>';
+    try {
+      const res = await fetch(`${realBaseUrl}/api/version`, { headers: { 'X-Api-Key': printer.config.apiKey } });
+      if(res.ok) {
+        isRealConnected = true;
+        statusDiv.innerHTML = '<span style="color:green;">✅ 打印机连接成功！可以开始打印</span>';
+      } else {
+        throw new Error('验证失败');
+      }
+    } catch(e) {
+      isRealConnected = false;
+      statusDiv.innerHTML = '<span style="color:red;">❌ 未找到打印机，请检查IP地址和网络连接（必须在同一局域网下）</span>';
+    }
+  });
+  
+  // 开始打印
+  document.getElementById('startRealPrintBtn').addEventListener('click', async function() {
+    if(!isRealConnected) { alert('请先测试连接，确保打印机在线后再开始打印'); return; }
+    if(!selectedGcodeFile) { alert('请先选择stl文件'); return; }
+    const statusDiv = document.getElementById('realConnStatus');
+    statusDiv.innerHTML = '<span style="color:#2196F3;">⏳ 正在上传并启动打印...</span>';
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedGcodeFile);
+      const uploadRes = await fetch(`${realBaseUrl}/api/files/local`, { method: 'POST', headers: { 'X-Api-Key': printer.config.apiKey }, body: formData });
+      if(!uploadRes.ok) throw new Error('上传失败');
+      const uploadJson = await uploadRes.json();
+      const filePath = uploadJson.files?.local?.path || uploadJson.file?.path;
+      if(!filePath) throw new Error('未获取文件路径');
+      const printRes = await fetch(`${realBaseUrl}/api/files/local/${encodeURIComponent(filePath)}`, { method: 'POST', headers: { 'X-Api-Key': printer.config.apiKey, 'Content-Type': 'application/json' }, body: JSON.stringify({ command: "select", print: true }) });
+      if(printRes.ok) {
+        statusDiv.innerHTML = '<span style="color:green;">✅ 打印任务已发送！请查看打印机状态</span>';
+        alert('真实打印机任务已启动！');
+      } else {
+        throw new Error('启动打印失败');
+      }
+    } catch(err) {
+      statusDiv.innerHTML = `<span style="color:red;">❌ 打印失败: ${err.message}</span>`;
+      alert(`打印失败: ${err.message}`);
+    }
+  });
+});
+
+// ========== 匠心人物 & 典籍文献 - 悬浮显示数字人视频（悬浮出现，移出立即消失） ==========
+
+// 统一停止并隐藏所有视频（立即停止声音+隐藏）
+function stopAllVideos() {
+  document.querySelectorAll('.ai-avatar-video').forEach(v => {
+    v.pause();
+    v.style.display = 'none';
+  });
+}
+
+// 显示视频并播放（悬浮时自动播放）
+function showAndPlayVideo(videoId, videoSrc) {
+  // 先停止所有其他视频
+  stopAllVideos();
+  
+  const video = document.getElementById(videoId);
+  if (video) {
+    // 确保视频源正确
+    if (!video.src.includes(videoSrc.split('/').pop())) {
+      video.src = videoSrc;
+      video.load();
+    }
+    video.style.display = 'block';
+    video.muted = false;
+    video.currentTime = 0;
+    video.play().catch(e => console.log('自动播放被阻止:', e));
+  }
+}
+
+// ===== 匠心人物 =====
+const personCards = document.querySelectorAll('.person-card');
+const personVideoMap = {
+  duanguoliang: 'videos/people1.mp4',
+  duansixing: 'videos/people2.mp4',
+  zhangzengda: 'videos/people3.mp4',
+  huangyinwu: 'videos/people4.mp4'
+};
+
+personCards.forEach(card => {
+  const personId = card.getAttribute('data-id');
+  const videoId = `video-${personId}`;
+  
+  // 鼠标悬浮：播放视频
+  card.addEventListener('mouseenter', () => {
+    if (personVideoMap[personId]) {
+      showAndPlayVideo(videoId, personVideoMap[personId]);
+    }
+  });
+  
+  // 鼠标离开：立即停止并隐藏视频（不需要点击空白）
+  card.addEventListener('mouseleave', () => {
+    stopAllVideos();
+  });
+  
+  // 触屏设备：长按显示，手指离开立即消失
+  let touchTimer;
+  card.addEventListener('touchstart', (e) => {
+    touchTimer = setTimeout(() => {
+      if (personVideoMap[personId]) {
+        showAndPlayVideo(videoId, personVideoMap[personId]);
+      }
+    }, 300);
+  });
+  card.addEventListener('touchend', () => {
+    clearTimeout(touchTimer);
+    stopAllVideos();  // 手指离开立即消失
+  });
+  card.addEventListener('touchmove', () => {
+    clearTimeout(touchTimer);
+    stopAllVideos();
+  });
+});
+
+// ===== 典籍文献 =====
+const bookCards = document.querySelectorAll('.book-card');
+const bookVideoMap = {
+  jianchuan: 'videos/book1.mp4',
+  yingzaofashi: 'videos/book2.mp4',
+  shaxi: 'videos/book3.mp4',
+  yingzao: 'videos/book4.mp4'
+};
+
+bookCards.forEach(card => {
+  const bookId = card.getAttribute('data-id');
+  const videoId = `video-${bookId}`;
+  
+  // 鼠标悬浮：播放视频
+  card.addEventListener('mouseenter', () => {
+    if (bookVideoMap[bookId]) {
+      showAndPlayVideo(videoId, bookVideoMap[bookId]);
+    }
+  });
+  
+  // 鼠标离开：立即停止并隐藏视频
+  card.addEventListener('mouseleave', () => {
+    stopAllVideos();
+  });
+  
+  // 触屏设备
+  let touchTimer;
+  card.addEventListener('touchstart', (e) => {
+    touchTimer = setTimeout(() => {
+      if (bookVideoMap[bookId]) {
+        showAndPlayVideo(videoId, bookVideoMap[bookId]);
+      }
+    }, 300);
+  });
+  card.addEventListener('touchend', () => {
+    clearTimeout(touchTimer);
+    stopAllVideos();
+  });
+  card.addEventListener('touchmove', () => {
+    clearTimeout(touchTimer);
+    stopAllVideos();
+  });
+});
+
+// 预加载视频
+document.querySelectorAll('.ai-avatar-video').forEach(video => {
+  video.preload = 'auto';
+  video.load();
+});
+	
+// ========== 打卡墙和问答逻辑 - 完全保持不变 ==========
+document.addEventListener('DOMContentLoaded', function() {
+  const fileUpload = document.getElementById('file-upload');
+  const previewContainer = document.getElementById('upload-preview');
+  const previewImg = document.getElementById('preview-img');
+  const uploadIcon = document.querySelector('.upload-area i');
+  const uploadTip = document.querySelector('.upload-area p');
+  let selectedFile = null;
+
+  if (fileUpload) {
+    fileUpload.addEventListener('change', function(e) {
+      if (e.target.files && e.target.files[0]) {
+        selectedFile = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          previewImg.src = event.target.result;
+          previewContainer.style.display = 'block';
+          if(uploadIcon) uploadIcon.style.display = 'none';
+          if(uploadTip) uploadTip.style.display = 'none';
+        };
+        reader.readAsDataURL(selectedFile);
+      }
+    });
+  }
+
+  const tags = document.querySelectorAll('.tag');
+  tags.forEach(tag => { tag.addEventListener('click', () => { tag.classList.toggle('selected'); }); });
+
+  function resetUploadArea() {
+    if (fileUpload) fileUpload.value = '';
+    selectedFile = null;
+    if(previewContainer) previewContainer.style.display = 'none';
+    if(uploadIcon) uploadIcon.style.display = 'block';
+    if(uploadTip) uploadTip.style.display = 'block';
+    document.querySelectorAll('.tag.selected').forEach(tag => tag.classList.remove('selected'));
+  }
+
+  function deleteCheckinItem(itemId) {
+    const currentUser = localStorage.getItem('loggedUser');
+    if (!currentUser) { alert('请先登录'); return; }
+    let allCheckinData = JSON.parse(localStorage.getItem('dianxiAllCheckinList')) || {};
+    let userData = allCheckinData[currentUser] || [];
+    const newUserData = userData.filter(item => item.id !== itemId);
+    allCheckinData[currentUser] = newUserData;
+    localStorage.setItem('dianxiAllCheckinList', JSON.stringify(allCheckinData));
+    renderUploadedWall();
+    alert('删除成功');
+  }
+
+  function renderUploadedWall() {
+    const wallGrid = document.getElementById('wall-grid');
+    const currentUser = localStorage.getItem('loggedUser');
+    wallGrid.innerHTML = '';
+    if (!currentUser) {
+      wallGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#999;"><i class="fa-solid fa-image" style="font-size:3rem;margin-bottom:1rem;display:block;"></i><p style="font-size:1rem;">请先登录，查看和上传你的打卡内容～</p></div>`;
+      return;
+    }
+    const allCheckinData = JSON.parse(localStorage.getItem('dianxiAllCheckinList')) || {};
+    const uploadedList = allCheckinData[currentUser] || [];
+    if (uploadedList.length === 0) {
+      wallGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#999;"><i class="fa-solid fa-image" style="font-size:3rem;margin-bottom:1rem;display:block;"></i><p style="font-size:1rem;">暂无打卡内容，快来分享你的古建之美吧～</p></div>`;
+      return;
+    }
+    uploadedList.forEach((item) => {
+      const wallItem = document.createElement('div');
+      wallItem.className = 'wall-item';
+      wallItem.setAttribute('data-id', item.id);
+      wallItem.innerHTML = `<img class="wall-item-img" src="${item.imgUrl}" alt="古建打卡照片"><div class="wall-item-info"><div class="wall-item-tags">${item.tags.map(tag => `<span class="wall-item-tag">${tag}</span>`).join('')}</div><div class="wall-item-time">${item.time}</div></div>`;
+      wallItem.addEventListener('contextmenu', function(e) { e.preventDefault(); if (confirm('确定要删除这张打卡照片吗？')) deleteCheckinItem(item.id); });
+      let pressTimer;
+      wallItem.addEventListener('touchstart', function(e) { pressTimer = setTimeout(() => { if (confirm('确定要删除这张打卡照片吗？')) deleteCheckinItem(item.id); }, 500); });
+      wallItem.addEventListener('touchend', function() { clearTimeout(pressTimer); });
+      wallItem.addEventListener('touchmove', function() { clearTimeout(pressTimer); });
+      wallGrid.appendChild(wallItem);
+    });
+  }
+
+  const checkinSubmit = document.getElementById('checkin-submit');
+  if (checkinSubmit) {
+    checkinSubmit.addEventListener('click', () => {
+      const loginBtn = document.getElementById('login-btn');
+      if (loginBtn && loginBtn.style.display !== 'none') { alert('请先登录！'); document.getElementById('login-modal').style.display = 'flex'; return; }
+      if (!selectedFile) { alert('请选择照片！'); return; }
+      const selectedTags = document.querySelectorAll('.tag.selected');
+      if (selectedTags.length === 0) { alert('请选择至少一个标签！'); return; }
+      const tagTexts = Array.from(selectedTags).map(tag => tag.textContent.trim());
+      const currentUser = localStorage.getItem('loggedUser');
+      const uploadData = { id: Date.now(), imgUrl: previewImg.src, tags: tagTexts, time: new Date().toLocaleString('zh-CN') };
+      let allCheckinData = JSON.parse(localStorage.getItem('dianxiAllCheckinList')) || {};
+      if (!allCheckinData[currentUser]) allCheckinData[currentUser] = [];
+      allCheckinData[currentUser].unshift(uploadData);
+      localStorage.setItem('dianxiAllCheckinList', JSON.stringify(allCheckinData));
+      resetUploadArea();
+      renderUploadedWall();
+      alert('打卡成功！已展示在古建打卡墙中～');
+    });
+  }
+
+  const logoutBtn = document.getElementById('logout-btn');
+  if(logoutBtn) logoutBtn.addEventListener('click', function() { setTimeout(() => { renderUploadedWall(); }, 500); });
+
+  const loginForm = document.getElementById('login-form');
+  if(loginForm) loginForm.addEventListener('submit', function(e) { setTimeout(() => { renderUploadedWall(); }, 500); });
+
+  const certModal = document.getElementById('cert-modal');
+  const certScore = document.getElementById('cert-score');
+  const certBox = document.getElementById('cert-box');
+  const certText = document.getElementById('cert-text');
+  const certRecipient = document.getElementById('cert-recipient');
+  const quizSubmit = document.getElementById('quiz-submit');
+  const downloadCertBtn = document.getElementById('download-cert-btn');
+
+  if(certModal) certModal.addEventListener('click', (e) => { if (e.target === certModal) certModal.style.display = 'none'; });
+
+  document.querySelectorAll('.answer-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const parentQuestion = this.closest('.question');
+      parentQuestion.querySelectorAll('.answer-btn').forEach(sBtn => sBtn.classList.remove('selected'));
+      this.classList.add('selected');
+    });
+  });
+
+  if(quizSubmit) {
+    quizSubmit.addEventListener('click', () => {
+      const loginBtn = document.getElementById('login-btn');
+      if (loginBtn && loginBtn.style.display !== 'none') { alert('请先登录！'); document.getElementById('login-modal').style.display = 'flex'; return; }
+      const currentUser = localStorage.getItem('loggedUser');
+      const userName = currentUser || '古建文化爱好者';
+      const selectedAnswers = document.querySelectorAll('.answer-btn.selected');
+      if (selectedAnswers.length < 5) { alert('请回答所有5道问题！'); return; }
+      let correctCount = 0;
+      selectedAnswers.forEach(btn => { if (btn.getAttribute('data-correct') === 'true') correctCount++; });
+      const score = correctCount * 20;
+      certBox.classList.remove('excellent', 'good', 'medium', 'pass', 'fail');
+      certRecipient.textContent = `授予：${userName}`;
+      if (score >= 90) { certBox.classList.add('excellent'); certText.innerHTML = "恭喜您以优异成绩通过考核！<br>您已全面掌握滇西古建文化核心知识，具备优秀的文化传承素养，特授予此优秀传承证书。"; }
+      else if (score >= 80) { certBox.classList.add('good'); certText.innerHTML = "恭喜您顺利通过考核！<br>您扎实掌握了滇西古建的结构智慧与文化内涵，表现良好，望继续深入探索古建之美。"; }
+      else if (score >= 70) { certBox.classList.add('medium'); certText.innerHTML = "恭喜您通过考核！<br>您已掌握滇西古建基础知识点，具备一定的文化认知，建议继续学习，加深对传统技艺的理解。"; }
+      else if (score >= 60) { certBox.classList.add('pass'); certText.innerHTML = "您已达到合格标准，<br>基本了解滇西古建文化知识。请加强学习，进一步提升对传统建筑文化的理解与热爱。"; }
+      else { certBox.classList.add('fail'); certText.innerHTML = "很遗憾，本次考核未通过。<br>建议重新学习古建知识点，加深理解后再次参与答题，期待您顺利获得传承证书。"; }
+      if(certScore) certScore.textContent = `得分：${score}分`;
+      if(certModal) certModal.style.display = 'flex';
+    });
+  }
+
+  if(downloadCertBtn) {
+    downloadCertBtn.addEventListener('click', async function() {
+      try {
+        const btnArea = document.querySelector('.cert-btn-area');
+        const originalDisplay = btnArea.style.display;
+        btnArea.style.display = 'none';
+        const canvas = await html2canvas(certBox, { scale: 2.5, useCORS: true, logging: false, backgroundColor: '#ffffff' });
+        btnArea.style.display = originalDisplay;
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          const currentUser = localStorage.getItem('loggedUser') || '文化爱好者';
+          const scoreText = certScore.textContent.replace('得分：', '').replace('分', '');
+          const scoreNum = parseInt(scoreText);
+          let level = '';
+          if (scoreNum >= 90) level = '优秀';
+          else if (scoreNum >= 80) level = '良好';
+          else if (scoreNum >= 70) level = '中等';
+          else if (scoreNum >= 60) level = '合格';
+          else level = '鼓励';
+          a.download = `滇西古建传承证书_${currentUser}_${level}.png`;
+          a.click();
+          URL.revokeObjectURL(url);
+          alert('证书已下载！');
+        }, 'image/png', 1.0);
+      } catch (err) { alert('下载失败，请重试'); console.error(err); }
+    });
+  }
+
+  renderUploadedWall();
+});
+
+// ========== 匠心人物 & 典籍文献 - 悬浮显示视频（不播放），点击才播放 ==========
+
+// 当前正在播放的视频ID
+let currentPlayingVideoId = null;
+
+// 统一停止并隐藏所有视频
+function stopAllVideos() {
+    document.querySelectorAll('.ai-avatar-video').forEach(v => {
+        v.pause();
+        v.style.display = 'none';
+    });
+    currentPlayingVideoId = null;
+}
+
+// 停止当前播放的视频
+function stopCurrentPlayingVideo() {
+    if (currentPlayingVideoId) {
+        const video = document.getElementById(currentPlayingVideoId);
+        if (video) {
+            video.pause();
+        }
+        currentPlayingVideoId = null;
+    }
+}
+
+// 显示视频（仅显示第一帧，不播放）
+function showVideoPreview(videoId, videoSrc) {
+    // 如果当前有正在播放的视频且不是同一个，先停止
+    if (currentPlayingVideoId && currentPlayingVideoId !== videoId) {
+        const playingVideo = document.getElementById(currentPlayingVideoId);
+        if (playingVideo) {
+            playingVideo.pause();
+        }
+        currentPlayingVideoId = null;
+    }
+    
+    const video = document.getElementById(videoId);
+    if (video) {
+        // 如果视频源不同，更新src
+        if (!video.src.includes(videoSrc.split('/').pop())) {
+            const freshSrc = videoSrc + '?t=' + Date.now();
+            video.src = freshSrc;
+            video.load();
+        }
+        
+        video.style.display = 'block';
+        video.muted = true;  // 静音显示
+        video.currentTime = 0;  // 显示第一帧
+        video.pause();  // 确保不播放
+    }
+}
+
+// 隐藏视频（并停止声音）
+function hideVideoPreview(videoId) {
+    const video = document.getElementById(videoId);
+    if (video) {
+        video.pause();
+        video.style.display = 'none';
+    }
+    currentPlayingVideoId = null;
+}
+
+// 播放视频（点击时调用，有声）
+function playVideo(videoId, videoSrc) {
+    // 如果当前有正在播放的其他视频，先停止
+    if (currentPlayingVideoId && currentPlayingVideoId !== videoId) {
+        const oldVideo = document.getElementById(currentPlayingVideoId);
+        if (oldVideo) {
+            oldVideo.pause();
+            oldVideo.style.display = 'none';
+        }
+    }
+    
+    const video = document.getElementById(videoId);
+    if (video) {
+        // 确保视频可见
+        video.style.display = 'block';
+        
+        // 如果视频源不同或需要刷新，更新src
+        if (!video.src.includes(videoSrc.split('/').pop()) || video.ended) {
+            const freshSrc = videoSrc + '?t=' + Date.now();
+            video.src = freshSrc;
+            video.load();
+        }
+        
+        video.muted = false;  // 取消静音
+        video.volume = 1;
+        video.currentTime = 0;
+        
+        // 播放
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('有声播放失败:', error);
+                const tip = document.createElement('div');
+                tip.innerHTML = '请点击页面任意位置后重试';
+                tip.style.cssText = 'position:fixed;bottom:100px;left:20px;background:rgba(0,0,0,0.7);color:#FFE3A4;padding:8px 16px;border-radius:8px;z-index:10000;font-size:12px;';
+                document.body.appendChild(tip);
+                setTimeout(() => tip.remove(), 2000);
+            });
+        }
+    }
+    
+    currentPlayingVideoId = videoId;
+}
+
+// 重新绑定卡片事件
+function rebindCardEvents() {
+    // 重新绑定人物卡片
+    document.querySelectorAll('.person-card').forEach(card => {
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+        
+        const personId = newCard.getAttribute('data-id');
+        const videoId = `video-${personId}`;
+        
+        const videoMap = {
+            duanguoliang: 'videos/people1.mp4',
+            duansixing: 'videos/people2.mp4',
+            zhangzengda: 'videos/people3.mp4',
+            huangyinwu: 'videos/people4.mp4'
+        };
+        
+        // 鼠标悬浮：显示视频（静音，第一帧，不播放）
+        newCard.addEventListener('mouseenter', () => {
+            if (videoMap[personId]) {
+                showVideoPreview(videoId, videoMap[personId]);
+            }
+        });
+        
+        // 鼠标离开：立即隐藏+停止声音
+        newCard.addEventListener('mouseleave', () => {
+            hideVideoPreview(videoId);
+        });
+        
+        // 点击卡片：每次都直接播放！！！
+        newCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (videoMap[personId]) {
+                playVideo(videoId, videoMap[personId]);
+            }
+        });
+        
+        // 触屏设备支持
+        let touchTimer;
+        newCard.addEventListener('touchstart', (e) => {
+            touchTimer = setTimeout(() => {
+                if (videoMap[personId]) {
+                    showVideoPreview(videoId, videoMap[personId]);
+                }
+            }, 300);
+        });
+        newCard.addEventListener('touchend', (e) => {
+            clearTimeout(touchTimer);
+            hideVideoPreview(videoId);
+        });
+        newCard.addEventListener('touchmove', () => {
+            clearTimeout(touchTimer);
+            hideVideoPreview(videoId);
+        });
+    });
+    
+    // 重新绑定书籍卡片
+    document.querySelectorAll('.book-card').forEach(card => {
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+        
+        const bookId = newCard.getAttribute('data-id');
+        const videoId = `video-${bookId}`;
+        
+        const bookVideoMap = {
+            jianchuan: 'videos/book1.mp4',
+            yingzaofashi: 'videos/book2.mp4',
+            shaxi: 'videos/book3.mp4',
+            yingzao: 'videos/book4.mp4'
+        };
+        
+        // 鼠标悬浮：显示视频（静音，第一帧，不播放）
+        newCard.addEventListener('mouseenter', () => {
+            if (bookVideoMap[bookId]) {
+                showVideoPreview(videoId, bookVideoMap[bookId]);
+            }
+        });
+        
+        // 鼠标离开：立即隐藏+停止声音
+        newCard.addEventListener('mouseleave', () => {
+            hideVideoPreview(videoId);
+        });
+        
+        // 点击卡片：每次都直接播放！！！
+        newCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (bookVideoMap[bookId]) {
+                playVideo(videoId, bookVideoMap[bookId]);
+            }
+        });
+        
+        // 触屏设备支持
+        let touchTimer;
+        newCard.addEventListener('touchstart', (e) => {
+            touchTimer = setTimeout(() => {
+                if (bookVideoMap[bookId]) {
+                    showVideoPreview(videoId, bookVideoMap[bookId]);
+                }
+            }, 300);
+        });
+        newCard.addEventListener('touchend', (e) => {
+            clearTimeout(touchTimer);
+            hideVideoPreview(videoId);
+        });
+        newCard.addEventListener('touchmove', () => {
+            clearTimeout(touchTimer);
+            hideVideoPreview(videoId);
+        });
+    });
+}
+
+// 预加载视频元素
+document.querySelectorAll('.ai-avatar-video').forEach(video => {
+    video.preload = 'auto';
+    video.muted = true;
+    video.load();
+});
+
+// 在DOM加载完成后执行
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', rebindCardEvents);
+} else {
+    rebindCardEvents();
+}
+
+  </script>
+</body>
+</html>
